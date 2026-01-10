@@ -12,7 +12,6 @@ venv/
 .n8n/
 secrets.*
 *.secret
-workflow.json
 
 # Outputs
 *.pdf
