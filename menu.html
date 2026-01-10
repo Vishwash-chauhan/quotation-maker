@@ -3,11 +3,10 @@
   <html>
   <head>
   <style>
-    /* Import Google Fonts - Quicksand for body, Chilanka for playful headings */
+    /* Import Google Fonts */
     @import url('https://fonts.googleapis.com/css2?family=Chilanka&family=Quicksand:wght@400;600;700&display=swap');
 
     @page {
-      /* Margin: Top, Right, Bottom, Left. */
       margin: 10mm 15mm 20mm 15mm; 
     }
 
@@ -20,21 +19,14 @@
     }
 
     @media print {
-      body {
-        background: white;
-        color: #333;
-      }
-      h1, h2, h3 {
-        color: #2D3E50 !important;
-      }
+      body { background: white; color: #333; }
+      h1, h2, h3 { color: #2D3E50 !important; }
       .header-banner {
         background: #2D3E50 !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
-      .header-details div {
-        color: white !important;
-      }
+      .header-details div { color: white !important; }
     }
 
     h1, h2, h3 { 
@@ -43,61 +35,28 @@
       margin-top: 20px;
     }
 
-    /* REUSABLE PAGE BREAK CLASS */
+    /* LOGO STYLING */
+    .logo-wrapper {
+      text-align: center;
+      padding: 10px 0 20px 0;
+    }
+    .main-logo {
+      max-width: 180px;
+      height: auto;
+    }
+
     .full-page-section {
       page-break-after: always;
       text-align: center;
       padding: 10mm 5mm;
     }
 
-    /* INTRO TEXT STYLING */
     .intro-text {
       font-size: 18px;
       text-align: left;
       margin: 0 auto;
       max-width: 85%;
-    }
-
-    /* GALLERY SPECIFIC STYLING */
-    .gallery-image {
-      max-width: 90%;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      margin-top: 10px;
-    }
-
-    /* MAIN QUOTATION TABLE STYLING */
-    .page-container {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .print-header {
-      display: table-header-group;
-    }
-
-    .logo-container {
-      text-align: center;
-      padding-bottom: 15px;
-    }
-
-    /* ABSOLUTE FIXED FOOTER */
-    .fixed-footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      text-align: center;
-      font-size: 10px;
-      color: #666;
-      padding-bottom: 0mm; 
-      background: white;
-    }
-
-    .footer-line {
-      border-top: 1px solid #ccc;
-      margin: 0 15mm 0mm 15mm;
+      line-height: 1.8;
     }
 
     .header-banner { 
@@ -110,6 +69,7 @@
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
+
     .header-banner h1 { margin: 0; font-size: 26px; text-align: center; color: white !important; }
 
     .header-details { 
@@ -121,10 +81,7 @@
       padding-top: 10px;
     }
 
-    .header-detail-row {
-      display: table-row;
-    }
-
+    .header-detail-row { display: table-row; }
     .header-detail-row div {
       display: table-cell;
       width: 50%;
@@ -146,66 +103,45 @@
     .data-table td { padding: 10px; border: 1px solid #ccc; vertical-align: top; font-size: 13px; word-wrap: break-word; }
 
     tr { page-break-inside: avoid; }
-
     .col-right { text-align: right; }
     .total-row { font-weight: bold; background-color: #f8f9fa; color: #2D3E50; }
     .description { font-size: 11px; color: #666; font-style: italic; display: block; }
     .badge { font-size: 9px; padding: 3px 8px; border-radius: 3px; background: #D3D3D3; color: #333; font-weight: bold; display: inline-block; margin-left: 8px; border: 1px solid #CCCCCC; white-space: nowrap; }
-
-  .badge:empty { display: none; }
+    .badge:empty { display: none; }
   </style>
   </head>
   <body>
 
-  <div class="fixed-footer">
-    <div class="footer-line"></div>
-    <strong>Your Company – Catering & Event Management.</strong><br>
-    Lajpath, New Delhi 110066 | www.reallyawesomewebsite.com | mail@gmail.com
-  </div>
-
   <div class="full-page-section">
-    <img src="https://placehold.co/150x80?text=Your+Logo" style="height: 100px; margin-bottom: 30px;">
+    <div class="logo-wrapper">
+      <img src="https://littlejalebis.com/wp-content/uploads/2025/04/LJ_Logo_M-2.svg" class="main-logo" alt="Little Jalebis Logo">
+    </div>
     <div class="intro-text">
-      <p><strong>Welcome to [Company Name] – Your Premier Event Catering Partner, dedicated to providing exceptional culinary experiences for every occasion.</strong></p>
-
-      <p><strong>With years of industry expertise, we specialize in making your celebrations seamless and unforgettable, whether you are hosting an intimate gathering of [Number] or a grand event with [Number] guests.</strong></p>
-
-      <p><strong>Explore our thoughtfully curated menus designed to suit diverse tastes. We also offer custom catering solutions and would love to collaborate with you to bring your unique vision to life.</strong></p>
-
-      <p><strong>We look forward to helping you create lasting memories through great food and impeccable service!</strong></p>
-
-      <div style="margin-top: 50px; font-size: 14px;">
-        <p><strong>Warm Regards,<br>
-        <strong>The [Company Name] Team</strong><br>
-        [Phone Number] | [Website/Email]</strong></p>
+      <p>Hello from Little Jalebis - Kids Catering & Delivery Co., India's first catering company designed exclusively for kids, serving all of Delhi NCR.</p>
+      <p>With over 40 years of hospitality expertise, we're here to make your celebration stress-free and memorable, whether it's a cozy gathering of 10 kids or a lively bash with 200 guests!</p>
+      <p>Our specially curated menu is ready for you to explore. If you have ideas or suggestions, we'd love to hear them - together, we'll create a delightful culinary experience for your young VIPs.</p>
+      <p>Looking forward to helping make your little one's celebration extra special!</p>
+      <div style="margin-top: 50px;">
+        <p>Warm Regards,<br>
+        Team Little Jalebis<br>
+        +91 8130964374</p>
       </div>
     </div>
-   </div>
-
-  <div class="full-page-section">
-    <img src="https://placehold.co/150x80?text=Your+Logo" style="height: 80px; margin-bottom: 10px;">
-    <img src="https://res.cloudinary.com/dwffrfajl/image/upload/v1767787834/a_pejxzd.png" class="gallery-image">
   </div>
 
-  <table class="page-container">
-    <thead class="print-header">
-      <tr>
-        <td>
-          <div class="logo-container">
-            <img src="https://placehold.co/150x80?text=Your+Logo" style="height: 80px; width: auto;">
-          </div>
-        </td>
-      </tr>
-    </thead>
-
+  <table class="page-container" style="width: 100%;">
     <tbody>
       <tr>
         <td>
+          <div class="logo-wrapper">
+            <img src="https://littlejalebis.com/wp-content/uploads/2025/04/LJ_Logo_M-2.svg" class="main-logo" alt="Little Jalebis Logo">
+          </div>
+
           <div class="header-banner">
             <h1>EVENT QUOTATION</h1>
             <div class="header-details">
               <div class="header-detail-row">
-                <div><strong>HOST:</strong> sdf </div>
+                <div><strong>HOST:</strong> sss</div>
                 <div><strong>DATE:</strong> </div>
               </div>
               <div class="header-detail-row">
@@ -226,17 +162,17 @@
               <col style="width:12.5%" />
             </colgroup>
             <thead>
-              <tr style="page-break-inside: avoid;">
-                <th style="width:55%; background: #FCF0D9; color: #2D3E50; padding: 10px; text-align: left; font-size: 14px; font-weight: bold; border: 1px solid #999; -webkit-print-color-adjust: exact; print-color-adjust: exact;">TABLE SNACKS</th>
-                <th style="width:10%; background: #FCF0D9; color: #2D3E50; padding: 10px; text-align: center; font-size: 12px; font-weight: bold; border: 1px solid #999; -webkit-print-color-adjust: exact; print-color-adjust: exact;">PCS</th>
-                <th style="width:10%; background: #FCF0D9; color: #2D3E50; padding: 10px; text-align: center; font-size: 12px; font-weight: bold; border: 1px solid #999; -webkit-print-color-adjust: exact; print-color-adjust: exact;">PORTION</th>
-                <th style="width:12.5%; background: #FCF0D9; color: #2D3E50; padding: 10px; text-align: center; font-size: 12px; font-weight: bold; border: 1px solid #999; -webkit-print-color-adjust: exact; print-color-adjust: exact;">RATE</th>
-                <th style="width:12.5%; background: #FCF0D9; color: #2D3E50; padding: 10px; text-align: center; font-size: 12px; font-weight: bold; border: 1px solid #999; -webkit-print-color-adjust: exact; print-color-adjust: exact;">AMOUNT</th>
+              <tr>
+                <th style="background: #F6B27A; color: #2D3E50; padding: 10px; border: 1px solid #999;">TABLE SNACKS</th>
+                <th style="text-align: center; background: #F6B27A; color: #2D3E50; padding: 10px; border: 1px solid #999;">PCS</th>
+                <th style="text-align: center; background: #F6B27A; color: #2D3E50; padding: 10px; border: 1px solid #999;">PORTION</th>
+                <th style="text-align: center; background: #F6B27A; color: #2D3E50; padding: 10px; border: 1px solid #999;">RATE</th>
+                <th style="text-align: center; background: #F6B27A; color: #2D3E50; padding: 10px; border: 1px solid #999;">AMOUNT</th>
               </tr>
             </thead>
             <tbody>
       
-              <tr style="page-break-inside: avoid;">
+              <tr>
                 <td>
                   <strong>Magical Fairy Fries</strong><span class='badge'>Veg</span>
                   <span class='description'>Classic Salted Crinkle Cut Fries, sprinkled with magic for an enchanting mealtime.</span>
@@ -246,7 +182,7 @@
                 <td style="text-align: center;">₹99</td>
                 <td style="text-align: center;">₹99</td>
               </tr>
-              <tr style="page-break-inside: avoid;">
+              <tr>
                 <td>
                   <strong>Peri Peri Space Fries</strong><span class='badge'>Veg</span>
                   <span class='description'>Blast off on a flavor adventure with our Peri Peri Crinkle Cut Fries.</span>
@@ -256,28 +192,32 @@
                 <td style="text-align: center;">₹119</td>
                 <td style="text-align: center;">₹119</td>
               </tr>
-            </tbody>
-          </table>
-      
-          <div style="page-break-inside: avoid; margin-top: 30px;">
+              <tr>
+                <td>
+                  <strong>Popcorn Party Pops</strong><span class='badge'>Veg</span>
+                  <span class='description'>Poppin' fun at its best! Regular Popcorn, the ultimate party snack.</span>
+                </td>
+                <td style="text-align: center;">100 GMS</td>
+                <td style="text-align: center;">1</td>
+                <td style="text-align: center;">₹99</td>
+                <td style="text-align: center;">₹99</td>
+              </tr></tbody></table>
+          <div style="page-break-before: always;"></div>
+          <div class="logo-wrapper">
+            <img src="https://littlejalebis.com/wp-content/uploads/2025/04/LJ_Logo_M-2.svg" class="main-logo" alt="Little Jalebis Logo">
+          </div>
+          <div style="page-break-inside: avoid; margin-top: 20px;">
             <h2>OTHER SERVICES & SUMMARY</h2>
             <table class='data-table'>
               <tbody>
-  <tr class='total-row'><td colspan='4'>Subtotal (Items)</td><td class='col-right'>₹218</td></tr><tr ><td colspan='4'>Chef + Servers + Helper</td><td class='col-right'></td></tr><tr ><td colspan='4'>Table Décor (As Per Theme)</td><td class='col-right'>Included</td></tr><tr ><td colspan='4'>Cutlery & Crockery</td><td class='col-right'></td></tr><tr ><td colspan='4'>Chaffing Dishes & Snack Warmers</td><td class='col-right'></td></tr><tr ><td colspan='4'>Conveyance</td><td class='col-right'>As Per Actual</td></tr><tr class='total-row'><td colspan='4'>Subtotal (With Services)</td><td class='col-right'>₹218</td></tr><tr class='total-row'><td colspan='4'>GST 5%</td><td class='col-right'>₹10.90</td></tr><tr class='total-row'><td colspan='4'>TOTAL AMOUNT</td><td class='col-right'>₹228.90</td></tr></tbody></table></div>
-      <div style="page-break-inside: avoid;">
+  <tr class='total-row'><td colspan='4'>Subtotal (Items)</td><td class='col-right'>₹317</td></tr><tr ><td colspan='4'>Chef + Servers + Helper</td><td class='col-right'></td></tr><tr ><td colspan='4'>Table Décor (As Per Theme)</td><td class='col-right'>Included</td></tr><tr ><td colspan='4'>Cutlery & Crockery</td><td class='col-right'></td></tr><tr ><td colspan='4'>Chaffing Dishes & Snack Warmers</td><td class='col-right'></td></tr><tr ><td colspan='4'>Conveyance</td><td class='col-right'>As Per Actual</td></tr><tr class='total-row'><td colspan='4'>Subtotal (With Services)</td><td class='col-right'>₹317</td></tr><tr class='total-row'><td colspan='4'>GST 5%</td><td class='col-right'>₹15.85</td></tr><tr class='total-row'><td colspan='4'>TOTAL AMOUNT</td><td class='col-right'>₹332.85</td></tr></tbody></table></div>
+      <div style="page-break-inside: avoid; margin-top: 30px;">
           <h2>TO BE PROVIDED BY HOST</h2>
-          <ul style="font-size: 13px;"><li style='margin-bottom: 5px;'><strong>Tables with covers for the food display</strong>: As Required</li><li style='margin-bottom: 5px;'><strong>Kitchen Space & Table to be provided</strong>: As Required</li></ul></div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  
+          <ul style="font-size: 13px;"><li style='margin-bottom: 5px;'><strong>Tables with covers for the food display</strong>: As Required</li><li style='margin-bottom: 5px;'><strong>Kitchen Space & Table to be provided</strong>: As Required</li></ul></div></td></tr></tbody></table>
       <div class="last-page" style="page-break-before: always; padding-top: 20px;">
-
-        <div style="text-align: center; margin-bottom: 30px;">
-          <img src="https://placehold.co/150x80?text=Your+Logo" style="height: 80px; width: auto;">
+        <div class="logo-wrapper">
+          <img src="https://littlejalebis.com/wp-content/uploads/2025/04/LJ_Logo_M-2.svg" class="main-logo" alt="Little Jalebis Logo">
         </div>
-
         <h3 style="text-decoration: underline; margin-bottom: 20px;">Please Note :</h3>
         <ul class="note-list" style="list-style-type: disc; padding-left: 20px; font-size: 14px;">
           <li style="margin-bottom: 12px;">We half-prepare snacks at our facility and finish them at your venue for maximum freshness. Main course is fully prepared in our kitchen ready to be served.</li>
@@ -296,5 +236,5 @@
         </div>
       </div>
     </body>
-    </html>
+  </html>
   
