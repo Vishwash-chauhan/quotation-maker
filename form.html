@@ -384,12 +384,9 @@
   <div id="pdfModal" class="modal">
     <div class="modal-content">
       <h2>✓ Quotation Generated!</h2>
-      <p>Your quotation has been successfully created. Download or view it using the link below:</p>
-      <div class="pdf-link-box">
-        <a id="pdfLink" href="#" target="_blank" rel="noopener noreferrer">Click here to download PDF</a>
-      </div>
+      <p>Your quotation has been successfully created.</p>
       <div class="modal-buttons">
-        <button class="primary" onclick="openPdfInNewTab()">View PDF</button>
+        <button class="primary" onclick="downloadPdf()">Download</button>
         <button class="secondary" onclick="closePdfModal()">Close</button>
       </div>
     </div>
@@ -824,60 +821,52 @@ document.getElementById('submitBtn').addEventListener('click', ()=>{
   })
       .then(r=>{
         if(!r.ok) throw new Error('Network response was not ok: '+r.status);
-        return r.json();
-      })
-      .then(data=>{
-        clearTimeout(timeoutId);
-        console.log('✓ Response received:', data);
-        
-        // Extract PDF URL from n8n response - handle both object and array responses
-        let pdfUrl = '';
-        
-        // If response is an array, get first item
-        if (Array.isArray(data) && data.length > 0) {
-          const item = data[0];
-          pdfUrl = item.signedUrl || item.pdfUrl || item.pdf_url || item.url || '';
-        } else if (typeof data === 'object') {
-          // If response is an object
-          pdfUrl = data.signedUrl || data.pdfUrl || data.pdf_url || data.url || '';
+        // Check if response is binary (PDF file)
+        const contentType = r.headers.get('content-type');
+        if (contentType && contentType.includes('application/pdf')) {
+          return r.blob().then(blob => ({ type: 'pdf', blob: blob }));
         }
+        // Otherwise try to parse as JSON
+        return r.json().then(data => ({ type: 'json', data: data }));
+      })
+      .then(response=>{
+        clearTimeout(timeoutId);
         
-        if (pdfUrl) {
+        if (response.type === 'pdf') {
+          // Handle PDF file
+          console.log('✓ PDF received');
+          const pdfBlob = response.blob;
+          const pdfUrl = URL.createObjectURL(pdfBlob);
           document.getElementById('statusText').textContent = 'Quotation ready!';
           document.getElementById('spinner').classList.remove('show');
           showPdfModal(pdfUrl);
         } else {
-          document.getElementById('statusText').textContent = 'Submitted, but no PDF URL received. Check n8n response.';
-          document.getElementById('spinner').classList.remove('show');
-          console.log('Full response:', data);
+          // Handle legacy JSON response with PDF URL
+          const data = response.data;
+          console.log('✓ Response received:', data);
+          
+          let pdfUrl = '';
+          
+          // If response is an array, get first item
+          if (Array.isArray(data) && data.length > 0) {
+            const item = data[0];
+            pdfUrl = item.signedUrl || item.pdfUrl || item.pdf_url || item.url || '';
+          } else if (typeof data === 'object') {
+            // If response is an object
+            pdfUrl = data.signedUrl || data.pdfUrl || data.pdf_url || data.url || '';
+          }
+          
+          if (pdfUrl) {
+            document.getElementById('statusText').textContent = 'Quotation ready!';
+            document.getElementById('spinner').classList.remove('show');
+            showPdfModal(pdfUrl);
+          } else {
+            document.getElementById('statusText').textContent = 'Submitted, but no PDF URL received. Check n8n response.';
+            document.getElementById('spinner').classList.remove('show');
+            console.log('Full response:', data);
+          }
         }
       })
-    .then(data=>{
-      clearTimeout(timeoutId);
-      console.log('✓ Response received:', data);
-      
-      // Extract PDF URL from n8n response - handle both object and array responses
-      let pdfUrl = '';
-      
-      // If response is an array, get first item
-      if (Array.isArray(data) && data.length > 0) {
-        const item = data[0];
-        pdfUrl = item.signedUrl || item.pdfUrl || item.pdf_url || item.url || '';
-      } else if (typeof data === 'object') {
-        // If response is an object
-        pdfUrl = data.signedUrl || data.pdfUrl || data.pdf_url || data.url || '';
-      }
-      
-      if (pdfUrl) {
-        document.getElementById('statusText').textContent = 'Quotation ready!';
-        document.getElementById('spinner').classList.remove('show');
-        showPdfModal(pdfUrl);
-      } else {
-        document.getElementById('statusText').textContent = 'Submitted, but no PDF URL received. Check n8n response.';
-        document.getElementById('spinner').classList.remove('show');
-        console.log('Full response:', data);
-      }
-    })
     .catch(err=>{ 
       clearTimeout(timeoutId);
       document.getElementById('spinner').classList.remove('show');
@@ -912,18 +901,25 @@ updateSummary();
 
 // Modal Functions
 function showPdfModal(pdfUrl) {
-  const pdfLink = document.getElementById('pdfLink');
-  pdfLink.href = pdfUrl;
+  // Store PDF URL for download
+  document.getElementById('pdfModal').dataset.pdfUrl = pdfUrl;
   document.getElementById('pdfModal').classList.add('show');
+}
+
+function downloadPdf() {
+  const pdfUrl = document.getElementById('pdfModal').dataset.pdfUrl;
+  if (pdfUrl) {
+    const a = document.createElement('a');
+    a.href = pdfUrl;
+    a.download = 'quotation.pdf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
 }
 
 function closePdfModal() {
   document.getElementById('pdfModal').classList.remove('show');
-}
-
-function openPdfInNewTab() {
-  const pdfUrl = document.getElementById('pdfLink').href;
-  window.open(pdfUrl, '_blank');
 }
 
 // Close modal when clicking outside of it
