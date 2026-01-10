@@ -1,6 +1,6 @@
 # 1. Configuration & Access
-logo_url = "https://placehold.co/150x80?text=Your+Logo"
-collage_url = "https://res.cloudinary.com/dwffrfajl/image/upload/v1767787834/a_pejxzd.png" 
+logo_url = "https://littlejalebis.com/wp-content/uploads/2025/04/LJ_Logo_M-2.svg"
+collage_url = "https://vyaapaarniti.com/uploads/1767344535323-Screenshot%202026-01-02%20142942.png" 
 
 try:
     cust_list = _input.all("Customer Details")
@@ -71,6 +71,11 @@ html = f"""
     text-align: left;
     margin: 0 auto;
     max-width: 85%;
+    line-height: 1.8;
+  }}
+
+  .intro-text p {{
+    margin-bottom: 20px;
   }}
 
   /* GALLERY SPECIFIC STYLING */
@@ -172,8 +177,32 @@ html = f"""
 
 <div class="fixed-footer">
   <div class="footer-line"></div>
-  <strong>Your Company – Catering & Event Management.</strong><br>
-  Lajpath, New Delhi 110066 | www.reallyawesomewebsite.com | mail@gmail.com
+  <strong>Little Jalebis – Kids Catering & Delivery Co. (Unit of NC Hospitality Pvt Ltd)</strong><br>
+  E 5 Kalindi Colony, New Delhi 110065 | www.littlejalebis.com | sales@littlejalebis.com
+</div>
+
+<div class="full-page-section">
+  <img src="{logo_url}" style="height: 100px; margin-bottom: 30px;">
+  <div class="intro-text">
+    <p>Hello from Little Jalebis - Kids Catering & Delivery Co., India's first catering company designed exclusively for kids, serving all of Delhi NCR.</p>
+    
+    <p>With over 40 years of hospitality expertise, we're here to make your celebration stress-free and memorable, whether it's a cozy gathering of 10 kids or a lively bash with 200 guests!</p>
+    
+    <p>Our specially curated menu is ready for you to explore. If you have ideas or suggestions, we'd love to hear them - together, we'll create a delightful culinary experience for your young VIPs.</p>
+    
+    <p>Looking forward to helping make your little one's celebration extra special!</p>
+    
+    <div style="margin-top: 50px;">
+      <p>Warm Regards,<br>
+      Team Little Jalebis<br>
+      +91 8130964374</p>
+    </div>
+  </div>
+</div>
+
+<div class="full-page-section">
+  <img src="{logo_url}" style="height: 80px; margin-bottom: 10px;">
+  <img src="{collage_url}" class="gallery-image">
 </div>
 
 <table class="page-container">
@@ -228,11 +257,11 @@ for cat, items in categories.items():
           </colgroup>
           <thead>
             <tr style="page-break-inside: avoid;">
-              <th style="width:55%; background: #FCF0D9; color: #2D3E50; padding: 10px; text-align: left; font-size: 14px; font-weight: bold; border: 1px solid #999; -webkit-print-color-adjust: exact; print-color-adjust: exact;">{cat.upper()}</th>
-              <th style="width:10%; background: #FCF0D9; color: #2D3E50; padding: 10px; text-align: center; font-size: 12px; font-weight: bold; border: 1px solid #999; -webkit-print-color-adjust: exact; print-color-adjust: exact;">PCS</th>
-              <th style="width:10%; background: #FCF0D9; color: #2D3E50; padding: 10px; text-align: center; font-size: 12px; font-weight: bold; border: 1px solid #999; -webkit-print-color-adjust: exact; print-color-adjust: exact;">PORTION</th>
-              <th style="width:12.5%; background: #FCF0D9; color: #2D3E50; padding: 10px; text-align: center; font-size: 12px; font-weight: bold; border: 1px solid #999; -webkit-print-color-adjust: exact; print-color-adjust: exact;">RATE</th>
-              <th style="width:12.5%; background: #FCF0D9; color: #2D3E50; padding: 10px; text-align: center; font-size: 12px; font-weight: bold; border: 1px solid #999; -webkit-print-color-adjust: exact; print-color-adjust: exact;">AMOUNT</th>
+              <th style="width:55%; background: #F6B27A; color: #2D3E50; padding: 10px; text-align: left; font-size: 14px; font-weight: bold; border: 1px solid #999; -webkit-print-color-adjust: exact; print-color-adjust: exact;">{cat.upper()}</th>
+              <th style="width:10%; background: #F6B27A; color: #2D3E50; padding: 10px; text-align: center; font-size: 12px; font-weight: bold; border: 1px solid #999; -webkit-print-color-adjust: exact; print-color-adjust: exact;">PCS</th>
+              <th style="width:10%; background: #F6B27A; color: #2D3E50; padding: 10px; text-align: center; font-size: 12px; font-weight: bold; border: 1px solid #999; -webkit-print-color-adjust: exact; print-color-adjust: exact;">PORTION</th>
+              <th style="width:12.5%; background: #F6B27A; color: #2D3E50; padding: 10px; text-align: center; font-size: 12px; font-weight: bold; border: 1px solid #999; -webkit-print-color-adjust: exact; print-color-adjust: exact;">RATE</th>
+              <th style="width:12.5%; background: #F6B27A; color: #2D3E50; padding: 10px; text-align: center; font-size: 12px; font-weight: bold; border: 1px solid #999; -webkit-print-color-adjust: exact; print-color-adjust: exact;">AMOUNT</th>
             </tr>
           </thead>
           <tbody>
@@ -346,7 +375,7 @@ html += f"""
       </ul>
 
       <div style="text-align: center; margin-top: 60px;">
-          <p style="font-weight: bold; color: #D4813E; font-size: 16px; letter-spacing: 1px;">FOLLOW US @vishwash_catering</p>
+          <p style="font-weight: bold; color: #D4813E; font-size: 16px; letter-spacing: 1px;">FOLLOW US @LITTLEJALEBIS</p>
           <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" style="height: 30px; vertical-align: middle; margin-top: 10px;">
       </div>
     </div>
