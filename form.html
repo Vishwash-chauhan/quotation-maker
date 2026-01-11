@@ -36,14 +36,22 @@
     .category-row td{background:#f7f7f7;font-weight:700;padding:8px;text-transform:none}
     .category-row td strong{font-weight:700}
     
+    /* Table wrapper: enable horizontal scrolling on small devices */
+    #tableWrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    table{min-width:720px}
+    .pcsDisplay{white-space:nowrap;text-align:center}
+
     .total{font-weight:700;text-align:right;margin-top:10px}
     /* Small icon buttons for actions */
     .icon-btn{background:transparent;border:0;padding:6px;border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
     .icon-btn.deleteBtn{color:#d32f2f}
     .icon-btn.deleteBtn:hover{background:#fbeaea}
-    .drag-handle{cursor:move;color:#666;padding:6px;font-size:16px}
+    /* hide the drag 'sandwich' handle; use up/down arrows instead */
+    .drag-handle{display:none;cursor:move;color:#666;padding:6px;font-size:16px}
     tr.dragging{opacity:0.6}
-    
+    /* Show up/down move buttons on desktop by default */
+    .mobile-move{display:inline-flex;gap:6px;align-items:center}
+    .mobile-move svg{width:16px;height:16px} 
     .small{font-size:12px;color:#666}
     button{padding:12px 20px;border-radius:6px;border:0;background:#2D3E50;color:white;cursor:pointer;font-weight:600;font-size:14px;transition:all 0.2s}
     button:hover{background:#1a2535;box-shadow:0 2px 6px rgba(0,0,0,0.15)}
@@ -204,6 +212,12 @@
       label{margin-top:8px}
       .small{font-size:11px}
       .muted{font-size:12px}
+      /* Mobile-specific table tweaks */
+      #tableWrap{margin-left:-12px;margin-right:-12px}
+      /* drag handle already hidden; adjust small sizes for mobile */
+      .icon-btn{padding:8px}
+      .icon-btn svg{width:12px;height:12px}
+      th,td{font-size:13px}
     }
     @media(max-width:480px){
       body{padding:8px}
@@ -627,7 +641,13 @@ function addItemToTable(item, idx){
     <td class="col-right amount">${formatCurrency(rate)}</td>
     <td class="pcsDisplay">${pcsDisplay}</td>
     <td>
-      <div style="display:flex;gap:8px;align-items:center;justify-content:center">
+      <div style="display:flex;gap:6px;align-items:center;justify-content:center">
+        <button class="icon-btn mobile-move upBtn" title="Move up" aria-label="Move up">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 19V6" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 12l7-7 7 7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="icon-btn mobile-move downBtn" title="Move down" aria-label="Move down">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 5v14" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 12l-7 7-7-7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
         <button class="icon-btn deleteBtn" title="Delete" aria-label="Delete"> 
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 6h18" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
@@ -647,6 +667,10 @@ function addItemToTable(item, idx){
   portionsInput.addEventListener('input', ()=>updateRowAmount(tr));
   // delete button
   tr.querySelector('.deleteBtn').addEventListener('click', (e)=>{ handleDeleteRow(tr); });
+  const upBtn = tr.querySelector('.upBtn');
+  if (upBtn) upBtn.addEventListener('click', ()=>moveRowUp(tr));
+  const downBtn = tr.querySelector('.downBtn');
+  if (downBtn) downBtn.addEventListener('click', ()=>moveRowDown(tr));
   makeRowDraggable(tr);
   updateRowAmount(tr);
 }
@@ -744,10 +768,69 @@ document.addEventListener('drop', (e)=>{
   if (parent && parent.dataset && parent.dataset.category){
     _draggedRow.dataset.category = parent.dataset.category;
   }
+  // Remove empty tbody headers if needed
+  cleanupEmptyTbody(parent);
   if (_draggedRow) _draggedRow.classList.remove('dragging');
   _draggedRow = null;
   updateTotal();
 });
+
+function cleanupEmptyTbody(tbody){
+  if (!tbody) return;
+  if (tbody.querySelectorAll('tr').length <= 1){
+    tbody.remove();
+  }
+}
+
+function moveRowUp(tr){
+  if (!tr) return;
+  const tbody = tr.parentElement;
+  // find previous non-category row
+  let prev = tr.previousElementSibling;
+  while (prev && prev.classList && prev.classList.contains('category-row')) prev = prev.previousElementSibling;
+  if (prev && !prev.classList.contains('category-row')){
+    tbody.insertBefore(tr, prev);
+    updateTotal();
+    return;
+  }
+  // try previous tbody
+  let prevTbody = tbody.previousElementSibling;
+  while (prevTbody && (!prevTbody.dataset || !prevTbody.dataset.category)) prevTbody = prevTbody.previousElementSibling;
+  if (prevTbody){
+    // insert before last data row or append
+    const lastData = [...prevTbody.querySelectorAll('tr:not(.category-row)')].pop();
+    if (lastData) prevTbody.insertBefore(tr, lastData.nextSibling);
+    else prevTbody.appendChild(tr);
+    tr.dataset.category = prevTbody.dataset.category;
+    cleanupEmptyTbody(tbody);
+    updateTotal();
+  }
+}
+
+function moveRowDown(tr){
+  if (!tr) return;
+  const tbody = tr.parentElement;
+  // find next non-category row
+  let next = tr.nextElementSibling;
+  while (next && next.classList && next.classList.contains('category-row')) next = next.nextElementSibling;
+  if (next && !next.classList.contains('category-row')){
+    // insert after next
+    tbody.insertBefore(next, tr);
+    updateTotal();
+    return;
+  }
+  // try next tbody
+  let nextTbody = tbody.nextElementSibling;
+  while (nextTbody && (!nextTbody.dataset || !nextTbody.dataset.category)) nextTbody = nextTbody.nextElementSibling;
+  if (nextTbody){
+    const firstData = nextTbody.querySelector('tr:not(.category-row)');
+    if (firstData) nextTbody.insertBefore(tr, firstData);
+    else nextTbody.appendChild(tr);
+    tr.dataset.category = nextTbody.dataset.category;
+    cleanupEmptyTbody(tbody);
+    updateTotal();
+  }
+}
 
 function removeItemFromTable(idx){
   const row = document.querySelector('#selectedTable tbody [data-idx="'+idx+'"]');
@@ -779,7 +862,13 @@ function addCustomItem(){
     <td class="col-right amount">${formatCurrency(portions * rate)}</td>
     <td class="pcsDisplay">${pcs}</td>
     <td>
-      <div style="display:flex;gap:8px;align-items:center;justify-content:center">
+      <div style="display:flex;gap:6px;align-items:center;justify-content:center">
+        <button class="icon-btn mobile-move upBtn" title="Move up" aria-label="Move up">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 19V6" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 12l7-7 7 7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="icon-btn mobile-move downBtn" title="Move down" aria-label="Move down">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 5v14" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 12l-7 7-7-7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
         <button class="icon-btn deleteBtn" title="Delete" aria-label="Delete"> 
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 6h18" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
@@ -800,6 +889,10 @@ function addCustomItem(){
   // Add event listeners
   tr.querySelector('.portions').addEventListener('input', ()=>updateCustomRowAmount(tr));
   tr.querySelector('.deleteBtn').addEventListener('click', ()=>{ handleDeleteRow(tr); });
+  const upBtnC = tr.querySelector('.upBtn');
+  if (upBtnC) upBtnC.addEventListener('click', ()=>moveRowUp(tr));
+  const downBtnC = tr.querySelector('.downBtn');
+  if (downBtnC) downBtnC.addEventListener('click', ()=>moveRowDown(tr));
   makeRowDraggable(tr);
 
   // Clear form
