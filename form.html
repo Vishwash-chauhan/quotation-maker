@@ -32,7 +32,18 @@
     th{background:#f7f7f7;font-weight:600;color:#333}
     .col-right{text-align:right}
     .total-row{background:#f9f9f9;font-weight:600}
+    /* Category header inside the selected items table */
+    .category-row td{background:#f7f7f7;font-weight:700;padding:8px;text-transform:none}
+    .category-row td strong{font-weight:700}
+    
     .total{font-weight:700;text-align:right;margin-top:10px}
+    /* Small icon buttons for actions */
+    .icon-btn{background:transparent;border:0;padding:6px;border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+    .icon-btn.deleteBtn{color:#d32f2f}
+    .icon-btn.deleteBtn:hover{background:#fbeaea}
+    .drag-handle{cursor:move;color:#666;padding:6px;font-size:16px}
+    tr.dragging{opacity:0.6}
+    
     .small{font-size:12px;color:#666}
     button{padding:12px 20px;border-radius:6px;border:0;background:#2D3E50;color:white;cursor:pointer;font-weight:600;font-size:14px;transition:all 0.2s}
     button:hover{background:#1a2535;box-shadow:0 2px 6px rgba(0,0,0,0.15)}
@@ -258,12 +269,12 @@
     <div id="tableWrap">
       <table id="selectedTable">
         <thead>
-          <tr><th>Item Details</th><th style="width:80px">Portions</th><th style="width:90px" class="col-right">Rate</th><th style="width:100px" class="col-right">Amount</th><th style="width:100px">Pcs</th></tr>
+          <tr><th>Item Details</th><th style="width:80px">Portions</th><th style="width:90px" class="col-right">Rate</th><th style="width:100px" class="col-right">Amount</th><th style="width:100px">Pcs</th><th style="width:80px">Action</th></tr>
         </thead>
         <tbody></tbody>
         <tfoot>
           <tr>
-            <td colspan="3" style="text-align: right; font-weight: bold;">Total:</td>
+            <td colspan="4" style="text-align: right; font-weight: bold;">Total:</td>
             <td style="text-align: right; font-weight: bold;"><span id="totalAmount">₹0</span></td>
             <td></td>
           </tr>
@@ -604,8 +615,8 @@ searchEl.addEventListener('input', ()=>{
 })
 
 function addItemToTable(item, idx){
-  // prevent duplicates
-  if (selectedTableBody.querySelector('[data-idx="'+idx+'"]')) return;
+  // prevent duplicates (search entire table)
+  if (document.querySelector('#selectedTable [data-idx="'+idx+'"]')) return;
   const tr = document.createElement('tr');
   tr.dataset.idx = idx;
   const rate = Number(item['Rate']||0);
@@ -614,21 +625,138 @@ function addItemToTable(item, idx){
     <td><input class="portions" type="number" min="0" value="1" style="width:60px;padding:6px;border:1px solid #ccc;border-radius:6px" /></td>
     <td class="col-right">${formatCurrency(rate)}</td>
     <td class="col-right amount">${formatCurrency(rate)}</td>
-    <td class="pcsDisplay">${pcsDisplay}</td>`;
+    <td class="pcsDisplay">${pcsDisplay}</td>
+    <td>
+      <div style="display:flex;gap:8px;align-items:center;justify-content:center">
+        <button class="icon-btn deleteBtn" title="Delete" aria-label="Delete"> 
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 6h18" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <span class="drag-handle" title="Drag to reorder" aria-label="Drag to reorder">☰</span>
+      </div>
+    </td>`;
   tr.dataset.rate = rate;
   tr.dataset.pcsOriginal = pcsDisplay;
   tr.dataset.category = item.Category || 'Other';
   tr.dataset.vegNonVeg = item.VegNonVeg || '';
   tr.dataset.description = item.Description || '';
-  selectedTableBody.appendChild(tr);
+  // Append row into category tbody
+  const cat = tr.dataset.category || 'Other';
+  const catBody = getCategoryBody(cat);
+  catBody.appendChild(tr);
   const portionsInput = tr.querySelector('.portions');
   portionsInput.addEventListener('input', ()=>updateRowAmount(tr));
+  // delete button
+  tr.querySelector('.deleteBtn').addEventListener('click', (e)=>{ handleDeleteRow(tr); });
+  makeRowDraggable(tr);
   updateRowAmount(tr);
 }
 
+function getCategoryBody(category){
+  const table = document.getElementById('selectedTable');
+  const existing = table.querySelector('tbody[data-category="'+category+'"]');
+  if (existing) return existing;
+  // create new tbody with a category header row
+  const tb = document.createElement('tbody');
+  tb.dataset.category = category;
+  const colCount = table.querySelectorAll('thead th').length || 6;
+  const headerRow = document.createElement('tr');
+  headerRow.className = 'category-row';
+  headerRow.innerHTML = `<td colspan="${colCount}"><strong>${category}</strong></td>`;
+  tb.appendChild(headerRow);
+  // insert before tfoot
+  const tfoot = table.querySelector('tfoot');
+  table.insertBefore(tb, tfoot);
+  return tb;
+}
+
+function handleDeleteRow(tr){
+  // Uncheck checkbox in menu if row originated from menu
+  const idx = tr.dataset.idx;
+  if (idx){
+    const cb = document.getElementById('m_'+idx);
+    if (cb) cb.checked = false;
+  }
+  const tbody = tr.parentElement;
+  tr.remove();
+  // If tbody has only header row left, remove it
+  if (tbody && tbody.dataset && tbody.querySelectorAll('tr').length <= 1){
+    tbody.remove();
+  }
+  updateTotal();
+}
+
+// Drag & Drop reordering
+let _draggedRow = null;
+function makeRowDraggable(tr){
+  if (!tr) return;
+  // Only allow dragging via the drag-handle to avoid interfering with inputs
+  tr.draggable = false;
+  const handle = tr.querySelector('.drag-handle');
+  if (handle){
+    handle.addEventListener('mousedown', ()=>{ tr.draggable = true; });
+    handle.addEventListener('mouseup', ()=>{ tr.draggable = false; });
+    handle.addEventListener('mouseleave', ()=>{ tr.draggable = false; });
+  } else {
+    tr.draggable = true; // fallback
+  }
+
+  tr.addEventListener('dragstart', (e)=>{
+    _draggedRow = tr;
+    tr.classList.add('dragging');
+    try{ e.dataTransfer.effectAllowed = 'move'; }catch(e){}
+  });
+  tr.addEventListener('dragend', ()=>{
+    if (tr) tr.classList.remove('dragging');
+    tr.draggable = false;
+    _draggedRow = null;
+  });
+}
+
+function getDragAfterElement(container, y){
+  const draggableElements = [...container.querySelectorAll('tr:not(.category-row):not(.dragging)')];
+  let closest = {offset: Number.NEGATIVE_INFINITY, element: null};
+  for (const child of draggableElements){
+    const box = child.getBoundingClientRect();
+    const offset = y - box.top - box.height/2;
+    if (offset < 0 && offset > closest.offset){
+      closest = {offset: offset, element: child};
+    }
+  }
+  return closest.element;
+}
+
+document.addEventListener('dragover', (e)=>{
+  e.preventDefault();
+  if (!_draggedRow) return;
+  const tbody = e.target.closest('#selectedTable tbody');
+  if (!tbody) return;
+  // don't allow dropping onto header row's container (tbody is fine)
+  const afterEl = getDragAfterElement(tbody, e.clientY);
+  if (!afterEl) tbody.appendChild(_draggedRow);
+  else tbody.insertBefore(_draggedRow, afterEl);
+});
+
+document.addEventListener('drop', (e)=>{
+  e.preventDefault();
+  if (!_draggedRow) return;
+  // Update category if moved into a different tbody
+  const parent = _draggedRow.parentElement;
+  if (parent && parent.dataset && parent.dataset.category){
+    _draggedRow.dataset.category = parent.dataset.category;
+  }
+  if (_draggedRow) _draggedRow.classList.remove('dragging');
+  _draggedRow = null;
+  updateTotal();
+});
+
 function removeItemFromTable(idx){
-  const row = selectedTableBody.querySelector('[data-idx="'+idx+'"]');
-  if (row) row.remove(); updateTotal();
+  const row = document.querySelector('#selectedTable tbody [data-idx="'+idx+'"]');
+  if (row) {
+    const parent = row.parentElement;
+    row.remove();
+    if (parent && parent.querySelectorAll('tr').length <= 1){ parent.remove(); }
+    updateTotal();
+  }
 }
 
 function addCustomItem(){
@@ -645,25 +773,34 @@ function addCustomItem(){
   // Create table row with delete button
   const tr = document.createElement('tr');
   tr.dataset.isCustom = 'true';
-  tr.innerHTML = `<td><strong>${name}</strong><div><button class="deleteBtn" style="margin-left:8px;padding:4px 8px;font-size:12px;background:#d32f2f;color:white;border-radius:4px;border:none;cursor:pointer">Delete</button></div></td>
+  tr.innerHTML = `<td><strong>${name}</strong></td>
     <td><input class="portions" type="number" min="0" value="${portions}" style="width:60px;padding:6px;border:1px solid #ccc;border-radius:6px" /></td>
     <td class="col-right">${formatCurrency(rate)}</td>
     <td class="col-right amount">${formatCurrency(portions * rate)}</td>
-    <td class="pcsDisplay">${pcs}</td>`;
+    <td class="pcsDisplay">${pcs}</td>
+    <td>
+      <div style="display:flex;gap:8px;align-items:center;justify-content:center">
+        <button class="icon-btn deleteBtn" title="Delete" aria-label="Delete"> 
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 6h18" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <span class="drag-handle" title="Drag to reorder" aria-label="Drag to reorder">☰</span>
+      </div>
+    </td>`;
   
   tr.dataset.description = desc;
   tr.dataset.rate = rate;
   tr.dataset.pcsOriginal = pcs;
   tr.dataset.category = category || '';
   tr.dataset.vegNonVeg = vegNonVeg || '';
-  selectedTableBody.appendChild(tr);
+  // Append to category tbody
+  const cat = tr.dataset.category || 'Other';
+  const catBody = getCategoryBody(cat);
+  catBody.appendChild(tr);
 
   // Add event listeners
   tr.querySelector('.portions').addEventListener('input', ()=>updateCustomRowAmount(tr));
-  tr.querySelector('.deleteBtn').addEventListener('click', ()=>{
-    tr.remove();
-    updateTotal();
-  });
+  tr.querySelector('.deleteBtn').addEventListener('click', ()=>{ handleDeleteRow(tr); });
+  makeRowDraggable(tr);
 
   // Clear form
   document.getElementById('customName').value = '';
@@ -722,8 +859,10 @@ function extractNumber(val) {
 function updateSummary() {
   // Get subtotal from items
   let itemsSubtotal = 0;
-  selectedTableBody.querySelectorAll('tr').forEach(tr=>{
-    const a = tr.querySelector('.amount').textContent.replace(/[^0-9.-]+/g,'');
+  document.querySelectorAll('#selectedTable tbody tr:not(.category-row)').forEach(tr=>{
+    const aEl = tr.querySelector('.amount');
+    if (!aEl) return;
+    const a = aEl.textContent.replace(/[^0-9.-]+/g,'');
     itemsSubtotal += Number(a) || 0;
   });
 
@@ -757,8 +896,10 @@ function updateSummary() {
 
 function updateTotal(){
   let total = 0;
-  selectedTableBody.querySelectorAll('tr').forEach(tr=>{
-    const a = tr.querySelector('.amount').textContent.replace(/[^0-9.-]+/g,'');
+  document.querySelectorAll('#selectedTable tbody tr:not(.category-row)').forEach(tr=>{
+    const aEl = tr.querySelector('.amount');
+    if (!aEl) return;
+    const a = aEl.textContent.replace(/[^0-9.-]+/g,'');
     total += Number(a) || 0;
   });
   totalAmountEl.textContent = formatCurrency(total);
@@ -767,10 +908,10 @@ function updateTotal(){
 
 function collectPayload(){
   const items = [];
-  selectedTableBody.querySelectorAll('tr').forEach(tr=>{
-    const name = tr.querySelector('td strong').textContent;
+  document.querySelectorAll('#selectedTable tbody tr:not(.category-row)').forEach(tr=>{
+    const name = tr.querySelector('td strong') ? tr.querySelector('td strong').textContent : '';
     const desc = tr.dataset.description || '';
-    const portions = Number(tr.querySelector('.portions').value) || 0;
+    const portions = Number(tr.querySelector('.portions') ? tr.querySelector('.portions').value : 0) || 0;
     const pcsEl = tr.querySelector('.pcsDisplay');
     const pcsDisplay = pcsEl ? (pcsEl.value !== undefined ? pcsEl.value : pcsEl.textContent.trim()) : '';
     const rate = Number(tr.dataset.rate) || 0;
