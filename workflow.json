@@ -9,28 +9,28 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -1184,
+        -976,
         -560
       ],
-      "id": "85df5eb2-8aa6-4509-987b-1b6fd479ea4a",
+      "id": "3ae76080-7682-4326-8701-f8e678209b23",
       "name": "Sticky Note2"
     },
     {
       "parameters": {
         "httpMethod": "POST",
-        "path": "43f28d7d-68a8-4473-b6c3-f3cf9dabe894",
+        "path": "quotation-form",
         "responseMode": "responseNode",
         "options": {}
       },
-      "id": "6de3eaca-e826-4cdf-9042-84da2d8aa1da",
+      "id": "c614229a-d0ad-499a-9267-805e361680a6",
       "name": "Webhook Form",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
       "position": [
-        -1712,
+        -1504,
         -64
       ],
-      "webhookId": "43f28d7d-68a8-4473-b6c3-f3cf9dabe894"
+      "webhookId": "5d2ad483-e5ca-43c4-b63c-117f015323af"
     },
     {
       "parameters": {
@@ -40,10 +40,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1488,
+        -1280,
         32
       ],
-      "id": "9ba74eb7-7892-4627-ade1-80d36bbb8e39",
+      "id": "0d04b796-47eb-4668-a0e6-5315a89650c5",
       "name": "Code in Python (Beta)"
     },
     {
@@ -170,10 +170,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -1264,
+        -1056,
         -160
       ],
-      "id": "693473bc-8bc2-439e-8d11-5440af28e488",
+      "id": "49ce09aa-aa9c-4da6-9aa0-cb388c4d65fe",
       "name": "Menu",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -245,10 +245,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -1264,
+        -1056,
         32
       ],
-      "id": "e09dc92a-8e5d-4252-9b83-087a0f999b3e",
+      "id": "206fcaa6-be07-4fc2-92e7-992f78a30c08",
       "name": "Extra and Total6",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -265,10 +265,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1488,
+        -1280,
         224
       ],
-      "id": "98c89ad2-87b7-4fda-acc2-8400f077b095",
+      "id": "239667e6-123d-4fa1-be99-5e69ec9e5284",
       "name": "Code in Python (Beta)13"
     },
     {
@@ -334,10 +334,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -1264,
+        -1056,
         224
       ],
-      "id": "aefd7342-565b-40db-8368-77e0dccc3dac",
+      "id": "143cf4ee-9169-4484-aa27-e2db8397e2d3",
       "name": "Other Info",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -372,7 +372,6 @@
             "Time": "={{ $json.body.Time }}",
             "Pax": "={{ $json.body.Pax }}",
             "Location": "={{ $json.body.Location }}",
-            "ImageGrid": "={{ $json.body.ImageGrid }}",
             "Quote ID": "={{ $json.body.QuotationId }}"
           },
           "matchingColumns": [],
@@ -450,10 +449,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -1264,
+        -1056,
         -352
       ],
-      "id": "e760fa3c-7f13-4a4d-aa61-d5fe1c9a4133",
+      "id": "d2ce7967-33e9-4776-95d6-4463e7eb79f7",
       "name": "Customer Details",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -464,30 +463,15 @@
     },
     {
       "parameters": {
-        "content": "## PDF Generation",
-        "height": 384,
-        "width": 960
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -672,
-        -176
-      ],
-      "id": "813f449a-e876-41a8-a959-46ca897276b4",
-      "name": "Sticky Note7"
-    },
-    {
-      "parameters": {
         "numberInputs": 4
       },
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        -848,
-        -80
+        -832,
+        -96
       ],
-      "id": "1151acb8-4676-49cd-8ee6-56b1f49cd6b6",
+      "id": "77b9d2f5-9904-4a66-80d0-0a666901aa7d",
       "name": "Merge"
     },
     {
@@ -498,24 +482,39 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1440,
-        -144
+        -1280,
+        -160
       ],
-      "id": "f16271dd-b5d2-4f9d-9a4d-e5cdb36f68b8",
+      "id": "17610b21-3ffb-4362-88b2-b9a4eedff8c4",
       "name": "Menu Item Transformation"
     },
     {
       "parameters": {
+        "content": "## PDF Generation",
+        "height": 384,
+        "width": 960
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -656,
+        -208
+      ],
+      "id": "c4c233a7-5e1b-4092-b95e-fa5436de5bba",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
         "language": "python",
-        "pythonCode": "# 1. Configuration & Access\ntry:\n    cust_list = _input.all(\"Customer Details\")\n    cust = cust_list[0].json if cust_list else {}\nexcept:\n    cust = {}\n\nmenu_items = _input.all(\"Proposed Menu\")\nservices = _input.all(\"Other Services\")\nhost_reqs = _input.all(\"Other Info\")\n\n# Logo URL\nlogo_url = \"https://littlejalebis.com/wp-content/uploads/2025/04/LJ_Logo_M-2.svg\"\n\n# 2. HTML Construction\nhtml = f\"\"\"\n<!DOCTYPE html>\n<html>\n<head>\n<style>\n  /* Import Google Fonts */\n  @import url('https://fonts.googleapis.com/css2?family=Chilanka&family=Quicksand:wght@400;600;700&display=swap');\n\n  @page {{\n    margin: 15mm 15mm 15mm 15mm; /* Reduced margin as requested */\n  }}\n  \n  body {{ \n    font-family: 'Quicksand', sans-serif; \n    color: #333; \n    line-height: 1.4;\n    margin: 0;\n    background: white;\n  }}\n\n  /* FIXED FOOTER STYLING */\n  .footer {{\n    position: fixed;\n    bottom: -10mm; /* Adjusted to sit tightly at the bottom within 15mm margin */\n    left: 0;\n    right: 0;\n    text-align: center;\n    font-size: 10px;\n    color: #666;\n    border-top: 1px solid #eee;\n    padding-top: 8px;\n    line-height: 1.4;\n  }}\n\n  /* TABLE SPACER: Reduced to 10mm to minimize gap between table and footer */\n  .table-spacer {{\n    height: 10mm;\n    border: none !important;\n  }}\n\n  @media print {{\n    body {{ background: white; color: #333; }}\n    h1, h2, h3 {{ color: #2D3E50 !important; }}\n    .header-banner {{\n      background: #2D3E50 !important;\n      -webkit-print-color-adjust: exact;\n      print-color-adjust: exact;\n    }}\n    .footer {{\n        position: fixed;\n        bottom: 0;\n    }}\n    tr {{ page-break-inside: avoid; }}\n  }}\n\n  h1, h2, h3 {{ \n    font-family: 'Chilanka', cursive; \n    color: #2D3E50; \n    margin-top: 15px;\n  }}\n\n  .logo-wrapper {{\n    text-align: center;\n    padding: 5px 0 15px 0;\n  }}\n  .main-logo {{\n    max-width: 160px;\n    height: auto;\n  }}\n\n  .full-page-section {{\n    page-break-after: always;\n    text-align: center;\n    padding: 5mm;\n  }}\n\n  .intro-text {{\n    font-size: 17px;\n    text-align: left;\n    margin: 0 auto;\n    max-width: 85%;\n    line-height: 1.6;\n  }}\n\n  .header-banner {{ \n    background: #2D3E50; \n    color: white;\n    padding: 15px 20px;\n    border-radius: 8px;\n    margin-bottom: 10px;\n    -webkit-print-color-adjust: exact;\n    print-color-adjust: exact;\n  }}\n\n  .header-banner h1 {{ margin: 0; font-size: 24px; text-align: center; color: white !important; }}\n  \n  .header-details {{ \n    margin-top: 10px; \n    display: table;\n    width: 100%;\n    font-size: 13px; \n    border-top: 1px solid rgba(255,255,255,0.3);\n    padding-top: 8px;\n  }}\n\n  .header-detail-row {{ display: table-row; }}\n  .header-detail-row div {{\n    display: table-cell;\n    width: 50%;\n    padding: 3px 0;\n    color: white;\n  }}\n  \n  h2 {{ border-bottom: 2px solid #2D3E50; padding-bottom: 3px; font-size: 18px; text-transform: uppercase; }}\n  \n  .data-table {{ \n    width: 100%; \n    border-collapse: collapse; \n    margin-top: 10px; \n    table-layout: fixed;\n  }}\n  \n  .data-table th {{ background: #f8f9fa; padding: 8px; text-align: left; border: 1px solid #999; font-size: 12px; }}\n  .data-table td {{ padding: 8px; border: 1px solid #ccc; vertical-align: top; font-size: 13px; word-wrap: break-word; }}\n  \n  .col-right {{ text-align: right; }}\n  .total-row {{ font-weight: bold; background-color: #f8f9fa; color: #2D3E50; }}\n  .description {{ font-size: 11px; color: #666; font-style: italic; display: block; }}\n  .badge {{ font-size: 9px; padding: 2px 6px; border-radius: 3px; background: #D3D3D3; color: #333; font-weight: bold; display: inline-block; margin-left: 8px; border: 1px solid #CCCCCC; white-space: nowrap; }}\n  .badge:empty {{ display: none; }}\n</style>\n</head>\n<body>\n\n<div class=\"footer\">\n    <strong>Little Jalebis – Kids Catering & Delivery Co. (Unit of NC Hospitality Pvt Ltd)</strong><br>\n    CIN : U55101DL2009PTC188581 | E 5 Kalindi Colony, New Delhi 110065<br>\n    Website : www.littlejalebis.com | Email : sales@littlejalebis.com\n</div>\n\n<div class=\"full-page-section\">\n  <div class=\"logo-wrapper\">\n    <img src=\"{logo_url}\" class=\"main-logo\" alt=\"Little Jalebis Logo\">\n  </div>\n  <div class=\"intro-text\">\n    <p>Hello from Little Jalebis - Kids Catering & Delivery Co., India's first catering company designed exclusively for kids, serving all of Delhi NCR.</p>\n    <p>With over 40 years of hospitality expertise, we're here to make your celebration stress-free and memorable, whether it's a cozy gathering of 10 kids or a lively bash with 200 guests!</p>\n    <p>Our specially curated menu is ready for you to explore.</p>\n    <p>Looking forward to helping make your little one's celebration extra special!</p>\n    <div style=\"margin-top: 40px;\">\n      <p>Warm Regards,<br>\n      Team Little Jalebis<br>\n      +91 8130964374</p>\n    </div>\n  </div>\n</div>\n\n\"\"\"  # 2.5 PHOTO GALLERY (PAGE 2)\nimages = cust.get('ImageGrid') or []\n# Handle serialized JSON strings (if passed as string)\ntry:\n    if isinstance(images, str) and images.strip():\n        import json as _json\n        images = _json.loads(images)\nexcept Exception:\n    # leave as-is\n    pass\n\n# Normalize to list of urls\n_image_urls = []\nfor it in (images or []):\n    if isinstance(it, dict):\n        url = it.get('url') or it.get('secure_url') or it.get('secureUrl') or it.get('src')\n    else:\n        url = str(it)\n    if url: _image_urls.append(url)\n\nif _image_urls:\n    # keep up to 9 images and pad with empty strings\n    _image_urls = _image_urls[:9]\n    while len(_image_urls) < 9:\n        _image_urls.append('')\n\n    html += f\"\"\"\n        <div style=\"page-break-before: always; padding-top: 15px; text-align: center;\">\n          <h2>PHOTO GALLERY</h2>\n          <table style=\"width:100%; border-collapse: collapse; table-layout: fixed;\">\n            <tbody>\n    \"\"\"\n    for r in range(3):\n        html += \"        <tr>\"\n        for c in range(3):\n            idx = r*3 + c\n            url = _image_urls[idx]\n            if url:\n                html += f\"<td style='width:33%; padding:4px;'><img src=\\\"{url}\\\" style=\\\"width:100%; height:140px; object-fit:cover; border:1px solid #ddd; display:block;\\\"></td>\"\n            else:\n                html += \"<td style='width:33%; padding:4px;'></td>\"\n        html += \"</tr>\"\n    html += \"\"\"\n            </tbody>\n          </table>\n        </div>\n    \"\"\"\n\n\n<table class=\"page-container\" style=\"width: 100%;\">\n  <tfoot><tr><td class=\"table-spacer\"></td></tr></tfoot>\n  <tbody>\n    <tr>\n      <td>\n        <div class=\"logo-wrapper\">\n          <img src=\"{logo_url}\" class=\"main-logo\" alt=\"Little Jalebis Logo\">\n        </div>\n\n        <div class=\"header-banner\">\n          <h1>EVENT QUOTATION</h1>\n          <div class=\"header-details\">\n            <div class=\"header-detail-row\">\n              <div><strong>HOST:</strong> {cust.get('Host Name', 'N/A')}</div>\n              <div><strong>MOBILE:</strong> {cust.get('Mobile No', 'N/A')}</div>\n            </div>\n            <div class=\"header-detail-row\">\n              <div><strong>DATE:</strong> {cust.get('Event Date', 'N/A')}</div>\n              <div><strong>TIME:</strong> {cust.get('Time', 'N/A')}</div>\n            </div>\n            <div class=\"header-detail-row\">\n              <div><strong>LOCATION:</strong> {cust.get('Location', 'N/A')}</div>\n              <div><strong>PAX:</strong> {cust.get('Pax', 'N/A')}</div>\n            </div>\n          </div>\n        </div>\n\n        <h2>PROPOSED MENU</h2>\n\"\"\"\n\n# 3. Process Menu Items\nfrom collections import OrderedDict\ncategories = OrderedDict()\nfor item in menu_items:\n    d = item.json\n    if not d.get('Name') or str(d.get('Name')).strip() == \"\": continue\n    cat = d.get('Category','Other')\n    categories.setdefault(cat, []).append(d)\n\nfor cat, items in categories.items():\n    html += f\"\"\"\n        <table class=\"data-table\" style=\"margin-top: 15px;\">\n          <tfoot><tr><td colspan=\"5\" class=\"table-spacer\"></td></tr></tfoot>\n          <colgroup>\n            <col style=\"width:55%\" /><col style=\"width:10%\" /><col style=\"width:10%\" /><col style=\"width:12.5%\" /><col style=\"width:12.5%\" />\n          </colgroup>\n          <thead>\n            <tr>\n              <th style=\"background: #F6B27A; color: #2D3E50;\">{cat.upper()}</th>\n              <th style=\"text-align: center; background: #F6B27A; color: #2D3E50;\">PCS</th>\n              <th style=\"text-align: center; background: #F6B27A; color: #2D3E50;\">PORTION</th>\n              <th style=\"text-align: center; background: #F6B27A; color: #2D3E50;\">RATE</th>\n              <th style=\"text-align: center; background: #F6B27A; color: #2D3E50;\">AMOUNT</th>\n            </tr>\n          </thead>\n          <tbody>\n    \"\"\"\n    for d in items:\n        portions = d.get('Portion','') if d.get('Portion','') not in (0,'0','') else ''\n        rate_raw = d.get('Rate','')\n        try:\n            r_str = str(rate_raw).replace(',','').strip()\n            r_val = float(r_str)\n            rate_display = f\"₹{int(r_val):,}\" if r_val.is_integer() else f\"₹{r_val:,.2f}\"\n        except:\n            rate_display = rate_raw\n        \n        amount_raw = d.get('Amount','')\n        try:\n            a_str = str(amount_raw).replace(',','').strip()\n            a_val = float(a_str)\n            amount_display = f\"₹{int(a_val):,}\" if a_val == int(a_val) else f\"₹{a_val:,.2f}\"\n        except:\n            amount_display = amount_raw if amount_raw else \"\"\n\n        html += f\"\"\"\n            <tr>\n              <td>\n                <strong>{d.get('Name','')}</strong><span class='badge'>{d.get('Veg/Non Veg','').strip()}</span>\n                <span class='description'>{d.get('Description','')}</span>\n              </td>\n              <td style=\"text-align: center;\">{d.get('Pcs','')}</td>\n              <td style=\"text-align: center;\">{portions}</td>\n              <td style=\"text-align: center;\">{rate_display}</td>\n              <td style=\"text-align: center;\">{amount_display}</td>\n            </tr>\"\"\"\n    html += \"</tbody></table>\"\n\n# 4. Other Services & Summary (PAGE 3)\nhtml += f\"\"\"\n        <div style=\"page-break-before: always;\"></div>\n        <div class=\"logo-wrapper\">\n          <img src=\"{logo_url}\" class=\"main-logo\" alt=\"Little Jalebis Logo\">\n        </div>\n        <div style=\"margin-top: 15px;\">\n          <h2>OTHER SERVICES & SUMMARY</h2>\n          <table class='data-table'>\n            <tfoot><tr><td colspan=\"5\" class=\"table-spacer\"></td></tr></tfoot>\n            <tbody>\n\"\"\"\n\nfor s in services:\n    sd = s.json\n    service_name = sd.get('Other Services', '')\n    if not service_name or str(service_name).strip() == \"\": continue\n    amount = sd.get('Amount', '')\n    try:\n        amt_str = str(amount).replace(',','').strip()\n        amt_val = float(amt_str)\n        amount_display = f\"₹{int(amt_val):,}\" if amt_val.is_integer() else f\"₹{amt_val:,.2f}\"\n    except:\n        amount_display = amount\n\n    is_total = any(x in str(service_name).upper() for x in [\"TOTAL\", \"SUBTOTAL\", \"GST\"])\n    row_class = \"class='total-row'\" if is_total else \"\"\n    html += f\"<tr {row_class}><td colspan='4'>{service_name}</td><td class='col-right'>{amount_display}</td></tr>\"\n\nhtml += \"</tbody></table></div>\" \n\n# 5. Host Requirements\nif host_reqs:\n    html += \"\"\"\n    <div style=\"page-break-inside: avoid; margin-top: 25px;\">\n        <h2>TO BE PROVIDED BY HOST</h2>\n        <ul style=\"font-size: 13px;\">\"\"\"\n    for h in host_reqs:\n        req = h.json.get('TO BE PROVIDED BY HOST')\n        qty_req = h.json.get('QUANTITY', '')\n        if req and str(req).strip() != \"\": \n            html += f\"<li style='margin-bottom: 4px;'><strong>{req}</strong>: {qty_req}</li>\"\n    html += \"</ul></div>\"\n\nhtml += \"</td></tr></tbody></table>\"\n\n# 6. Final Page (PAGE 4)\nhtml += f\"\"\"\n    <div class=\"last-page\" style=\"page-break-before: always; padding-top: 15px;\">\n      <div class=\"logo-wrapper\">\n        <img src=\"{logo_url}\" class=\"main-logo\" alt=\"Little Jalebis Logo\">\n      </div>\n      <h3 style=\"text-decoration: underline; margin-bottom: 15px;\">Please Note :</h3>\n      <ul class=\"note-list\" style=\"list-style-type: disc; padding-left: 20px; font-size: 14px;\">\n        <li style=\"margin-bottom: 10px;\">We half-prepare snacks at our facility and finish them at your venue for maximum freshness. Main course is fully prepared in our kitchen ready to be served.</li>\n        <li style=\"margin-bottom: 10px;\">We do not require any minimum guarantees.</li>\n        <li style=\"margin-bottom: 10px;\">1 Portion of main course dish is sufficient for 3-4 Adults or 4-5 Kids.</li>\n        <li style=\"margin-bottom: 10px;\">In case kitchen access is not available, then additional charge of Rs 3000 will be applicable for stove with cylinder & other equipment.</li>\n        <li style=\"margin-bottom: 10px;\">To help us give you a flawless experience, we request for no changes in the menu 4-5 days prior to the event.</li>\n        <li style=\"margin-bottom: 10px;\">We also provide nanny boxes. Kindly connect with us for details.</li>\n        <li style=\"margin-bottom: 10px;\">Please let us know if there is an increase in the number of expected guests minimum 4-5 days prior.</li>\n        <li style=\"margin-bottom: 10px;\">All bookings are subject to availability at the time of confirmation with a non-refundable 50% advance payment.</li>\n      </ul>\n\n      <div style=\"text-align: center; margin-top: 40px;\">\n          <p style=\"font-weight: bold; color: #D4813E; font-size: 16px; letter-spacing: 1px;\">FOLLOW US @LITTLEJALEBIS</p>\n          <!-- Instagram QR code added below the icon -->\n          <div style=\"margin-top: 10px;\">\n            <img src=\"https://res.cloudinary.com/dwffrfajl/image/upload/v1768128519/qr_xvsuyp.png\" alt=\"Instagram QR code\" style=\"height: 90px; display: inline-block;\">\n          </div>\n      </div>\n    </div>\n  </body>\n</html>\n\"\"\"\n\nreturn [{\"html_content\": html}]"
+        "pythonCode": "# 1. Configuration & Access\ntry:\n    cust_list = _input.all(\"Customer Details\")\n    cust = cust_list[0].json if cust_list else {}\nexcept:\n    cust = {}\n\nmenu_items = _input.all(\"Proposed Menu\")\nservices = _input.all(\"Other Services\")\nhost_reqs = _input.all(\"Other Info\")\n\n# Logo URL\nlogo_url = \"https://littlejalebis.com/wp-content/uploads/2025/04/LJ_Logo_M-2.svg\"\n\n# 2. HTML Construction\nhtml = f\"\"\"\n<!DOCTYPE html>\n<html>\n<head>\n<style>\n  /* Import Google Fonts */\n  @import url('https://fonts.googleapis.com/css2?family=Chilanka&family=Quicksand:wght@400;600;700&display=swap');\n\n  @page {{\n    margin: 15mm 15mm 15mm 15mm; /* Reduced margin as requested */\n  }}\n  \n  body {{ \n    font-family: 'Quicksand', sans-serif; \n    color: #333; \n    line-height: 1.65;\n    letter-spacing: 0.4px;\n    margin: 0;\n    background: white;\n  }} \n\n  /* FIXED FOOTER STYLING */\n  .footer {{\n    position: fixed;\n    bottom: -10mm; /* Adjusted to sit tightly at the bottom within 15mm margin */\n    left: 0;\n    right: 0;\n    text-align: center;\n    font-size: 10px;\n    color: #666;\n    border-top: 1px solid #eee;\n    padding-top: 8px;\n    line-height: 1.4;\n  }}\n\n  /* TABLE SPACER: Reduced to 10mm to minimize gap between table and footer */\n  .table-spacer {{\n    height: 10mm;\n    border: none !important;\n  }}\n\n  @media print {{\n    body {{ background: white; color: #333; }}\n    h1, h2, h3 {{ color: #2D3E50 !important; }}\n    .header-banner {{\n      background: #2D3E50 !important;\n      -webkit-print-color-adjust: exact;\n      print-color-adjust: exact;\n    }}\n    .footer {{\n        position: fixed;\n        bottom: 0;\n    }}\n    tr {{ page-break-inside: avoid; }}\n  }}\n\n  h1, h2, h3 {{ \n    font-family: 'Chilanka', cursive; \n    color: #2D3E50; \n    margin-top: 15px;\n  }}\n\n  .logo-wrapper {{\n    text-align: center;\n    padding: 5px 0 15px 0;\n  }}\n  .main-logo {{\n    max-width: 160px;\n    height: auto;\n  }}\n\n  .full-page-section {{\n    page-break-after: always;\n    text-align: center;\n    padding: 5mm;\n  }}\n\n  .intro-text {{\n    font-size: 20px;\n    text-align: left;\n    margin: 0 auto;\n    font-weight: 700;\n    max-width: 85%;\n    line-height: 2;\n    letter-spacing: 1px;\n  }}\n\n  .header-banner {{ \n    background: #2D3E50; \n    color: white;\n    padding: 15px 20px;\n    border-radius: 8px;\n    margin-bottom: 10px;\n    -webkit-print-color-adjust: exact;\n    print-color-adjust: exact;\n  }}\n\n  .header-banner h1 {{ margin: 0; font-size: 24px; text-align: center; color: white !important; }}\n  \n  .header-details {{ \n    margin-top: 10px; \n    display: table;\n    width: 100%;\n    font-size: 13px; \n    border-top: 1px solid rgba(255,255,255,0.3);\n    padding-top: 8px;\n  }}\n\n  .header-detail-row {{ display: table-row; }}\n  .header-detail-row div {{\n    display: table-cell;\n    width: 50%;\n    padding: 3px 0;\n    color: white;\n  }}\n  \n  h2 {{ border-bottom: 2px solid #2D3E50; padding-bottom: 3px; font-size: 18px; text-transform: uppercase; }}\n  \n  .data-table {{ \n    width: 100%; \n    border-collapse: collapse; \n    margin-top: 10px; \n    table-layout: fixed;\n  }}\n  \n  .data-table th {{ background: #f8f9fa; padding: 8px; text-align: left; border: 1px solid #999; font-size: 12px; }}\n  .data-table td {{ padding: 8px; border: 1px solid #ccc; vertical-align: top; font-size: 13px; word-wrap: break-word; }}\n  \n  .col-right {{ text-align: right; }}\n  .total-row {{ font-weight: bold; background-color: #f8f9fa; color: #2D3E50; }}\n  .description {{ font-size: 11px; color: #666; font-style: italic; display: block; }}\n  .badge {{ font-size: 9px; padding: 2px 6px; border-radius: 3px; background: #D3D3D3; color: #333; font-weight: bold; display: inline-block; margin-left: 8px; border: 1px solid #CCCCCC; white-space: nowrap; }}\n  .badge:empty {{ display: none; }}\n\n  /* Gallery page styling */\n  .gallery-section {{\n    display:flex;\n    flex-direction:column;\n    align-items:center;\n    justify-content:center;\n    /* Use explicit height for A4 printable area but reserve space for logo so content centers within remaining area */\n    height: calc(297mm - 30mm - 30mm); /* subtract ~30mm for logo area */\n    box-sizing: border-box;\n    padding: 5mm 0;\n    text-align: center;\n  }}\n  .gallery-logo .main-logo {{ max-width: 160px; height:auto; }}\n  .gallery-content {{\n    display:flex;\n    flex-direction:column;\n    align-items:center;\n    justify-content:center;\n    width:100%;\n  }}\n  .gallery-heading {{\n    font-size: 20px;\n    color: #2D3E50;\n    font-weight:700;\n    margin: 10px 0 6px;\n    text-align:center;\n    letter-spacing: 1.6px;\n    /* Remove default H2 underline for gallery heading */\n    border-bottom: none !important;\n    padding-bottom: 0 !important;\n    text-decoration: none !important;\n  }}\n  .gallery-tagline {{\n    font-size: 20px;\n    color: #2D3E50;\n    font-weight:600;\n    margin-top: 12px;\n    text-align:center;\n    letter-spacing: 1px;\n  }}\n  .gallery-hr {{ border:0; border-top:2px solid #2D3E50; width:60%; margin: 8px auto 14px; }}\n  .photo-grid td {{ padding:6px; vertical-align: top; }}\n  .gallery-img {{ width:100%; height:150px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); display:block; }}\n  .data-table th {{ background: #f8f9fa; padding: 8px; text-align: left; border: 1px solid #999; font-size: 12px; line-height: 1.6; letter-spacing: 0.3px; }}\n  .data-table td {{ padding: 8px; border: 1px solid #ccc; vertical-align: top; font-size: 13px; word-wrap: break-word; line-height: 1.6; letter-spacing: 0.3px; }}\n\n</style>\n</head>\n<body>\n\n<div class=\"footer\">\n    <strong>Little Jalebis – Kids Catering & Delivery Co. (Unit of NC Hospitality Pvt Ltd)</strong><br>\n    CIN : U55101DL2009PTC188581 | E 5 Kalindi Colony, New Delhi 110065<br>\n    Website : www.littlejalebis.com | Email : sales@littlejalebis.com\n</div>\n\n<div class=\"full-page-section\">\n  <div class=\"logo-wrapper\">\n    <img src=\"{logo_url}\" class=\"main-logo\" alt=\"Little Jalebis Logo\">\n  </div>\n  <div class=\"intro-text\">\n    <p>Hello from Little Jalebis - Kids Catering & Delivery Co., India's first catering company designed exclusively for kids, serving all of Delhi NCR.</p>\n    <p>With over 40 years of hospitality expertise, we're here to make your celebration stress-free and memorable, whether it's a cozy gathering of 10 kids or a lively bash with 200 guests!</p>\n    <p>Our specially curated menu is ready for you to explore.</p>\n    <p>Looking forward to helping make your little one's celebration extra special!</p>\n    <div style=\"margin-top: 40px;\">\n      <p>Warm Regards,<br>\n      Team Little Jalebis<br>\n      +91 8130964374</p>\n    </div>\n  </div>\n</div>\n\n\"\"\"  # 2.5 PHOTO GALLERY (PAGE 2)\nimages = cust.get('ImageGrid') or []\n# Handle serialized JSON strings (if passed as string)\ntry:\n    if isinstance(images, str) and images.strip():\n        import json as _json\n        images = _json.loads(images)\nexcept Exception:\n    # leave as-is\n    pass\n\n# Normalize to list of urls\n_image_urls = []\nfor it in (images or []):\n    if isinstance(it, dict):\n        url = it.get('url') or it.get('secure_url') or it.get('secureUrl') or it.get('src')\n    else:\n        url = str(it)\n    if url: _image_urls.append(url)\n\nif _image_urls:\n    # keep up to 9 images and pad with empty strings\n    _image_urls = _image_urls[:9]\n    while len(_image_urls) < 9:\n        _image_urls.append('')\n\n    html += f\"\"\"\n        <div style=\"page-break-before: always;\">\n          <div class=\"logo-wrapper\">\n            <img src=\"{logo_url}\" class=\"main-logo\" alt=\"Little Jalebis Logo\">\n          </div>\n          <div class=\"gallery-section\">\n            <div class=\"gallery-content\">\n              <h2 class=\"gallery-heading\">PHOTO GALLERY</h2>\n              <hr class=\"gallery-hr\" />\n              <table class=\"photo-grid\" style=\"width:820px; margin: 0 auto; border-collapse: collapse; table-layout: fixed;\">\n                <tbody>\n    \"\"\"\n    for r in range(3):\n        html += \"        <tr>\"\n        for c in range(3):\n            idx = r*3 + c\n            url = _image_urls[idx]\n            if url:\n                html += f\"<td style='width:33%; padding:4px;'><img src=\\\"{url}\\\" class=\\\"gallery-img\\\" alt=\\\"gallery image {idx}\\\"></td>\"\n            else:\n                html += \"<td style='width:33%; padding:4px;'></td>\"\n        html += \"</tr>\"\n    html += \"\"\"\n                </tbody>\n              </table>\n              <div class=\"gallery-tagline\">INDIA'S FIRST KIDS-CENTRIC CATERING COMPANY</div>\n            </div>\n          </div>\n        </div>\n    \"\"\"\n\nhtml += f\"\"\"\n<table class=\"page-container\" style=\"width: 100%;\">\n  <tfoot><tr><td class=\"table-spacer\"></td></tr></tfoot>\n  <tbody>\n    <tr>\n      <td>\n        <div class=\"logo-wrapper\">\n          <img src=\"{logo_url}\" class=\"main-logo\" alt=\"Little Jalebis Logo\">\n        </div>\n\n        <div class=\"header-banner\">\n          <h1>EVENT QUOTATION</h1>\n          <div class=\"header-details\">\n            <div class=\"header-detail-row\">\n              <div><strong>HOST:</strong> {cust.get('Host Name', 'N/A')}</div>\n              <div><strong>MOBILE:</strong> {cust.get('Mobile No', 'N/A')}</div>\n            </div>\n            <div class=\"header-detail-row\">\n              <div><strong>DATE:</strong> {cust.get('Event Date', 'N/A')}</div>\n              <div><strong>TIME:</strong> {cust.get('Time', 'N/A')}</div>\n            </div>\n            <div class=\"header-detail-row\">\n              <div><strong>LOCATION:</strong> {cust.get('Location', 'N/A')}</div>\n              <div><strong>PAX:</strong> {cust.get('Pax', 'N/A')}</div>\n            </div>\n          </div>\n        </div>\n\n        <h2>PROPOSED MENU</h2>\n\"\"\"\n\n# 3. Process Menu Items\nfrom collections import OrderedDict\ncategories = OrderedDict()\nfor item in menu_items:\n    d = item.json\n    if not d.get('Name') or str(d.get('Name')).strip() == \"\": continue\n    cat = d.get('Category','Other')\n    categories.setdefault(cat, []).append(d)\n\nfor cat, items in categories.items():\n    html += f\"\"\"\n        <table class=\"data-table\" style=\"margin-top: 15px;\">\n          <tfoot><tr><td colspan=\"5\" class=\"table-spacer\"></td></tr></tfoot>\n          <colgroup>\n            <col style=\"width:55%\" /><col style=\"width:10%\" /><col style=\"width:10%\" /><col style=\"width:12.5%\" /><col style=\"width:12.5%\" />\n          </colgroup>\n          <thead>\n            <tr>\n              <th style=\"background: #F6B27A; color: #2D3E50;\">{cat.upper()}</th>\n              <th style=\"text-align: center; background: #F6B27A; color: #2D3E50;\">PCS</th>\n              <th style=\"text-align: center; background: #F6B27A; color: #2D3E50;\">PORTION</th>\n              <th style=\"text-align: center; background: #F6B27A; color: #2D3E50;\">RATE</th>\n              <th style=\"text-align: center; background: #F6B27A; color: #2D3E50;\">AMOUNT</th>\n            </tr>\n          </thead>\n          <tbody>\n    \"\"\"\n    for d in items:\n        portions = d.get('Portion','') if d.get('Portion','') not in (0,'0','') else ''\n        rate_raw = d.get('Rate','')\n        try:\n            r_str = str(rate_raw).replace(',','').strip()\n            r_val = float(r_str)\n            rate_display = f\"₹{int(r_val):,}\" if r_val.is_integer() else f\"₹{r_val:,.2f}\"\n        except:\n            rate_display = rate_raw\n        \n        amount_raw = d.get('Amount','')\n        try:\n            a_str = str(amount_raw).replace(',','').strip()\n            a_val = float(a_str)\n            amount_display = f\"₹{int(a_val):,}\" if a_val == int(a_val) else f\"₹{a_val:,.2f}\"\n        except:\n            amount_display = amount_raw if amount_raw else \"\"\n\n        html += f\"\"\"\n            <tr>\n              <td>\n                <strong>{d.get('Name','')}</strong><span class='badge'>{d.get('Veg/Non Veg','').strip()}</span>\n                <span class='description'>{d.get('Description','')}</span>\n              </td>\n              <td style=\"text-align: center;\">{d.get('Pcs','')}</td>\n              <td style=\"text-align: center;\">{portions}</td>\n              <td style=\"text-align: center;\">{rate_display}</td>\n              <td style=\"text-align: center;\">{amount_display}</td>\n            </tr>\"\"\"\n    html += \"</tbody></table>\"\n\n# 4. Other Services & Summary (PAGE 3)\nhtml += f\"\"\"\n        <div style=\"page-break-before: always;\"></div>\n        <div class=\"logo-wrapper\">\n          <img src=\"{logo_url}\" class=\"main-logo\" alt=\"Little Jalebis Logo\">\n        </div>\n        <div style=\"margin-top: 15px;\">\n          <h2>OTHER SERVICES & SUMMARY</h2>\n          <table class='data-table'>\n            <tfoot><tr><td colspan=\"5\" class=\"table-spacer\"></td></tr></tfoot>\n            <tbody>\n\"\"\"\n\nfor s in services:\n    sd = s.json\n    service_name = sd.get('Other Services', '')\n    if not service_name or str(service_name).strip() == \"\": continue\n    amount = sd.get('Amount', '')\n    try:\n        amt_str = str(amount).replace(',','').strip()\n        amt_val = float(amt_str)\n        amount_display = f\"₹{int(amt_val):,}\" if amt_val.is_integer() else f\"₹{amt_val:,.2f}\"\n    except:\n        amount_display = amount\n\n    is_total = any(x in str(service_name).upper() for x in [\"TOTAL\", \"SUBTOTAL\", \"GST\"])\n    row_class = \"class='total-row'\" if is_total else \"\"\n    html += f\"<tr {row_class}><td colspan='4'>{service_name}</td><td class='col-right'>{amount_display}</td></tr>\"\n\nhtml += \"</tbody></table></div>\" \n\n# 5. Host Requirements\nif host_reqs:\n    html += \"\"\"\n    <div style=\"page-break-inside: avoid; margin-top: 25px;\">\n        <h2>TO BE PROVIDED BY HOST</h2>\n        <ul style=\"font-size: 13px;\">\"\"\"\n    for h in host_reqs:\n        req = h.json.get('TO BE PROVIDED BY HOST')\n        qty_req = h.json.get('QUANTITY', '')\n        if req and str(req).strip() != \"\": \n            html += f\"<li style='margin-bottom: 4px;'><strong>{req}</strong>: {qty_req}</li>\"\n    html += \"</ul></div>\"\n\nhtml += \"</td></tr></tbody></table>\"\n\n# 6. Final Page (PAGE 4)\nhtml += f\"\"\"\n    <div class=\"last-page\" style=\"page-break-before: always; padding-top: 15px;\">\n      <div class=\"logo-wrapper\">\n        <img src=\"{logo_url}\" class=\"main-logo\" alt=\"Little Jalebis Logo\">\n      </div>\n      <h3 style=\"text-decoration: underline; margin-bottom: 15px;\">Please Note :</h3>\n      <ul class=\"note-list\" style=\"list-style-type: disc; padding-left: 20px; font-size: 14px;\">\n        <li style=\"margin-bottom: 10px;\">We half-prepare snacks at our facility and finish them at your venue for maximum freshness. Main course is fully prepared in our kitchen ready to be served.</li>\n        <li style=\"margin-bottom: 10px;\">We do not require any minimum guarantees.</li>\n        <li style=\"margin-bottom: 10px;\">1 Portion of main course dish is sufficient for 3-4 Adults or 4-5 Kids.</li>\n        <li style=\"margin-bottom: 10px;\">In case kitchen access is not available, then additional charge of Rs 3000 will be applicable for stove with cylinder & other equipment.</li>\n        <li style=\"margin-bottom: 10px;\">To help us give you a flawless experience, we request for no changes in the menu 4-5 days prior to the event.</li>\n        <li style=\"margin-bottom: 10px;\">We also provide nanny boxes. Kindly connect with us for details.</li>\n        <li style=\"margin-bottom: 10px;\">Please let us know if there is an increase in the number of expected guests minimum 4-5 days prior.</li>\n        <li style=\"margin-bottom: 10px;\">All bookings are subject to availability at the time of confirmation with a non-refundable 50% advance payment.</li>\n      </ul>\n\n      <div style=\"text-align: center; margin-top: 40px;\">\n          <p style=\"font-weight: bold; color: #D4813E; font-size: 16px; letter-spacing: 1px;\">FOLLOW US @LITTLEJALEBIS</p>\n          <!-- Instagram QR code added below the icon -->\n          <div style=\"margin-top: 10px;\">\n            <img src=\"https://res.cloudinary.com/dwffrfajl/image/upload/v1768128519/qr_xvsuyp.png\" alt=\"Instagram QR code\" style=\"height: 200px; display: inline-block;\">\n          </div>\n      </div>\n    </div>\n  </body>\n</html>\n\"\"\"\n\nreturn [{\"html_content\": html}]"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -624,
-        -48
+        -608,
+        -64
       ],
-      "id": "507e70a9-ca4f-44b0-9d1e-4fc0b3d307f2",
+      "id": "5cd20edc-793d-4519-9f92-bac7195f655c",
       "name": "JSON TO HTML"
     },
     {
@@ -530,10 +529,10 @@
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        -400,
+        -384,
         -64
       ],
-      "id": "e41686a3-5b0f-4e92-ac9b-edf82bbb6416",
+      "id": "13937d21-889f-41ea-8e96-3df168d61ece",
       "name": "Convert to File"
     },
     {
@@ -562,10 +561,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -176,
+        -160,
         -64
       ],
-      "id": "38f371a7-b782-4b89-830a-053d149b4cc7",
+      "id": "887947a2-3270-45df-90e9-e6b3fb3ed376",
       "name": "HTML TO PDF"
     },
     {
@@ -577,10 +576,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
       "position": [
-        48,
+        64,
         -64
       ],
-      "id": "50108253-4715-4eb6-b307-b9617fb402b8",
+      "id": "12968d22-23f3-4993-b5a8-1f0e72c0a2be",
       "name": "Respond to Webhook1"
     }
   ],
