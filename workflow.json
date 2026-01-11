@@ -569,8 +569,22 @@
     },
     {
       "parameters": {
+        "functionCode": "const items = $input.all();\nconst it = items[0];\nif (!it) return items;\nconst srcBinaryName = 'data';\nconst dstBinaryName = 'pdf';\nif (it.binary && it.binary[srcBinaryName]) {\n  // copy the binary and set a friendly file name based on Host Name + Event Date\n  it.binary[dstBinaryName] = it.binary[srcBinaryName];\n  const host = (it.json && it.json.body && it.json.body.HostName) ? String(it.json.body.HostName).trim() : 'quotation';\n  const date = (it.json && it.json.body && it.json.body.EventDate) ? String(it.json.body.EventDate).trim().split('/').join('-') : '';\n  const safe = (s) => String(s).trim().replace(/[^A-Za-z0-9-]+/g, '_').replace(/^_+|_+$/g, '');\n  it.binary[dstBinaryName].fileName = `${safe(host)}_${safe(date)}.pdf`;\n}\nreturn items;"
+      },
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        -64
+      ],
+      "id": "6f2f1a3d-9e0b-4b2d-b1c3-2e7f9a6b8c1d",
+      "name": "Set PDF Filename"
+    },
+    {
+      "parameters": {
         "respondWith": "binary",
         "responseDataSource": "set",
+        "binaryPropertyName": "pdf",
         "options": {}
       },
       "type": "n8n-nodes-base.respondToWebhook",
@@ -720,11 +734,22 @@
         ]
       ]
     },
-    "HTML TO PDF": {
+    "Set PDF Filename": {
       "main": [
         [
           {
             "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML TO PDF": {
+      "main": [
+        [
+          {
+            "node": "Set PDF Filename",
             "type": "main",
             "index": 0
           }

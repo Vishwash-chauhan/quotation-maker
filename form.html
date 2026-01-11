@@ -1243,7 +1243,8 @@ document.getElementById('submitBtn').addEventListener('click', ()=>{
         // Check if response is binary (PDF file)
         const contentType = r.headers.get('content-type');
         if (contentType && contentType.includes('application/pdf')) {
-          return r.blob().then(blob => ({ type: 'pdf', blob: blob }));
+          const contentDisposition = r.headers.get('content-disposition') || '';
+          return r.blob().then(blob => ({ type: 'pdf', blob: blob, contentDisposition }));
         }
         // Otherwise try to parse as JSON
         return r.json().then(data => ({ type: 'json', data: data }));
@@ -1256,9 +1257,30 @@ document.getElementById('submitBtn').addEventListener('click', ()=>{
           console.log('✓ PDF received');
           const pdfBlob = response.blob;
           const pdfUrl = URL.createObjectURL(pdfBlob);
+          const cd = response.contentDisposition || '';
+
+          // try to extract filename from Content-Disposition header
+          let filename = '';
+          const m = cd.match(/filename\*?=([^;]+)/i);
+          if (m) {
+            filename = m[1].trim().replace(/UTF-8''/i, '');
+            filename = filename.replace(/^"|"$/g, '');
+            try{ filename = decodeURIComponent(filename); }catch(e){}
+          }
+
+          // fallback to HostName + EventDate
+          if (!filename) {
+            const host = hostNameEl.value.trim() || 'quotation';
+            const dateInput = document.getElementById('eventDate').value;
+            let dateFormatted = '';
+            if (dateInput) { const [yyyy, mm, dd] = dateInput.split('-'); dateFormatted = `${dd}-${mm}-${yyyy}`; }
+            const safe = (s) => String(s).trim().replace(/[^A-Za-z0-9-]+/g, '_').replace(/^_+|_+$/g, '');
+            filename = `${safe(host)}_${safe(dateFormatted)}.pdf`;
+          }
+
           document.getElementById('statusText').textContent = 'Quotation ready!';
           document.getElementById('spinner').classList.remove('show');
-          showPdfModal(pdfUrl);
+          showPdfModal(pdfUrl, filename);
         } else {
           // Handle legacy JSON response with PDF URL
           const data = response.data;
@@ -1278,7 +1300,14 @@ document.getElementById('submitBtn').addEventListener('click', ()=>{
           if (pdfUrl) {
             document.getElementById('statusText').textContent = 'Quotation ready!';
             document.getElementById('spinner').classList.remove('show');
-            showPdfModal(pdfUrl);
+            // Use HostName + EventDate as filename for remote URL fallback
+            const host = hostNameEl.value.trim() || 'quotation';
+            const dateInput = document.getElementById('eventDate').value;
+            let dateFormatted = '';
+            if (dateInput) { const [yyyy, mm, dd] = dateInput.split('-'); dateFormatted = `${dd}-${mm}-${yyyy}`; }
+            const safe = (s) => String(s).trim().replace(/[^A-Za-z0-9-]+/g, '_').replace(/^_+|_+$/g, '');
+            const filename = `${safe(host)}_${safe(dateFormatted)}.pdf`;
+            showPdfModal(pdfUrl, filename);
           } else {
             document.getElementById('statusText').textContent = 'Submitted, but no PDF URL received. Check n8n response.';
             document.getElementById('spinner').classList.remove('show');
@@ -1319,18 +1348,20 @@ document.getElementById('conveyance').addEventListener('input', updateSummary);
 updateSummary();
 
 // Modal Functions
-function showPdfModal(pdfUrl) {
-  // Store PDF URL for download
+function showPdfModal(pdfUrl, filename) {
+  // Store PDF URL and filename for download
   document.getElementById('pdfModal').dataset.pdfUrl = pdfUrl;
+  document.getElementById('pdfModal').dataset.pdfFileName = filename || 'quotation.pdf';
   document.getElementById('pdfModal').classList.add('show');
 }
 
 function downloadPdf() {
   const pdfUrl = document.getElementById('pdfModal').dataset.pdfUrl;
+  const filename = document.getElementById('pdfModal').dataset.pdfFileName || 'quotation.pdf';
   if (pdfUrl) {
     const a = document.createElement('a');
     a.href = pdfUrl;
-    a.download = 'quotation.pdf';
+    a.download = filename;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
