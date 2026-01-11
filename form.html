@@ -258,12 +258,12 @@
     <div id="tableWrap">
       <table id="selectedTable">
         <thead>
-          <tr><th>Item Details</th><th style="width:100px">Pcs</th><th style="width:80px">Portions</th><th style="width:90px" class="col-right">Rate</th><th style="width:100px" class="col-right">Amount</th><th style="width:60px">Action</th></tr>
+          <tr><th>Item Details</th><th style="width:80px">Portions</th><th style="width:90px" class="col-right">Rate</th><th style="width:100px" class="col-right">Amount</th><th style="width:100px">Pcs</th></tr>
         </thead>
         <tbody></tbody>
         <tfoot>
           <tr>
-            <td colspan="4" style="text-align: right; font-weight: bold;">Total:</td>
+            <td colspan="3" style="text-align: right; font-weight: bold;">Total:</td>
             <td style="text-align: right; font-weight: bold;"><span id="totalAmount">₹0</span></td>
             <td></td>
           </tr>
@@ -481,7 +481,7 @@ menuItems = [
     {Name: "Chicken Dim-Sum Delights", Description: "Steamed, juicy chicken dim sums wrapped in delicate dough.", PcsDisplay: "6 PCS", Rate: 349, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
     {Name: "Mini Chicken Tacos", Description: "Mini delights filled with chicken goodness.", PcsDisplay: "3 PCS", Rate: 399, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
     {Name: "Rocket Chicken Seekh Kebabs", Description: "Tasty and fun rockets of flavor.", PcsDisplay: "4 PCS", Rate: 399, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
-    {Name: "Zesty Chilli Chicken Crunch (Dry)", Description: "Spicy and succulent chicken bursts.", PcsDisplay: "8-10 PCS", Rate: 449, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
+    {Name: "Zesty Chilli Chicken Crunch (Dry)", Description: "Spicy and succulent chicken bursts.", PcsDisplay: "10 PCS", Rate: 449, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
     {Name: "Fin-Tastic Fish Fingers", Description: "Crispy fish treats for adventurous eaters.", PcsDisplay: "6 PCS", Rate: 489, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
 
     // MAIN COURSE - VEG
@@ -540,7 +540,7 @@ menuItems = [
     {Name: "Chocolate Donuts", Description: "Delightfully soft chocolate donuts.", PcsDisplay: "1 PC", Rate: 99, Category: "Dessert", VegNonVeg: "Veg"},
     {Name: "Little Jalebis With Rabri", Description: "Traditional jalebis paired with creamy rabri.", PcsDisplay: "", Rate: 229, Category: "Dessert", VegNonVeg: "Veg"},
     {Name: "Gajar Halwa", Description: "Rich dessert made with grated carrots and milk.", PcsDisplay: "250 GMS", Rate: 299, Category: "Dessert", VegNonVeg: "Veg"},
-    {Name: "Hot Chocolate Fondue", Description: "Marshmallows with hot chocolate fondue.", PcsDisplay: "25-30 PCS", Rate: 1999, Category: "Dessert", VegNonVeg: "Veg"},
+    {Name: "Hot Chocolate Fondue", Description: "Marshmallows with hot chocolate fondue.", PcsDisplay: "30 PCS", Rate: 1999, Category: "Dessert", VegNonVeg: "Veg"},
     {Name: "Fresh Lemonade", Description: "Refreshing blend of lemons and sweetness.", PcsDisplay: "200 ml", Rate: 39, Category: "Drinks", VegNonVeg: "Veg"},
     {Name: "Lemon Ice Tea", Description: "Refreshing tea infused with citrus goodness.", PcsDisplay: "200 ml", Rate: 49, Category: "Drinks", VegNonVeg: "Veg"},
     {Name: "Hot Tea", Description: "Perfectly brewed hot tea.", PcsDisplay: "200 ml", Rate: 49, Category: "Drinks", VegNonVeg: "Veg"},
@@ -611,11 +611,12 @@ function addItemToTable(item, idx){
   const rate = Number(item['Rate']||0);
   const pcsDisplay = item['PcsDisplay'] || '';
   tr.innerHTML = `<td><strong>${item['Name']}</strong></td>
-    <td><input class="pcsDisplay" type="text" value="${pcsDisplay}" style="width:80px;padding:6px;border:1px solid #ccc;border-radius:6px" placeholder="e.g., 100 GMS" /></td>
     <td><input class="portions" type="number" min="0" value="1" style="width:60px;padding:6px;border:1px solid #ccc;border-radius:6px" /></td>
     <td class="col-right">${formatCurrency(rate)}</td>
-    <td class="col-right amount">${formatCurrency(rate)}</td>`;
+    <td class="col-right amount">${formatCurrency(rate)}</td>
+    <td class="pcsDisplay">${pcsDisplay}</td>`;
   tr.dataset.rate = rate;
+  tr.dataset.pcsOriginal = pcsDisplay;
   tr.dataset.category = item.Category || 'Other';
   tr.dataset.vegNonVeg = item.VegNonVeg || '';
   tr.dataset.description = item.Description || '';
@@ -644,15 +645,15 @@ function addCustomItem(){
   // Create table row with delete button
   const tr = document.createElement('tr');
   tr.dataset.isCustom = 'true';
-  tr.innerHTML = `<td><strong>${name}</strong></td>
-    <td><input class="pcsDisplay" type="text" value="${pcs}" style="width:80px;padding:6px;border:1px solid #ccc;border-radius:6px" placeholder="e.g., 100 GMS" /></td>
+  tr.innerHTML = `<td><strong>${name}</strong><div><button class="deleteBtn" style="margin-left:8px;padding:4px 8px;font-size:12px;background:#d32f2f;color:white;border-radius:4px;border:none;cursor:pointer">Delete</button></div></td>
     <td><input class="portions" type="number" min="0" value="${portions}" style="width:60px;padding:6px;border:1px solid #ccc;border-radius:6px" /></td>
     <td class="col-right">${formatCurrency(rate)}</td>
     <td class="col-right amount">${formatCurrency(portions * rate)}</td>
-    <td><button class="deleteBtn" style="padding:4px 8px;font-size:12px;background:#d32f2f;width:100%">Delete</button></td>`;
+    <td class="pcsDisplay">${pcs}</td>`;
   
   tr.dataset.description = desc;
   tr.dataset.rate = rate;
+  tr.dataset.pcsOriginal = pcs;
   tr.dataset.category = category || '';
   tr.dataset.vegNonVeg = vegNonVeg || '';
   selectedTableBody.appendChild(tr);
@@ -681,6 +682,7 @@ function updateCustomRowAmount(tr){
   const rate = Number(tr.dataset.rate) || 0;
   const amt = portions * rate;
   tr.querySelector('.amount').textContent = formatCurrency(amt);
+  updatePcsDisplay(tr);
   updateTotal();
 }
 
@@ -689,7 +691,22 @@ function updateRowAmount(tr){
   const rate = Number(tr.dataset.rate) || 0;
   const amt = portions * rate;
   tr.querySelector('.amount').textContent = formatCurrency(amt);
+  updatePcsDisplay(tr);
   updateTotal();
+}
+
+function updatePcsDisplay(tr){
+  const original = tr.dataset.pcsOriginal || '';
+  const pcsEl = tr.querySelector('.pcsDisplay');
+  const portions = Number(tr.querySelector('.portions').value) || 0;
+  const m = (original || '').toString().trim().match(/^\s*(\d+)\s*(?:PC|PCS)\b/i);
+  if (m){
+    const base = Number(m[1]);
+    const total = base * portions;
+    if (pcsEl) pcsEl.textContent = `${total} PCS`;
+  } else {
+    if (pcsEl) pcsEl.textContent = original || '';
+  }
 }
 
 function extractNumber(val) {
@@ -754,7 +771,8 @@ function collectPayload(){
     const name = tr.querySelector('td strong').textContent;
     const desc = tr.dataset.description || '';
     const portions = Number(tr.querySelector('.portions').value) || 0;
-    const pcsDisplay = tr.querySelector('.pcsDisplay').value || '';
+    const pcsEl = tr.querySelector('.pcsDisplay');
+    const pcsDisplay = pcsEl ? (pcsEl.value !== undefined ? pcsEl.value : pcsEl.textContent.trim()) : '';
     const rate = Number(tr.dataset.rate) || 0;
     const category = tr.dataset.category || 'Other';
     const vegNonVeg = tr.dataset.vegNonVeg || '';
