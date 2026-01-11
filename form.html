@@ -426,8 +426,8 @@
   <!-- Image Gallery Modal -->
   <div id="imageModal" class="modal" aria-hidden="true">
     <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="imageModalTitle">
-      <h2 id="imageModalTitle">Manage Images (Select up to 9)</h2>
-      <p class="gallery-upload-note">Upload images directly to Cloudinary and select up to 9 images for the 3x3 gallery.</p>
+      <h2 id="imageModalTitle">Manage Images</h2>
+      <p class="gallery-upload-note">Upload images and select 9 images for the 3x3 gallery.</p>
       <div class="gallery-actions">
         <div style="display:flex;gap:8px;align-items:center">
           <input id="imageFilesInput" type="file" accept="image/*" multiple />
@@ -479,7 +479,17 @@ const CLOUDINARY_UPLOAD_PRESET = 'little_jalabies_quotation_uploads'; // <--- se
 const CLOUDINARY_UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/upload`;
 
 // Gallery state
-let galleryImages = []; // { url }
+let galleryImages = [
+  { url: 'https://res.cloudinary.com/dwffrfajl/image/upload/v1768137613/vxmqwdko70izz8eq0nwa.jpg' },
+  { url: 'https://res.cloudinary.com/dwffrfajl/image/upload/v1768137613/fkuyydfqcbqxv1imes0t.jpg' },
+  { url: 'https://res.cloudinary.com/dwffrfajl/image/upload/v1768137612/pgn4s96hid5x2btqns8h.jpg' },
+  { url: 'https://res.cloudinary.com/dwffrfajl/image/upload/v1768137611/zszkne05cdh6li8lgyl5.jpg' },
+  { url: 'https://res.cloudinary.com/dwffrfajl/image/upload/v1768137610/zqx0o0qtmatlfkbcsgvm.jpg' },
+  { url: 'https://res.cloudinary.com/dwffrfajl/image/upload/v1768137610/kyq7og2hhgdgwgo1e0ja.jpg' },
+  { url: 'https://res.cloudinary.com/dwffrfajl/image/upload/v1768137609/x10yyd8230wxf2rnpjzv.jpg' },
+  { url: 'https://res.cloudinary.com/dwffrfajl/image/upload/v1768137608/tn7rcoy1w0g5sw0clnvx.jpg' },
+  { url: 'https://res.cloudinary.com/dwffrfajl/image/upload/v1768137607/xftinqmucmx8bj6xrfjs.jpg' }
+]; // { url }
 let selectedImages = []; // array of urls (max 9)
 
 // Elements

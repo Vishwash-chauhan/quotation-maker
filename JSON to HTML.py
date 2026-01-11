@@ -28,10 +28,11 @@ html = f"""
   body {{ 
     font-family: 'Quicksand', sans-serif; 
     color: #333; 
-    line-height: 1.4;
+    line-height: 1.65;
+    letter-spacing: 0.4px;
     margin: 0;
     background: white;
-  }}
+  }} 
 
   /* FIXED FOOTER STYLING */
   .footer {{
@@ -90,11 +91,13 @@ html = f"""
   }}
 
   .intro-text {{
-    font-size: 17px;
+    font-size: 20px;
     text-align: left;
     margin: 0 auto;
+    font-weight: 700;
     max-width: 85%;
-    line-height: 1.6;
+    line-height: 2;
+    letter-spacing: 1px;
   }}
 
   .header-banner {{ 
@@ -170,7 +173,7 @@ html = f"""
     font-weight:700;
     margin: 10px 0 6px;
     text-align:center;
-    letter-spacing: 1px;
+    letter-spacing: 1.6px;
     /* Remove default H2 underline for gallery heading */
     border-bottom: none !important;
     padding-bottom: 0 !important;
@@ -182,11 +185,13 @@ html = f"""
     font-weight:600;
     margin-top: 12px;
     text-align:center;
-    letter-spacing: 0.6px;
+    letter-spacing: 1px;
   }}
   .gallery-hr {{ border:0; border-top:2px solid #2D3E50; width:60%; margin: 8px auto 14px; }}
   .photo-grid td {{ padding:6px; vertical-align: top; }}
   .gallery-img {{ width:100%; height:150px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); display:block; }}
+  .data-table th {{ background: #f8f9fa; padding: 8px; text-align: left; border: 1px solid #999; font-size: 12px; line-height: 1.6; letter-spacing: 0.3px; }}
+  .data-table td {{ padding: 8px; border: 1px solid #ccc; vertical-align: top; font-size: 13px; word-wrap: break-word; line-height: 1.6; letter-spacing: 0.3px; }}
 
 </style>
 </head>
@@ -429,7 +434,7 @@ html += f"""
           <p style="font-weight: bold; color: #D4813E; font-size: 16px; letter-spacing: 1px;">FOLLOW US @LITTLEJALEBIS</p>
           <!-- Instagram QR code added below the icon -->
           <div style="margin-top: 10px;">
-            <img src="https://res.cloudinary.com/dwffrfajl/image/upload/v1768128519/qr_xvsuyp.png" alt="Instagram QR code" style="height: 90px; display: inline-block;">
+            <img src="https://res.cloudinary.com/dwffrfajl/image/upload/v1768128519/qr_xvsuyp.png" alt="Instagram QR code" style="height: 200px; display: inline-block;">
           </div>
       </div>
     </div>
