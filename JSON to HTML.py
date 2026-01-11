@@ -143,6 +143,51 @@ html = f"""
   .description {{ font-size: 11px; color: #666; font-style: italic; display: block; }}
   .badge {{ font-size: 9px; padding: 2px 6px; border-radius: 3px; background: #D3D3D3; color: #333; font-weight: bold; display: inline-block; margin-left: 8px; border: 1px solid #CCCCCC; white-space: nowrap; }}
   .badge:empty {{ display: none; }}
+
+  /* Gallery page styling */
+  .gallery-section {{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    /* Use explicit height for A4 printable area but reserve space for logo so content centers within remaining area */
+    height: calc(297mm - 30mm - 30mm); /* subtract ~30mm for logo area */
+    box-sizing: border-box;
+    padding: 5mm 0;
+    text-align: center;
+  }}
+  .gallery-logo .main-logo {{ max-width: 160px; height:auto; }}
+  .gallery-content {{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+  }}
+  .gallery-heading {{
+    font-size: 20px;
+    color: #2D3E50;
+    font-weight:700;
+    margin: 10px 0 6px;
+    text-align:center;
+    letter-spacing: 1px;
+    /* Remove default H2 underline for gallery heading */
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+    text-decoration: none !important;
+  }}
+  .gallery-tagline {{
+    font-size: 20px;
+    color: #2D3E50;
+    font-weight:600;
+    margin-top: 12px;
+    text-align:center;
+    letter-spacing: 0.6px;
+  }}
+  .gallery-hr {{ border:0; border-top:2px solid #2D3E50; width:60%; margin: 8px auto 14px; }}
+  .photo-grid td {{ padding:6px; vertical-align: top; }}
+  .gallery-img {{ width:100%; height:150px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); display:block; }}
+
 </style>
 </head>
 <body>
@@ -197,10 +242,16 @@ if _image_urls:
         _image_urls.append('')
 
     html += f"""
-        <div style="page-break-before: always; padding-top: 15px; text-align: center;">
-          <h2>PHOTO GALLERY</h2>
-          <table style="width:100%; border-collapse: collapse; table-layout: fixed;">
-            <tbody>
+        <div style="page-break-before: always;">
+          <div class="logo-wrapper">
+            <img src="{logo_url}" class="main-logo" alt="Little Jalebis Logo">
+          </div>
+          <div class="gallery-section">
+            <div class="gallery-content">
+              <h2 class="gallery-heading">PHOTO GALLERY</h2>
+              <hr class="gallery-hr" />
+              <table class="photo-grid" style="width:820px; margin: 0 auto; border-collapse: collapse; table-layout: fixed;">
+                <tbody>
     """
     for r in range(3):
         html += "        <tr>"
@@ -208,13 +259,16 @@ if _image_urls:
             idx = r*3 + c
             url = _image_urls[idx]
             if url:
-                html += f"<td style='width:33%; padding:4px;'><img src=\"{url}\" style=\"width:100%; height:140px; object-fit:cover; border:1px solid #ddd; display:block;\"></td>"
+                html += f"<td style='width:33%; padding:4px;'><img src=\"{url}\" class=\"gallery-img\" alt=\"gallery image {idx}\"></td>"
             else:
                 html += "<td style='width:33%; padding:4px;'></td>"
         html += "</tr>"
     html += """
-            </tbody>
-          </table>
+                </tbody>
+              </table>
+              <div class="gallery-tagline">INDIA'S FIRST KIDS-CENTRIC CATERING COMPANY</div>
+            </div>
+          </div>
         </div>
     """
 
