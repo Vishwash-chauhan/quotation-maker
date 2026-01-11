@@ -218,7 +218,7 @@ if _image_urls:
         </div>
     """
 
-
+html += f"""
 <table class="page-container" style="width: 100%;">
   <tfoot><tr><td class="table-spacer"></td></tr></tfoot>
   <tbody>
