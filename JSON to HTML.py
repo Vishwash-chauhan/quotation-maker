@@ -170,6 +170,55 @@ html = f"""
   </div>
 </div>
 
+"""  # 2.5 PHOTO GALLERY (PAGE 2)
+images = cust.get('ImageGrid') or []
+# Handle serialized JSON strings (if passed as string)
+try:
+    if isinstance(images, str) and images.strip():
+        import json as _json
+        images = _json.loads(images)
+except Exception:
+    # leave as-is
+    pass
+
+# Normalize to list of urls
+_image_urls = []
+for it in (images or []):
+    if isinstance(it, dict):
+        url = it.get('url') or it.get('secure_url') or it.get('secureUrl') or it.get('src')
+    else:
+        url = str(it)
+    if url: _image_urls.append(url)
+
+if _image_urls:
+    # keep up to 9 images and pad with empty strings
+    _image_urls = _image_urls[:9]
+    while len(_image_urls) < 9:
+        _image_urls.append('')
+
+    html += f"""
+        <div style="page-break-before: always; padding-top: 15px; text-align: center;">
+          <h2>PHOTO GALLERY</h2>
+          <table style="width:100%; border-collapse: collapse; table-layout: fixed;">
+            <tbody>
+    """
+    for r in range(3):
+        html += "        <tr>"
+        for c in range(3):
+            idx = r*3 + c
+            url = _image_urls[idx]
+            if url:
+                html += f"<td style='width:33%; padding:4px;'><img src=\"{url}\" style=\"width:100%; height:140px; object-fit:cover; border:1px solid #ddd; display:block;\"></td>"
+            else:
+                html += "<td style='width:33%; padding:4px;'></td>"
+        html += "</tr>"
+    html += """
+            </tbody>
+          </table>
+        </div>
+    """
+
+
 <table class="page-container" style="width: 100%;">
   <tfoot><tr><td class="table-spacer"></td></tr></tfoot>
   <tbody>

@@ -114,6 +114,20 @@
       max-height: 90vh;
       overflow-y: auto;
     }
+
+    /* Image Gallery styles */
+    .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
+    .gallery-thumb { position: relative; border: 1px solid #e6e6e6; border-radius: 6px; overflow: hidden; cursor: pointer; }
+    .gallery-thumb img { width: 100%; height: 80px; object-fit: cover; display: block; }
+    .gallery-thumb .sel { position: absolute; top: 6px; right: 6px; background: rgba(255,255,255,0.9); border-radius: 50%; width: 24px; height: 24px; display:flex;align-items:center;justify-content:center;font-weight:700;color:#2D3E50 }
+    .gallery-thumb.selected { outline: 3px solid #F6B27A; }
+    .gallery-actions { display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:12px; }
+    .gallery-upload-note { font-size:12px; color:#666; }
+
+    .selected-preview { display:flex; gap:8px; align-items:center; margin-left:12px; }
+    .selected-preview img{ height:36px; width:36px; object-fit:cover; border-radius:4px; border:1px solid #eee }
+    .upload-progress{ font-size:12px; color:#666; margin-left:8px }
+    .upload-err{ color: #d32f2f; font-size:12px; margin-top:8px }
     .modal-content h2 {
       color: #2D3E50;
       margin-top: 0;
@@ -267,6 +281,10 @@
         <label>Location</label>
         <input id="location" type="text"/>
       </div>
+      <div style="margin-top:8px; display:flex; align-items:center; gap:12px;">
+        <button id="manageImagesBtn" type="button" style="background:#F6B27A;color:#2D3E50;border-radius:6px;padding:8px 12px;border:none;font-weight:600">Manage Images</button>
+        <div id="selectedImagesPreview" class="selected-preview" aria-live="polite"></div>
+      </div>
     </div>
 
     <label style="margin-top:18px"></label>
@@ -405,6 +423,29 @@
     <div id="status" class="small" style="margin-top:12px"><span class="spinner" id="spinner"></span><span id="statusText"></span></div>
   </div>
 
+  <!-- Image Gallery Modal -->
+  <div id="imageModal" class="modal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="imageModalTitle">
+      <h2 id="imageModalTitle">Manage Images (Select up to 9)</h2>
+      <p class="gallery-upload-note">Upload images directly to Cloudinary and select up to 9 images for the 3x3 gallery.</p>
+      <div class="gallery-actions">
+        <div style="display:flex;gap:8px;align-items:center">
+          <input id="imageFilesInput" type="file" accept="image/*" multiple />
+          <button id="uploadImagesBtn" class="primary" type="button">Upload Selected</button>
+        </div>
+        <div style="text-align:right">
+          <span id="galleryCount">0</span>/9 selected
+        </div>
+      </div>
+      <div id="galleryGrid" class="gallery-grid" aria-live="polite"></div>
+      <div id="galleryStatus" class="upload-progress" style="text-align:left"></div>
+      <div style="margin-top:12px; display:flex; gap:8px; justify-content:flex-end;">
+        <button id="saveImagesBtn" type="button" class="primary">Save Selection</button>
+        <button id="closeImagesBtn" type="button" class="secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
   <!-- PDF Modal Popup -->
   <div id="pdfModal" class="modal">
     <div class="modal-content">
@@ -431,6 +472,112 @@ const totalAmountEl = document.getElementById('totalAmount');
 const webhookEl = document.getElementById('webhookUrl');
 const hostNameEl = document.getElementById('hostName');
 const quoteIdEl = document.getElementById('quoteId');
+
+// --- Cloudinary configuration: set your unsigned upload preset here ---
+const CLOUDINARY_CLOUD_NAME = 'dwffrfajl'; // change if needed
+const CLOUDINARY_UPLOAD_PRESET = 'little_jalabies_quotation_uploads'; // <--- set your UNSIGNED upload preset name here
+const CLOUDINARY_UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/upload`;
+
+// Gallery state
+let galleryImages = []; // { url }
+let selectedImages = []; // array of urls (max 9)
+
+// Elements
+const manageImagesBtn = document.getElementById('manageImagesBtn');
+const imageModal = document.getElementById('imageModal');
+const closeImagesBtn = document.getElementById('closeImagesBtn');
+const saveImagesBtn = document.getElementById('saveImagesBtn');
+const imageFilesInput = document.getElementById('imageFilesInput');
+const uploadImagesBtn = document.getElementById('uploadImagesBtn');
+const galleryGrid = document.getElementById('galleryGrid');
+const galleryCount = document.getElementById('galleryCount');
+const galleryStatus = document.getElementById('galleryStatus');
+const selectedImagesPreview = document.getElementById('selectedImagesPreview');
+
+function openImageModal(){
+  imageModal.classList.add('show');
+  imageModal.setAttribute('aria-hidden','false');
+  renderGallery();
+}
+function closeImageModal(){
+  imageModal.classList.remove('show');
+  imageModal.setAttribute('aria-hidden','true');
+}
+manageImagesBtn && manageImagesBtn.addEventListener('click', ()=>{
+  openImageModal();
+});
+closeImagesBtn && closeImagesBtn.addEventListener('click', ()=>{ closeImageModal(); });
+
+function renderGallery(){
+  galleryGrid.innerHTML = '';
+  galleryImages.forEach((img, idx)=>{
+    const el = document.createElement('div'); el.className = 'gallery-thumb'+(selectedImages.includes(img.url)?' selected':'');
+    el.dataset.idx = idx;
+    el.innerHTML = `<img src="${img.url}" alt="img-${idx}"><div class="sel">${selectedImages.includes(img.url)?'✓':''}</div>`;
+    el.addEventListener('click', ()=>toggleSelectImage(img.url, el));
+    galleryGrid.appendChild(el);
+  });
+  galleryCount.textContent = selectedImages.length;
+}
+
+function toggleSelectImage(url, el){
+  const idx = selectedImages.indexOf(url);
+  if (idx === -1){
+    if (selectedImages.length >= 9){ alert('You can select up to 9 images only'); return; }
+    selectedImages.push(url);
+    el.classList.add('selected');
+    el.querySelector('.sel').textContent = '✓';
+  } else {
+    selectedImages.splice(idx,1);
+    el.classList.remove('selected');
+    el.querySelector('.sel').textContent = '';
+  }
+  galleryCount.textContent = selectedImages.length;
+}
+
+// Preview selectedImages in the form
+function renderSelectedPreview(){
+  selectedImagesPreview.innerHTML = '';
+  selectedImages.forEach(u=>{ const i = document.createElement('img'); i.src = u; selectedImagesPreview.appendChild(i); });
+}
+
+saveImagesBtn && saveImagesBtn.addEventListener('click', ()=>{
+  renderSelectedPreview();
+  closeImageModal();
+});
+
+// Handle file uploads to Cloudinary
+uploadImagesBtn && uploadImagesBtn.addEventListener('click', async ()=>{
+  const files = imageFilesInput.files;
+  if (!files || files.length === 0){ galleryStatus.textContent = 'No files selected.'; return; }
+  if (!CLOUDINARY_UPLOAD_PRESET){ galleryStatus.innerHTML = '<span class="upload-err">Set CLOUDINARY_UPLOAD_PRESET in the JS to enable uploads.</span>'; return; }
+  galleryStatus.textContent = 'Uploading...';
+  for (const f of files){
+    try{
+      const url = await uploadFileToCloudinary(f);
+      if (url){ galleryImages.unshift({url}); }
+    }catch(e){ console.error('upload err', e); galleryStatus.innerHTML = '<span class="upload-err">Upload failed for one or more files.</span>'; }
+  }
+  galleryStatus.textContent = '';
+  renderGallery();
+});
+
+function uploadFileToCloudinary(file){
+  return new Promise((resolve, reject)=>{
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+    fetch(CLOUDINARY_UPLOAD_URL, { method: 'POST', body: fd })
+    .then(r=>r.json())
+    .then(data=>{
+      if (data && (data.secure_url || data.url)) resolve(data.secure_url || data.url);
+      else reject(new Error('Upload failed'));
+    }).catch(reject);
+  })
+}
+
+// Allow adding existing Cloudinary URLs manually (optional):
+function addImageUrl(url){ if(!url) return; galleryImages.unshift({url}); renderGallery(); }
 
 // Generate unique Quote ID counter from localStorage
 function getNextQuoteCounter(hostName) {
@@ -1049,7 +1196,8 @@ function collectPayload(){
     Chaffing: document.getElementById('chaffing').value,
     Conveyance: document.getElementById('conveyance').value,
     Tables: document.getElementById('tables').value,
-    KitchenSpace: document.getElementById('kitchenSpace').value
+    KitchenSpace: document.getElementById('kitchenSpace').value,
+    ImageGrid: selectedImages.slice(0,9) // array of image URLs (max 9)
   };
   return payload;
 }
