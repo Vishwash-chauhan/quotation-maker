@@ -184,11 +184,15 @@ html = f"""
           <div class="header-details">
             <div class="header-detail-row">
               <div><strong>HOST:</strong> {cust.get('Host Name', 'N/A')}</div>
-              <div><strong>DATE:</strong> {cust.get('Event Date', 'N/A')}</div>
+              <div><strong>MOBILE:</strong> {cust.get('Mobile No', 'N/A')}</div>
             </div>
             <div class="header-detail-row">
-              <div><strong>PAX:</strong> {cust.get('Pax', 'N/A')}</div>
+              <div><strong>DATE:</strong> {cust.get('Event Date', 'N/A')}</div>
+              <div><strong>TIME:</strong> {cust.get('Time', 'N/A')}</div>
+            </div>
+            <div class="header-detail-row">
               <div><strong>LOCATION:</strong> {cust.get('Location', 'N/A')}</div>
+              <div><strong>PAX:</strong> {cust.get('Pax', 'N/A')}</div>
             </div>
           </div>
         </div>
@@ -320,7 +324,10 @@ html += f"""
 
       <div style="text-align: center; margin-top: 40px;">
           <p style="font-weight: bold; color: #D4813E; font-size: 16px; letter-spacing: 1px;">FOLLOW US @LITTLEJALEBIS</p>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" style="height: 25px; vertical-align: middle; margin-top: 5px;">
+          <!-- Instagram QR code added below the icon -->
+          <div style="margin-top: 10px;">
+            <img src="https://res.cloudinary.com/dwffrfajl/image/upload/v1768128519/qr_xvsuyp.png" alt="Instagram QR code" style="height: 90px; display: inline-block;">
+          </div>
       </div>
     </div>
   </body>
