@@ -794,7 +794,7 @@ function addItemToTable(item, idx){
   const pcsDisplay = item['PcsDisplay'] || '';
   tr.innerHTML = `<td><strong>${item['Name']}</strong></td>
     <td><input class="portions" type="number" min="0" value="1" style="width:60px;padding:6px;border:1px solid #ccc;border-radius:6px" /></td>
-    <td class="col-right">${formatCurrency(rate)}</td>
+    <td><input class="rate" type="number" min="0" step="0.01" value="${rate}" style="width:100px;padding:6px;border:1px solid #ccc;border-radius:6px;text-align:right" /></td>
     <td class="col-right amount">${formatCurrency(rate)}</td>
     <td class="pcsDisplay">${pcsDisplay}</td>
     <td>
@@ -822,6 +822,10 @@ function addItemToTable(item, idx){
   catBody.appendChild(tr);
   const portionsInput = tr.querySelector('.portions');
   portionsInput.addEventListener('input', ()=>updateRowAmount(tr));
+  const rateInput = tr.querySelector('.rate');
+  if (rateInput){
+    rateInput.addEventListener('input', ()=>{ updateRowAmount(tr); });
+  }
   // delete button
   tr.querySelector('.deleteBtn').addEventListener('click', (e)=>{ handleDeleteRow(tr); });
   const upBtn = tr.querySelector('.upBtn');
@@ -1015,7 +1019,7 @@ function addCustomItem(){
   tr.dataset.isCustom = 'true';
   tr.innerHTML = `<td><strong>${name}</strong></td>
     <td><input class="portions" type="number" min="0" value="${portions}" style="width:60px;padding:6px;border:1px solid #ccc;border-radius:6px" /></td>
-    <td class="col-right">${formatCurrency(rate)}</td>
+    <td><input class="rate" type="number" min="0" step="0.01" value="${rate}" style="width:100px;padding:6px;border:1px solid #ccc;border-radius:6px;text-align:right" /></td>
     <td class="col-right amount">${formatCurrency(portions * rate)}</td>
     <td class="pcsDisplay">${pcs}</td>
     <td>
@@ -1045,6 +1049,8 @@ function addCustomItem(){
 
   // Add event listeners
   tr.querySelector('.portions').addEventListener('input', ()=>updateCustomRowAmount(tr));
+  const rateInputC = tr.querySelector('.rate');
+  if (rateInputC){ rateInputC.addEventListener('input', ()=>updateCustomRowAmount(tr)); }
   tr.querySelector('.deleteBtn').addEventListener('click', ()=>{ handleDeleteRow(tr); });
   const upBtnC = tr.querySelector('.upBtn');
   if (upBtnC) upBtnC.addEventListener('click', ()=>moveRowUp(tr));
@@ -1066,7 +1072,8 @@ function addCustomItem(){
 
 function updateCustomRowAmount(tr){
   const portions = Number(tr.querySelector('.portions').value) || 0;
-  const rate = Number(tr.dataset.rate) || 0;
+  const rateEl = tr.querySelector('.rate');
+  const rate = rateEl ? Number(rateEl.value) : (Number(tr.dataset.rate) || 0);
   const amt = portions * rate;
   tr.querySelector('.amount').textContent = formatCurrency(amt);
   updatePcsDisplay(tr);
@@ -1075,7 +1082,8 @@ function updateCustomRowAmount(tr){
 
 function updateRowAmount(tr){
   const portions = Number(tr.querySelector('.portions').value) || 0;
-  const rate = Number(tr.dataset.rate) || 0;
+  const rateEl = tr.querySelector('.rate');
+  const rate = rateEl ? Number(rateEl.value) : (Number(tr.dataset.rate) || 0);
   const amt = portions * rate;
   tr.querySelector('.amount').textContent = formatCurrency(amt);
   updatePcsDisplay(tr);
@@ -1164,7 +1172,8 @@ function collectPayload(){
     const portions = Number(tr.querySelector('.portions') ? tr.querySelector('.portions').value : 0) || 0;
     const pcsEl = tr.querySelector('.pcsDisplay');
     const pcsDisplay = pcsEl ? (pcsEl.value !== undefined ? pcsEl.value : pcsEl.textContent.trim()) : '';
-    const rate = Number(tr.dataset.rate) || 0;
+    const rateEl = tr.querySelector('.rate');
+    const rate = rateEl ? Number(rateEl.value) : (Number(tr.dataset.rate) || 0);
     const category = tr.dataset.category || 'Other';
     const vegNonVeg = tr.dataset.vegNonVeg || '';
     items.push({ Name: name, Description: desc, Category: category, VegNonVeg: vegNonVeg, Portions: portions, PcsDisplay: pcsDisplay, Rate: rate, Amount: portions*rate });
