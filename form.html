@@ -27,6 +27,7 @@
     .menu-item .right{width:140px;text-align:right;color:#333}
     .menu-item label{margin:0;cursor:pointer}
     .menu-item input[type=checkbox]{width:18px;height:18px;cursor:pointer}
+    .description-input { font-size: 13px; color: #444; margin-top: 6px; width: 100%; box-sizing: border-box; padding: 6px; border: 1px solid #e6e6e6; border-radius: 6px; resize: vertical; min-height: 44px; }
     table{width:100%;border-collapse:collapse;margin-top:16px;border:1px solid #ddd}
     th,td{border:1px solid #ddd;padding:12px;text-align:left}
     th{background:#f7f7f7;font-weight:600;color:#333}
@@ -792,7 +793,9 @@ function addItemToTable(item, idx){
   tr.dataset.idx = idx;
   const rate = Number(item['Rate']||0);
   const pcsDisplay = item['PcsDisplay'] || '';
-  tr.innerHTML = `<td><strong>${item['Name']}</strong></td>
+  tr.innerHTML = `<td><strong>${item['Name']}</strong>
+      <div style="margin-top:6px;"><textarea class="description-input" rows="2" placeholder="Item description">${item['Description']||''}</textarea></div>
+    </td>
     <td><input class="portions" type="number" min="0" value="1" style="width:60px;padding:6px;border:1px solid #ccc;border-radius:6px" /></td>
     <td><input class="rate" type="number" min="0" step="0.01" value="${rate}" style="width:100px;padding:6px;border:1px solid #ccc;border-radius:6px;text-align:right" /></td>
     <td class="col-right amount">${formatCurrency(rate)}</td>
@@ -820,6 +823,10 @@ function addItemToTable(item, idx){
   const cat = tr.dataset.category || 'Other';
   const catBody = getCategoryBody(cat);
   catBody.appendChild(tr);
+  const descInput = tr.querySelector('.description-input');
+  if (descInput){
+    descInput.addEventListener('input', ()=>{ tr.dataset.description = descInput.value; });
+  }
   const portionsInput = tr.querySelector('.portions');
   portionsInput.addEventListener('input', ()=>updateRowAmount(tr));
   const rateInput = tr.querySelector('.rate');
@@ -1017,7 +1024,9 @@ function addCustomItem(){
   // Create table row with delete button
   const tr = document.createElement('tr');
   tr.dataset.isCustom = 'true';
-  tr.innerHTML = `<td><strong>${name}</strong></td>
+  tr.innerHTML = `<td><strong>${name}</strong>
+      <div style="margin-top:6px;"><textarea class="description-input" rows="2" placeholder="Item description">${desc}</textarea></div>
+    </td>
     <td><input class="portions" type="number" min="0" value="${portions}" style="width:60px;padding:6px;border:1px solid #ccc;border-radius:6px" /></td>
     <td><input class="rate" type="number" min="0" step="0.01" value="${rate}" style="width:100px;padding:6px;border:1px solid #ccc;border-radius:6px;text-align:right" /></td>
     <td class="col-right amount">${formatCurrency(portions * rate)}</td>
@@ -1057,6 +1066,8 @@ function addCustomItem(){
   const downBtnC = tr.querySelector('.downBtn');
   if (downBtnC) downBtnC.addEventListener('click', ()=>moveRowDown(tr));
   makeRowDraggable(tr);
+  const descInputC = tr.querySelector('.description-input');
+  if (descInputC){ descInputC.addEventListener('input', ()=>{ tr.dataset.description = descInputC.value; }); }
 
   // Clear form
   document.getElementById('customName').value = '';
@@ -1168,7 +1179,9 @@ function collectPayload(){
   const items = [];
   document.querySelectorAll('#selectedTable tbody tr:not(.category-row)').forEach(tr=>{
     const name = tr.querySelector('td strong') ? tr.querySelector('td strong').textContent : '';
-    const desc = tr.dataset.description || '';
+    let desc = tr.dataset.description || '';
+    const descEl = tr.querySelector('.description-input');
+    if (descEl) desc = descEl.value.trim();
     const portions = Number(tr.querySelector('.portions') ? tr.querySelector('.portions').value : 0) || 0;
     const pcsEl = tr.querySelector('.pcsDisplay');
     const pcsDisplay = pcsEl ? (pcsEl.value !== undefined ? pcsEl.value : pcsEl.textContent.trim()) : '';

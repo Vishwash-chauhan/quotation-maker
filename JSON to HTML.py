@@ -418,19 +418,20 @@ html += f"""
       <div class="logo-wrapper">
         <img src="{logo_url}" class="main-logo" alt="Little Jalebis Logo">
       </div>
-      <h3 style="text-decoration: underline; margin-bottom: 15px;">Please Note :</h3>
+      <h3 style="text-decoration: underline; margin-bottom: 15px; margin-top: 15px;">Please Note :</h3>
       <ul class="note-list" style="list-style-type: disc; padding-left: 20px; font-size: 14px;">
-        <li style="margin-bottom: 10px;">We half-prepare snacks at our facility and finish them at your venue for maximum freshness. Main course is fully prepared in our kitchen ready to be served.</li>
-        <li style="margin-bottom: 10px;">We do not require any minimum guarantees.</li>
-        <li style="margin-bottom: 10px;">1 Portion of main course dish is sufficient for 3-4 Adults or 4-5 Kids.</li>
-        <li style="margin-bottom: 10px;">In case kitchen access is not available, then additional charge of Rs 3000 will be applicable for stove with cylinder & other equipment.</li>
-        <li style="margin-bottom: 10px;">To help us give you a flawless experience, we request for no changes in the menu 4-5 days prior to the event.</li>
-        <li style="margin-bottom: 10px;">We also provide nanny boxes. Kindly connect with us for details.</li>
-        <li style="margin-bottom: 10px;">Please let us know if there is an increase in the number of expected guests minimum 4-5 days prior.</li>
-        <li style="margin-bottom: 10px;">All bookings are subject to availability at the time of confirmation with a non-refundable 50% advance payment.</li>
+        <li style="margin-bottom: 10px;"><strong>No Minimum Guarantee:</strong> We do not require any minimum guarantee of people. However, our minimum order value for catering is ₹ 20,000 + GST.</li>
+        <li style="margin-bottom: 10px;"><strong>Portion Size:</strong> 1 portion of a main course dish serves 3–4 adults or 4–5 kids.</li>
+        <li style="margin-bottom: 10px;"><strong>Event Duration:</strong> Service duration is 4 hours from the guest invite time.</li>
+        <li style="margin-bottom: 10px;"><strong>Kitchen Access:</strong> If kitchen access is not available, an additional charge of ₹3,000 will apply for stove, cylinder, and other equipment.</li>
+        <li style="margin-bottom: 10px;"><strong>Menu Finalization:</strong> To ensure a flawless experience, please confirm the menu 4–5 days prior to the event. No changes can be accommodated after this.</li>
+        <li style="margin-bottom: 10px;"><strong>Nanny Boxes:</strong> Available on request. Please connect with us for details.</li>
+        <li style="margin-bottom: 10px;"><strong>Guest Count Updates:</strong> Kindly inform us of any increase in guest count at least 4–5 days prior.</li>
+        <li style="margin-bottom: 10px;"><strong>Booking Policy:</strong> All bookings are subject to availability at the time of confirmation and require a non-refundable 50% advance payment.</li>
+        <li style="margin-bottom: 10px;"><strong>Add-On Services:</strong> Options such as sanitised toys and theme-aligned play areas can be arranged on request by our sister company. Please connect with us for details.</li>
       </ul>
 
-      <div style="text-align: center; margin-top: 40px;">
+    <div style="text-align: center; margin-top: 110px;">
           <p style="font-weight: bold; color: #D4813E; font-size: 16px; letter-spacing: 1px;">FOLLOW US @LITTLEJALEBIS</p>
           <!-- Instagram QR code added below the icon -->
           <div style="margin-top: 10px;">
