@@ -415,6 +415,13 @@ if host_reqs:
 
 html += "</td></tr></tbody></table>"
 
+# Link to master menu (placed after the very last menu table)
+html += """
+    <div style="margin-top: 10px; text-align: center; font-size: 14px;">
+      <p style="margin: 6px 0 0 0;"><strong>Visit Our Master Menu At</strong><br><a href="https://tinyurl.com/4tzr93wn">https://tinyurl.com/4tzr93wn</a></p>
+    </div>
+"""
+
 # 6. Final Page (PAGE 4)
 html += f"""
     <div class="last-page" style="page-break-before: always; padding-top: 15px;">
