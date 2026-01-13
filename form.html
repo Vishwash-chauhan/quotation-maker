@@ -28,6 +28,9 @@
     .menu-item label{margin:0;cursor:pointer}
     .menu-item input[type=checkbox]{width:18px;height:18px;cursor:pointer}
     .description-input { font-size: 13px; color: #444; margin-top: 6px; width: 100%; box-sizing: border-box; padding: 6px; border: 1px solid #e6e6e6; border-radius: 6px; resize: vertical; min-height: 44px; }
+    .veg-toggle { display:inline-block; font-size:12px; padding:4px 8px; border-radius: 16px; border: 1px solid #dcdcdc; margin-left:8px; cursor:pointer; background:#f0f8f5; color:#1b5e20; min-width:56px; text-align:center; }
+    .veg-toggle.non-veg { background:#fff5f5; color:#8b0000; border-color:#f2c0c0 }
+    .veg-toggle.veg { background:#eafaf0; color:#116830; border-color:#c6f0d1 }
     table{width:100%;border-collapse:collapse;margin-top:16px;border:1px solid #ddd}
     th,td{border:1px solid #ddd;padding:12px;text-align:left}
     th{background:#f7f7f7;font-weight:600;color:#333}
@@ -793,7 +796,9 @@ function addItemToTable(item, idx){
   tr.dataset.idx = idx;
   const rate = Number(item['Rate']||0);
   const pcsDisplay = item['PcsDisplay'] || '';
-  tr.innerHTML = `<td><strong>${item['Name']}</strong>
+  const vegLabel = (item['VegNonVeg'] || '').toString().trim();
+  const vegClass = vegLabel.toLowerCase().includes('non') ? 'non-veg' : (vegLabel ? 'veg' : 'veg');
+  tr.innerHTML = `<td><strong>${item['Name']}</strong> <button type="button" class="veg-toggle ${vegClass}" aria-pressed="${vegLabel.toLowerCase().includes('non')}">${vegLabel || 'Veg'}</button>
       <div style="margin-top:6px;"><textarea class="description-input" rows="2" placeholder="Item description">${item['Description']||''}</textarea></div>
     </td>
     <td><input class="portions" type="number" min="0" value="1" style="width:60px;padding:6px;border:1px solid #ccc;border-radius:6px" /></td>
@@ -823,6 +828,21 @@ function addItemToTable(item, idx){
   const cat = tr.dataset.category || 'Other';
   const catBody = getCategoryBody(cat);
   catBody.appendChild(tr);
+  const vegBtn = tr.querySelector('.veg-toggle');
+  if (vegBtn){
+    vegBtn.addEventListener('click', ()=>{
+      const cur = (tr.dataset.vegNonVeg||'').toString().toLowerCase().includes('non') ? 'Veg' : 'Non-Veg';
+      tr.dataset.vegNonVeg = cur;
+      vegBtn.textContent = cur;
+      vegBtn.classList.toggle('non-veg', cur === 'Non-Veg');
+      vegBtn.classList.toggle('veg', cur === 'Veg');
+      vegBtn.setAttribute('aria-pressed', cur === 'Non-Veg');
+    });
+    // ensure button reflects initial state
+    const initial = (tr.dataset.vegNonVeg||'').toString().trim();
+    if (initial.toLowerCase().includes('non')){ vegBtn.textContent='Non-Veg'; vegBtn.classList.add('non-veg'); vegBtn.setAttribute('aria-pressed', 'true'); }
+    else { vegBtn.textContent = initial || 'Veg'; vegBtn.classList.add('veg'); vegBtn.setAttribute('aria-pressed', 'false'); }
+  }
   const descInput = tr.querySelector('.description-input');
   if (descInput){
     descInput.addEventListener('input', ()=>{ tr.dataset.description = descInput.value; });
@@ -1024,7 +1044,7 @@ function addCustomItem(){
   // Create table row with delete button
   const tr = document.createElement('tr');
   tr.dataset.isCustom = 'true';
-  tr.innerHTML = `<td><strong>${name}</strong>
+  tr.innerHTML = `<td><strong>${name}</strong> <button type="button" class="veg-toggle ${vegNonVeg && vegNonVeg.toLowerCase().includes('non') ? 'non-veg' : (vegNonVeg ? 'veg' : 'veg') }" aria-pressed="${(vegNonVeg||'').toLowerCase().includes('non')}">${vegNonVeg || 'Veg'}</button>
       <div style="margin-top:6px;"><textarea class="description-input" rows="2" placeholder="Item description">${desc}</textarea></div>
     </td>
     <td><input class="portions" type="number" min="0" value="${portions}" style="width:60px;padding:6px;border:1px solid #ccc;border-radius:6px" /></td>
@@ -1066,6 +1086,20 @@ function addCustomItem(){
   const downBtnC = tr.querySelector('.downBtn');
   if (downBtnC) downBtnC.addEventListener('click', ()=>moveRowDown(tr));
   makeRowDraggable(tr);
+  const vegBtnC = tr.querySelector('.veg-toggle');
+  if (vegBtnC){
+    vegBtnC.addEventListener('click', ()=>{
+      const cur = (tr.dataset.vegNonVeg||'').toString().toLowerCase().includes('non') ? 'Veg' : 'Non-Veg';
+      tr.dataset.vegNonVeg = cur;
+      vegBtnC.textContent = cur;
+      vegBtnC.classList.toggle('non-veg', cur === 'Non-Veg');
+      vegBtnC.classList.toggle('veg', cur === 'Veg');
+      vegBtnC.setAttribute('aria-pressed', cur === 'Non-Veg');
+    });
+    const initialC = (tr.dataset.vegNonVeg||'').toString().trim();
+    if (initialC.toLowerCase().includes('non')){ vegBtnC.textContent='Non-Veg'; vegBtnC.classList.add('non-veg'); vegBtnC.setAttribute('aria-pressed', 'true'); }
+    else { vegBtnC.textContent = tr.dataset.vegNonVeg || 'Veg'; vegBtnC.classList.add('veg'); vegBtnC.setAttribute('aria-pressed', 'false'); }
+  }
   const descInputC = tr.querySelector('.description-input');
   if (descInputC){ descInputC.addEventListener('input', ()=>{ tr.dataset.description = descInputC.value; }); }
 
