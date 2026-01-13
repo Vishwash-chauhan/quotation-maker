@@ -65,8 +65,13 @@
       padding: 5px 0 15px 0;
     }
     .main-logo {
-      max-width: 160px;
+      max-width: 240px; /* increased from 160px */
       height: auto;
+    }
+
+    @media print {
+      .main-logo { width: 240px !important; max-width: 240px !important; height: auto !important; }
+      .gallery-logo .main-logo { width: 240px !important; max-width: 240px !important; height: auto !important; }
     }
 
     .full-page-section {
@@ -76,13 +81,13 @@
     }
 
     .intro-text {
-      font-size: 20px;
+      font-size: 23px;
       text-align: left;
       margin: 0 auto;
-      font-weight: 700;
-      max-width: 85%;
-      line-height: 2;
-      letter-spacing: 1px;
+      font-weight: 800;
+      max-width: 90%;
+      line-height: 2.5;
+      letter-spacing: 1.2px;
     }
 
     .header-banner { 
@@ -206,6 +211,24 @@
   </div>
 
   
+          <div style="page-break-before: always;">
+            <div class="logo-wrapper">
+              <img src="https://littlejalebis.com/wp-content/uploads/2025/04/LJ_Logo_M-2.svg" class="main-logo" alt="Little Jalebis Logo">
+            </div>
+            <div class="gallery-section">
+              <div class="gallery-content">
+                <h2 class="gallery-heading">PHOTO GALLERY</h2>
+                <hr class="gallery-hr" />
+                <table class="photo-grid" style="width:820px; margin: 0 auto; border-collapse: collapse; table-layout: fixed;">
+                  <tbody>
+              <tr><td style='width:33%; padding:4px;'><img src="https://res.cloudinary.com/dwffrfajl/image/upload/v1768137613/vxmqwdko70izz8eq0nwa.jpg" class="gallery-img" alt="gallery image 0"></td><td style='width:33%; padding:4px;'><img src="https://res.cloudinary.com/dwffrfajl/image/upload/v1768137613/fkuyydfqcbqxv1imes0t.jpg" class="gallery-img" alt="gallery image 1"></td><td style='width:33%; padding:4px;'><img src="https://res.cloudinary.com/dwffrfajl/image/upload/v1768137612/pgn4s96hid5x2btqns8h.jpg" class="gallery-img" alt="gallery image 2"></td></tr>        <tr><td style='width:33%; padding:4px;'><img src="https://res.cloudinary.com/dwffrfajl/image/upload/v1768137611/zszkne05cdh6li8lgyl5.jpg" class="gallery-img" alt="gallery image 3"></td><td style='width:33%; padding:4px;'><img src="https://res.cloudinary.com/dwffrfajl/image/upload/v1768137608/tn7rcoy1w0g5sw0clnvx.jpg" class="gallery-img" alt="gallery image 4"></td><td style='width:33%; padding:4px;'><img src="https://res.cloudinary.com/dwffrfajl/image/upload/v1768137609/x10yyd8230wxf2rnpjzv.jpg" class="gallery-img" alt="gallery image 5"></td></tr>        <tr><td style='width:33%; padding:4px;'><img src="https://res.cloudinary.com/dwffrfajl/image/upload/v1768137610/kyq7og2hhgdgwgo1e0ja.jpg" class="gallery-img" alt="gallery image 6"></td><td style='width:33%; padding:4px;'><img src="https://res.cloudinary.com/dwffrfajl/image/upload/v1768137610/zqx0o0qtmatlfkbcsgvm.jpg" class="gallery-img" alt="gallery image 7"></td><td style='width:33%; padding:4px;'><img src="https://res.cloudinary.com/dwffrfajl/image/upload/v1768137607/xftinqmucmx8bj6xrfjs.jpg" class="gallery-img" alt="gallery image 8"></td></tr>
+                  </tbody>
+                </table>
+                <div class="gallery-tagline">INDIA'S FIRST KIDS-CENTRIC CATERING COMPANY</div>
+              </div>
+            </div>
+          </div>
+      
   <table class="page-container" style="width: 100%;">
     <tfoot><tr><td class="table-spacer"></td></tr></tfoot>
     <tbody>
@@ -219,16 +242,16 @@
             <h1>EVENT QUOTATION</h1>
             <div class="header-details">
               <div class="header-detail-row">
-                <div><strong>HOST:</strong> Anshu</div>
-                <div><strong>MOBILE:</strong> 000000000</div>
+                <div><strong>HOST:</strong> Anshu Ka Birthday</div>
+                <div><strong>MOBILE:</strong> 8894036700</div>
               </div>
               <div class="header-detail-row">
-                <div><strong>DATE:</strong> 16/01/2026</div>
-                <div><strong>TIME:</strong> 10:33 AM</div>
+                <div><strong>DATE:</strong> 13/01/2026</div>
+                <div><strong>TIME:</strong> 03:23 PM</div>
               </div>
               <div class="header-detail-row">
                 <div><strong>LOCATION:</strong> New Delhi, Delhi, IND</div>
-                <div><strong>PAX:</strong> 10 Kids</div>
+                <div><strong>PAX:</strong> 3 Kids 2 Adults</div>
               </div>
             </div>
           </div>
@@ -257,9 +280,9 @@
                   <span class='description'>Classic Salted Crinkle Cut Fries, sprinkled with magic for an enchanting mealtime.</span>
                 </td>
                 <td style="text-align: center;">100 GMS</td>
-                <td style="text-align: center;">10</td>
+                <td style="text-align: center;">1</td>
                 <td style="text-align: center;">₹99</td>
-                <td style="text-align: center;">₹990</td>
+                <td style="text-align: center;">₹99</td>
               </tr>
               <tr>
                 <td>
@@ -267,9 +290,9 @@
                   <span class='description'>Blast off on a flavor adventure with our Peri Peri Crinkle Cut Fries.</span>
                 </td>
                 <td style="text-align: center;">100 GMS</td>
-                <td style="text-align: center;">12</td>
+                <td style="text-align: center;">1</td>
                 <td style="text-align: center;">₹119</td>
-                <td style="text-align: center;">₹1,428</td>
+                <td style="text-align: center;">₹119</td>
               </tr>
               <tr>
                 <td>
@@ -277,9 +300,29 @@
                   <span class='description'>Poppin' fun at its best! Regular Popcorn, the ultimate party snack.</span>
                 </td>
                 <td style="text-align: center;">100 GMS</td>
-                <td style="text-align: center;">10</td>
+                <td style="text-align: center;">1</td>
                 <td style="text-align: center;">₹99</td>
-                <td style="text-align: center;">₹990</td>
+                <td style="text-align: center;">₹99</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Whimsical Potato Wedges</strong><span class='badge'>Veg</span>
+                  <span class='description'>Potato wedges shaped like magic wands.</span>
+                </td>
+                <td style="text-align: center;"></td>
+                <td style="text-align: center;">1</td>
+                <td style="text-align: center;">₹189</td>
+                <td style="text-align: center;">₹189</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Surprise Potato Balls</strong><span class='badge'>Veg</span>
+                  <span class='description'>Surprise Potato balls are filled with yummy potato making them a hit with little adventurers.</span>
+                </td>
+                <td style="text-align: center;">10 PCS</td>
+                <td style="text-align: center;">1</td>
+                <td style="text-align: center;">₹139</td>
+                <td style="text-align: center;">₹139</td>
               </tr></tbody></table>
           <table class="data-table" style="margin-top: 15px;">
             <tfoot><tr><td colspan="5" class="table-spacer"></td></tr></tfoot>
@@ -299,8 +342,8 @@
       
               <tr>
                 <td>
-                  <strong>Extravaganza Masala Maggi</strong><span class='badge'>Veg</span>
-                  <span class='description'>A masala adventure with flavorful and spicy noodles.</span>
+                  <strong>Peri Peri Magic Maggi</strong><span class='badge'>Veg</span>
+                  <span class='description'>Noodles with a kick to spice up the meal.</span>
                 </td>
                 <td style="text-align: center;"></td>
                 <td style="text-align: center;">1</td>
@@ -309,8 +352,8 @@
               </tr>
               <tr>
                 <td>
-                  <strong>Peri Peri Magic Maggi</strong><span class='badge'>Veg</span>
-                  <span class='description'>Noodles with a kick to spice up the meal.</span>
+                  <strong>Extravaganza Masala Maggi</strong><span class='badge'>Veg</span>
+                  <span class='description'>A masala adventure with flavorful and spicy noodles.</span>
                 </td>
                 <td style="text-align: center;"></td>
                 <td style="text-align: center;">1</td>
@@ -336,175 +379,34 @@
                 <td style="text-align: center;">1</td>
                 <td style="text-align: center;">₹299</td>
                 <td style="text-align: center;">₹299</td>
-              </tr></tbody></table>
-          <table class="data-table" style="margin-top: 15px;">
-            <tfoot><tr><td colspan="5" class="table-spacer"></td></tr></tfoot>
-            <colgroup>
-              <col style="width:55%" /><col style="width:10%" /><col style="width:10%" /><col style="width:12.5%" /><col style="width:12.5%" />
-            </colgroup>
-            <thead>
-              <tr>
-                <th style="background: #F6B27A; color: #2D3E50;">RICE</th>
-                <th style="text-align: center; background: #F6B27A; color: #2D3E50;">PCS</th>
-                <th style="text-align: center; background: #F6B27A; color: #2D3E50;">PORTION</th>
-                <th style="text-align: center; background: #F6B27A; color: #2D3E50;">RATE</th>
-                <th style="text-align: center; background: #F6B27A; color: #2D3E50;">AMOUNT</th>
-              </tr>
-            </thead>
-            <tbody>
-      
-              <tr>
-                <td>
-                  <strong>Chicken Sizzle Fried Rice</strong><span class='badge'>Non-Veg</span>
-                  <span class='description'>Sizzling dance of chicken and rice.</span>
-                </td>
-                <td style="text-align: center;"></td>
-                <td style="text-align: center;">1</td>
-                <td style="text-align: center;">₹399</td>
-                <td style="text-align: center;">₹399</td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Eggs-cursion Fried Rice</strong><span class='badge'>Non-Veg</span>
-                  <span class='description'>Embark on a tasty adventure with egg-citing fried rice.</span>
-                </td>
-                <td style="text-align: center;"></td>
-                <td style="text-align: center;">1</td>
-                <td style="text-align: center;">₹349</td>
-                <td style="text-align: center;">₹349</td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Vegetable Temptation Biryani</strong><span class='badge'>Veg</span>
-                  <span class='description'>Aromatic rice and veggies served with Raita.</span>
-                </td>
-                <td style="text-align: center;"></td>
-                <td style="text-align: center;">1</td>
-                <td style="text-align: center;">₹449</td>
-                <td style="text-align: center;">₹449</td>
-              </tr></tbody></table>
-          <table class="data-table" style="margin-top: 15px;">
-            <tfoot><tr><td colspan="5" class="table-spacer"></td></tr></tfoot>
-            <colgroup>
-              <col style="width:55%" /><col style="width:10%" /><col style="width:10%" /><col style="width:12.5%" /><col style="width:12.5%" />
-            </colgroup>
-            <thead>
-              <tr>
-                <th style="background: #F6B27A; color: #2D3E50;">NOODLES</th>
-                <th style="text-align: center; background: #F6B27A; color: #2D3E50;">PCS</th>
-                <th style="text-align: center; background: #F6B27A; color: #2D3E50;">PORTION</th>
-                <th style="text-align: center; background: #F6B27A; color: #2D3E50;">RATE</th>
-                <th style="text-align: center; background: #F6B27A; color: #2D3E50;">AMOUNT</th>
-              </tr>
-            </thead>
-            <tbody>
-      
-              <tr>
-                <td>
-                  <strong>Vibrant Hakka Noodles</strong><span class='badge'>Veg</span>
-                  <span class='description'>Colorful noodles for a flavor-packed experience.</span>
-                </td>
-                <td style="text-align: center;"></td>
-                <td style="text-align: center;">1</td>
-                <td style="text-align: center;">₹299</td>
-                <td style="text-align: center;">₹299</td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Wiggly Chilli Garlic Noodles</strong><span class='badge'>Veg</span>
-                  <span class='description'>Thin noodles with a hint of garlic.</span>
-                </td>
-                <td style="text-align: center;"></td>
-                <td style="text-align: center;">1</td>
-                <td style="text-align: center;">₹289</td>
-                <td style="text-align: center;">₹289</td>
-              </tr></tbody></table>
-          <table class="data-table" style="margin-top: 15px;">
-            <tfoot><tr><td colspan="5" class="table-spacer"></td></tr></tfoot>
-            <colgroup>
-              <col style="width:55%" /><col style="width:10%" /><col style="width:10%" /><col style="width:12.5%" /><col style="width:12.5%" />
-            </colgroup>
-            <thead>
-              <tr>
-                <th style="background: #F6B27A; color: #2D3E50;">DESSERT</th>
-                <th style="text-align: center; background: #F6B27A; color: #2D3E50;">PCS</th>
-                <th style="text-align: center; background: #F6B27A; color: #2D3E50;">PORTION</th>
-                <th style="text-align: center; background: #F6B27A; color: #2D3E50;">RATE</th>
-                <th style="text-align: center; background: #F6B27A; color: #2D3E50;">AMOUNT</th>
-              </tr>
-            </thead>
-            <tbody>
-      
-              <tr>
-                <td>
-                  <strong>Custom item</strong><span class='badge'>Non-Veg</span>
-                  <span class='description'>fdjd dgkflgkv</span>
-                </td>
-                <td style="text-align: center;">50 ml</td>
-                <td style="text-align: center;">10</td>
-                <td style="text-align: center;">₹200</td>
-                <td style="text-align: center;">₹2,000</td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Desi Ghee Gulab Jamun</strong><span class='badge'>Veg</span>
-                  <span class='description'>Traditional sweet treats; soft and melt-in-the-mouth.</span>
-                </td>
-                <td style="text-align: center;">11 PCS</td>
-                <td style="text-align: center;">11</td>
-                <td style="text-align: center;">₹49</td>
-                <td style="text-align: center;">₹539</td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Fluffy Rasgulla Clouds</strong><span class='badge'>Veg</span>
-                  <span class='description'>Soft, spongy, and sugar-syrup-soaked treats.</span>
-                </td>
-                <td style="text-align: center;">10 PCS</td>
-                <td style="text-align: center;">10</td>
-                <td style="text-align: center;">₹39</td>
-                <td style="text-align: center;">₹390</td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Ice Cream</strong><span class='badge'>Veg</span>
-                  <span class='description'>Choice of Vanilla, Chocolate, Strawberry, or Butterscotch.</span>
-                </td>
-                <td style="text-align: center;"></td>
-                <td style="text-align: center;">1</td>
-                <td style="text-align: center;">₹59</td>
-                <td style="text-align: center;">₹59</td>
-              </tr></tbody></table>
-          <div style="page-break-before: always;"></div>
-          <div class="logo-wrapper">
-            <img src="https://littlejalebis.com/wp-content/uploads/2025/04/LJ_Logo_M-2.svg" class="main-logo" alt="Little Jalebis Logo">
-          </div>
-          <div style="margin-top: 15px;">
-            <h2>OTHER SERVICES & SUMMARY</h2>
+              </tr></tbody></table><div style="page-break-inside: avoid; margin-top: 10px;">
+          <div style="margin-top: 10px;">
+            <h2 style="border-top: 2px solid #334155; padding-top: 10px;">OTHER SERVICES & SUMMARY</h2>
             <table class='data-table'>
               <tfoot><tr><td colspan="5" class="table-spacer"></td></tr></tfoot>
               <tbody>
-  <tr class='total-row'><td colspan='4'>Subtotal (Items)</td><td class='col-right'>₹8,967</td></tr><tr ><td colspan='4'>Chef + Servers + Helper</td><td class='col-right'></td></tr><tr ><td colspan='4'>Table Décor (As Per Theme)</td><td class='col-right'>Included</td></tr><tr ><td colspan='4'>Cutlery & Crockery</td><td class='col-right'></td></tr><tr ><td colspan='4'>Chaffing Dishes & Snack Warmers</td><td class='col-right'></td></tr><tr ><td colspan='4'>Conveyance</td><td class='col-right'>As Per Actual</td></tr><tr class='total-row'><td colspan='4'>Subtotal (With Services)</td><td class='col-right'>₹8,967</td></tr><tr class='total-row'><td colspan='4'>GST 5%</td><td class='col-right'>₹448.35</td></tr><tr class='total-row'><td colspan='4'>TOTAL AMOUNT</td><td class='col-right'>₹9,415.35</td></tr></tbody></table></div>
-      <div style="page-break-inside: avoid; margin-top: 25px;">
+  <tr class='total-row'><td colspan='4'>Subtotal (Items)</td><td class='col-right'>₹1,431</td></tr><tr ><td colspan='4'>Chef + Servers + Helper</td><td class='col-right'></td></tr><tr ><td colspan='4'>Table Décor (As Per Theme)</td><td class='col-right'>Included</td></tr><tr ><td colspan='4'>Cutlery & Crockery</td><td class='col-right'></td></tr><tr ><td colspan='4'>Chaffing Dishes & Snack Warmers</td><td class='col-right'></td></tr><tr ><td colspan='4'>Conveyance</td><td class='col-right'>As Per Actual</td></tr><tr class='total-row'><td colspan='4'>Subtotal (With Services)</td><td class='col-right'>₹1,431</td></tr><tr class='total-row'><td colspan='4'>GST 5%</td><td class='col-right'>₹71.55</td></tr><tr class='total-row'><td colspan='4'>TOTAL AMOUNT</td><td class='col-right'>₹1,502.55</td></tr></tbody></table></div>
+      <div style="margin-top: 20px;">
           <h2>TO BE PROVIDED BY HOST</h2>
-          <ul style="font-size: 13px;"><li style='margin-bottom: 4px;'><strong>Tables with covers for the food display</strong>: As Required</li><li style='margin-bottom: 4px;'><strong>Kitchen Space & Table to be provided</strong>: As Required</li></ul></div></td></tr></tbody></table>
+          <ul style="font-size: 13px;"><li style='margin-bottom: 4px;'><strong>Tables with covers for the food display</strong>: As Required</li><li style='margin-bottom: 4px;'><strong>Kitchen Space & Table to be provided</strong>: As Required</li></ul></div></div></td></tr></tbody></table>
       <div class="last-page" style="page-break-before: always; padding-top: 15px;">
         <div class="logo-wrapper">
           <img src="https://littlejalebis.com/wp-content/uploads/2025/04/LJ_Logo_M-2.svg" class="main-logo" alt="Little Jalebis Logo">
         </div>
-        <h3 style="text-decoration: underline; margin-bottom: 15px;">Please Note :</h3>
+        <h3 style="text-decoration: underline; margin-bottom: 15px; margin-top: 15px;">Please Note :</h3>
         <ul class="note-list" style="list-style-type: disc; padding-left: 20px; font-size: 14px;">
-          <li style="margin-bottom: 10px;">We half-prepare snacks at our facility and finish them at your venue for maximum freshness. Main course is fully prepared in our kitchen ready to be served.</li>
-          <li style="margin-bottom: 10px;">We do not require any minimum guarantees.</li>
-          <li style="margin-bottom: 10px;">1 Portion of main course dish is sufficient for 3-4 Adults or 4-5 Kids.</li>
-          <li style="margin-bottom: 10px;">In case kitchen access is not available, then additional charge of Rs 3000 will be applicable for stove with cylinder & other equipment.</li>
-          <li style="margin-bottom: 10px;">To help us give you a flawless experience, we request for no changes in the menu 4-5 days prior to the event.</li>
-          <li style="margin-bottom: 10px;">We also provide nanny boxes. Kindly connect with us for details.</li>
-          <li style="margin-bottom: 10px;">Please let us know if there is an increase in the number of expected guests minimum 4-5 days prior.</li>
-          <li style="margin-bottom: 10px;">All bookings are subject to availability at the time of confirmation with a non-refundable 50% advance payment.</li>
+          <li style="margin-bottom: 10px;"><strong>No Minimum Guarantee:</strong> We do not require any minimum guarantee of people. However, our minimum order value for catering is ₹ 20,000 + GST.</li>
+          <li style="margin-bottom: 10px;"><strong>Portion Size:</strong> 1 portion of a main course dish serves 3–4 adults or 4–5 kids.</li>
+          <li style="margin-bottom: 10px;"><strong>Event Duration:</strong> Service duration is 4 hours from the guest invite time.</li>
+          <li style="margin-bottom: 10px;"><strong>Kitchen Access:</strong> If kitchen access is not available, an additional charge of ₹3,000 will apply for stove, cylinder, and other equipment.</li>
+          <li style="margin-bottom: 10px;"><strong>Menu Finalization:</strong> To ensure a flawless experience, please confirm the menu 4–5 days prior to the event. No changes can be accommodated after this.</li>
+          <li style="margin-bottom: 10px;"><strong>Nanny Boxes:</strong> Available on request. Please connect with us for details.</li>
+          <li style="margin-bottom: 10px;"><strong>Guest Count Updates:</strong> Kindly inform us of any increase in guest count at least 4–5 days prior.</li>
+          <li style="margin-bottom: 10px;"><strong>Booking Policy:</strong> All bookings are subject to availability at the time of confirmation and require a non-refundable 50% advance payment.</li>
+          <li style="margin-bottom: 10px;"><strong>Add-On Services:</strong> Options such as sanitised toys and theme-aligned play areas can be arranged on request by our sister company. Please connect with us for details.</li>
         </ul>
 
-        <div style="text-align: center; margin-top: 40px;">
+        <div style="text-align: center; margin-top: 110px;">
             <p style="font-weight: bold; color: #D4813E; font-size: 16px; letter-spacing: 1px;">FOLLOW US @LITTLEJALEBIS</p>
             <!-- Instagram QR code added below the icon -->
             <div style="margin-top: 10px;">

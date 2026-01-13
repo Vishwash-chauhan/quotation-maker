@@ -50,7 +50,7 @@ html = f"""
 
   /* TABLE SPACER: Reduced to 10mm to minimize gap between table and footer */
   .table-spacer {{
-    height: 10mm;
+    height: 5mm;
     border: none !important;
   }}
 
@@ -66,6 +66,9 @@ html = f"""
         position: fixed;
         bottom: 0;
     }}
+    /* Force logo size for print to ensure PDF renders the larger logo */
+    .main-logo {{ width: 200px !important; max-width: 200px !important; height: auto !important; }}
+    .gallery-logo .main-logo {{ width: 200px !important; max-width: 200px !important; height: auto !important; }}
     tr {{ page-break-inside: avoid; }}
   }}
 
@@ -80,7 +83,7 @@ html = f"""
     padding: 5px 0 15px 0;
   }}
   .main-logo {{
-    max-width: 160px;
+    max-width: 200px; /* increased 1.5x from 160px */
     height: auto;
   }}
 
@@ -159,7 +162,7 @@ html = f"""
     padding: 5mm 0;
     text-align: center;
   }}
-  .gallery-logo .main-logo {{ max-width: 160px; height:auto; }}
+  .gallery-logo .main-logo {{ max-width: 200px; height:auto; }}
   .gallery-content {{
     display:flex;
     flex-direction:column;
