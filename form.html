@@ -221,21 +221,30 @@
       h1 small{font-size:12px}
       h3{font-size:14px;margin:16px 0 10px 0}
       .form-grid{grid-template-columns:1fr}
-      table{font-size:13px;margin-top:12px}
-      th,td{padding:8px}
-      button{padding:10px 16px;font-size:13px;width:100%;margin-bottom:8px}
-      input,select{padding:8px;font-size:13px}
+      table{font-size:12px;margin-top:12px;min-width:100%}
+      th,td{padding:6px 4px;font-size:11px}
+      th{white-space:nowrap}
+      button{padding:8px 12px;font-size:12px;width:100%;margin-bottom:8px}
+      input,select{padding:6px;font-size:11px}
       .menu-item .right{width:100px;font-size:12px}
       .menu-item{gap:8px}
       label{margin-top:8px}
       .small{font-size:11px}
       .muted{font-size:12px}
-      /* Mobile-specific table tweaks */
-      #tableWrap{margin-left:-12px;margin-right:-12px}
-      /* drag handle already hidden; adjust small sizes for mobile */
-      .icon-btn{padding:8px}
+      /* Mobile table optimizations */
+      #tableWrap{margin-left:-8px;margin-right:-8px}
+      .description-input{font-size:11px;min-height:36px;padding:4px}
+      .veg-toggle{font-size:11px;padding:2px 6px;min-width:48px}
+      .icon-btn{padding:2px}
       .icon-btn svg{width:12px;height:12px}
-      th,td{font-size:13px}
+    }
+    @media(max-width:600px){
+      /* Stack table more compactly on tablets */
+      table{font-size:11px}
+      th,td{padding:5px 3px;font-size:10px}
+      input,select{padding:4px;font-size:10px}
+      .description-input{font-size:10px;min-height:32px;padding:3px}
+      button{padding:6px 10px;font-size:11px}
     }
     @media(max-width:480px){
       body{padding:8px}
@@ -243,14 +252,24 @@
       h1{font-size:18px}
       h1 small{font-size:11px}
       h3{font-size:13px;margin:12px 0 8px 0;padding-bottom:6px}
-      table{font-size:12px}
-      th,td{padding:6px;font-size:11px}
-      button{padding:10px 12px;font-size:12px}
-      input,select{padding:8px;font-size:12px}
+      table{font-size:10px;margin-top:8px}
+      th,td{padding:4px 2px;font-size:9px}
+      th{white-space:nowrap}
+      button{padding:6px 8px;font-size:11px}
+      input,select{padding:4px;font-size:9px;width:100%}
       .form-grid{gap:8px}
-      .col-right{font-size:12px}
-      .menu-item .right{width:80px;font-size:11px}
-      p.muted{font-size:11px}
+      .col-right{font-size:10px}
+      .menu-item .right{width:70px;font-size:10px}
+      .menu-item{gap:6px}
+      p.muted{font-size:10px}
+      /* Mobile-specific table tweaks */
+      #tableWrap{margin-left:-6px;margin-right:-6px}
+      .description-input{font-size:9px;min-height:30px;padding:2px}
+      .veg-toggle{font-size:9px;padding:1px 4px;min-width:40px}
+      .icon-btn{padding:1px}
+      .icon-btn svg{width:10px;height:10px}
+      /* Hide calc column on very small screens */
+      th:nth-child(7), td:nth-child(7){display:none}
     }
   </style>
 </head>
