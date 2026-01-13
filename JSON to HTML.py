@@ -91,13 +91,13 @@ html = f"""
   }}
 
   .intro-text {{
-    font-size: 20px;
+    font-size: 23px;
     text-align: left;
     margin: 0 auto;
-    font-weight: 700;
-    max-width: 85%;
-    line-height: 2;
-    letter-spacing: 1px;
+    font-weight: 800;
+    max-width: 90%;
+    line-height: 2.5;
+    letter-spacing: 1.2px;
   }}
 
   .header-banner {{ 
