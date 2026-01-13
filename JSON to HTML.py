@@ -431,7 +431,7 @@ html += f"""
         <li style="margin-bottom: 10px;"><strong>Add-On Services:</strong> Options such as sanitised toys and theme-aligned play areas can be arranged on request by our sister company. Please connect with us for details.</li>
       </ul>
 
-    <div style="text-align: center; margin-top: 110px;">
+      <div style="text-align: center; margin-top: 110px;">
           <p style="font-weight: bold; color: #D4813E; font-size: 16px; letter-spacing: 1px;">FOLLOW US @LITTLEJALEBIS</p>
           <!-- Instagram QR code added below the icon -->
           <div style="margin-top: 10px;">
