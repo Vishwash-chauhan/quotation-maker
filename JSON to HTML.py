@@ -196,6 +196,16 @@ html = f"""
   .data-table th {{ background: #f8f9fa; padding: 8px; text-align: left; border: 1px solid #999; font-size: 12px; line-height: 1.6; letter-spacing: 0.3px; }}
   .data-table td {{ padding: 8px; border: 1px solid #ccc; vertical-align: top; font-size: 13px; word-wrap: break-word; line-height: 1.6; letter-spacing: 0.3px; }}
 
+  /* Page break header - repeats on every page */
+  .print-header {{
+    display: table-header-group;
+  }}
+
+  .page-container {{
+    width: 100%;
+    border-collapse: collapse;
+  }}
+
 </style>
 </head>
 <body>
@@ -281,15 +291,19 @@ if _image_urls:
     """
 
 html += f"""
-<table class="page-container" style="width: 100%;">
-  <tfoot><tr><td class="table-spacer"></td></tr></tfoot>
-  <tbody>
+<table class="page-container">
+  <thead class="print-header">
     <tr>
       <td>
         <div class="logo-wrapper">
           <img src="{logo_url}" class="main-logo" alt="Little Jalebis Logo">
         </div>
-
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
         <div class="header-banner">
           <h1>EVENT QUOTATION</h1>
           <div class="header-details">
@@ -372,9 +386,6 @@ for cat, items in categories.items():
 # 4. Other Services & Summary (PAGE 3)
 html += f"""
         <div style="page-break-before: always;"></div>
-        <div class="logo-wrapper">
-          <img src="{logo_url}" class="main-logo" alt="Little Jalebis Logo">
-        </div>
         <div style="margin-top: 15px;">
           <h2>OTHER SERVICES & SUMMARY</h2>
           <table class='data-table'>
