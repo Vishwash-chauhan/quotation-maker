@@ -305,7 +305,7 @@
     <div id="tableWrap">
       <table id="selectedTable">
         <thead>
-          <tr><th>Item Details</th><th style="width:80px">Portions</th><th style="width:90px" class="col-right">Rate</th><th style="width:100px" class="col-right">Amount</th><th style="width:100px">Pcs</th><th style="width:80px">Action</th></tr>
+          <tr><th>Item Details</th><th style="width:70px">Portions</th><th style="width:90px" class="col-right">Rate</th><th style="width:100px" class="col-right">Amount</th><th style="width:80px">Pcs. Per Portion</th><th style="width:100px">Unit</th><th style="width:70px" title="Auto calculate portions">Calc.</th><th style="width:80px">Action</th></tr>
         </thead>
         <tbody></tbody>
         <tfoot>
@@ -626,115 +626,114 @@ function fetchSheet(){
   // Hardcoded menu items for offline/testing when the sheet is not public
 menuItems = [
     // TABLE SNACKS - VEG
-    {Name: "Magical Fairy Fries", Description: "Classic Salted Crinkle Cut Fries, sprinkled with magic for an enchanting mealtime.", PcsDisplay: "100 GMS", Rate: 99, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Peri Peri Space Fries", Description: "Blast off on a flavor adventure with our Peri Peri Crinkle Cut Fries.", PcsDisplay: "100 GMS", Rate: 119, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Popcorn Party Pops", Description: "Poppin' fun at its best! Regular Popcorn, the ultimate party snack.", PcsDisplay: "100 GMS", Rate: 99, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Whimsical Potato Wedges", Description: "Potato wedges shaped like magic wands.", PcsDisplay: "", Rate: 189, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Surprise Potato Balls", Description: "Surprise Potato balls are filled with yummy potato making them a hit with little adventurers.", PcsDisplay: "10 PCS", Rate: 139, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Veggie Garden Finger Bites", Description: "Crispy, colorful, and nutritious veggie fingers that make eating vegetables a treat.", PcsDisplay: "6 PCS", Rate: 159, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Sunshine Cheese Corn Nuggets", Description: "Golden nuggets filled with cheese and sweet corn, crisp on the outside and soft inside.", PcsDisplay: "6 PCS", Rate: 179, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Mini Batata Vada", Description: "Bite-sized potato vadas with a touch of spice and a whole lot of comfort.", PcsDisplay: "6 PCS", Rate: 189, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Veg Snacker Burgers", Description: "Delicious veggie patty with a cheesy spread and our secret sauce on a soft bun.", PcsDisplay: "2 PCS", Rate: 159, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Veg Dim-Sum Delights", Description: "Steamed, juicy vegetable dim sums wrapped in delicate dough.", PcsDisplay: "6 PCS", Rate: 329, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Rings of Onion", Description: "Crispy, deep-fried treats coated with a seasoned batter.", PcsDisplay: "6 PCS", Rate: 189, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Cheese Delight Balls", Description: "Tiny meteorites of cheesy goodness that kids will love.", PcsDisplay: "6 PCS", Rate: 189, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Mini Veg Sandwich Delights", Description: "Bite-sized sandwiches with a burst of freshness.", PcsDisplay: "4 PCS", Rate: 189, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Mini Paneer Tikka Rolls", Description: "Paneer popsicles on a roll, just the right size for kiddie hands.", PcsDisplay: "3 PCS", Rate: 299, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Green Hero Kebabs", Description: "Our Hara bhara kebabs are packed with veggies and flavors.", PcsDisplay: "6 PCS", Rate: 299, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Pocket Cheese Jalepeno Balls", Description: "Packed with cheese and a spicy kick for flavor-loving kids.", PcsDisplay: "6 PCS", Rate: 229, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Yummy Chilli Paneer (Dry)", Description: "Cheesy planet pals taste adventure (Dry).", PcsDisplay: "6 PCS", Rate: 349, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Mini Pizzas", Description: "Savory delight specially crafted for young taste buds.", PcsDisplay: "2 PCS", Rate: 119, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Nachos Adventure", Description: "Crunchy nachos served with zesty salsa and dip.", PcsDisplay: "100 GMS", Rate: 199, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Tomato Bruschetta Bites", Description: "Sundried Tomato Bruschetta 'aliens'.", PcsDisplay: "6 PCS", Rate: 299, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Mushroom Magic Bruschetta", Description: "Savory mushrooms atop crisp toast.", PcsDisplay: "6 PCS", Rate: 299, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Rollercoaster Veg Spring Rolls", Description: "Crispy rolls packed with stir-fried veggies.", PcsDisplay: "6 PCS", Rate: 329, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Crispy Salt n Pepper Corn", Description: "Golden corn kernels tossed with salt, pepper, and mild spices.", PcsDisplay: "", Rate: 329, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Honey Chilli Potato", Description: "Tangy, sweet, and spicy golden potato fingers.", PcsDisplay: "", Rate: 329, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Paneer Tikka Magic", Description: "Marinated paneer pieces for a culinary journey.", PcsDisplay: "6 PCS", Rate: 349, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Mini Veg Tacos", Description: "A tiny fiesta in your hands.", PcsDisplay: "3 PCS", Rate: 359, Category: "Table Snacks", VegNonVeg: "Veg"},
-    {Name: "Cheesy Corn Spring Roll Twirls", Description: "Golden crispy rolls filled with cheesy corn joy.", PcsDisplay: "6 PCS", Rate: 459, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Magical Fairy Fries", Description: "Classic Salted Crinkle Cut Fries, sprinkled with magic for an enchanting mealtime.", PcsDisplay: "100", Unit: "GMS", Calculate: "0", Rate: 99, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Peri Peri Space Fries", Description: "Blast off on a flavor adventure with our Peri Peri Crinkle Cut Fries.", PcsDisplay: "100", Unit: "GMS", Calculate: "0", Rate: 119, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Popcorn Party Pops", Description: "Poppin' fun at its best! Regular Popcorn, the ultimate party snack.", PcsDisplay: "100", Unit: "GMS", Calculate: "0", Rate: 99, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Whimsical Potato Wedges", Description: "Potato wedges shaped like magic wands.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 189, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Surprise Potato Balls", Description: "Surprise Potato balls are filled with yummy potato making them a hit with little adventurers.", PcsDisplay: "10", Unit: "PCS", Calculate: "1", Rate: 139, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Veggie Garden Finger Bites", Description: "Crispy, colorful, and nutritious veggie fingers that make eating vegetables a treat.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 159, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Sunshine Cheese Corn Nuggets", Description: "Golden nuggets filled with cheese and sweet corn, crisp on the outside and soft inside.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 179, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Mini Batata Vada", Description: "Bite-sized potato vadas with a touch of spice and a whole lot of comfort.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 189, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Veg Snacker Burgers", Description: "Delicious veggie patty with a cheesy spread and our secret sauce on a soft bun.", PcsDisplay: "2", Unit: "PCS", Calculate: "1", Rate: 159, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Veg Dim-Sum Delights", Description: "Steamed, juicy vegetable dim sums wrapped in delicate dough.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 329, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Rings of Onion", Description: "Crispy, deep-fried treats coated with a seasoned batter.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 189, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Cheese Delight Balls", Description: "Tiny meteorites of cheesy goodness that kids will love.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 189, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Mini Veg Sandwich Delights", Description: "Bite-sized sandwiches with a burst of freshness.", PcsDisplay: "4", Unit: "PCS", Calculate: "1", Rate: 189, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Mini Paneer Tikka Rolls", Description: "Paneer popsicles on a roll, just the right size for kiddie hands.", PcsDisplay: "3", Unit: "PCS", Calculate: "1", Rate: 299, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Green Hero Kebabs", Description: "Our Hara bhara kebabs are packed with veggies and flavors.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 299, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Pocket Cheese Jalepeno Balls", Description: "Packed with cheese and a spicy kick for flavor-loving kids.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 229, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Yummy Chilli Paneer (Dry)", Description: "Cheesy planet pals taste adventure (Dry).", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 349, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Mini Pizzas", Description: "Savory delight specially crafted for young taste buds.", PcsDisplay: "2", Unit: "PCS", Calculate: "1", Rate: 119, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Nachos Adventure", Description: "Crunchy nachos served with zesty salsa and dip.", PcsDisplay: "100", Unit: "GMS", Calculate: "0", Rate: 199, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Tomato Bruschetta Bites", Description: "Sundried Tomato Bruschetta 'aliens'.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 299, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Mushroom Magic Bruschetta", Description: "Savory mushrooms atop crisp toast.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 299, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Rollercoaster Veg Spring Rolls", Description: "Crispy rolls packed with stir-fried veggies.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 329, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Crispy Salt n Pepper Corn", Description: "Golden corn kernels tossed with salt, pepper, and mild spices.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 329, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Honey Chilli Potato", Description: "Tangy, sweet, and spicy golden potato fingers.", PcsDisplay: "", Unit: "",  Calculate: "0", Rate: 329, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Paneer Tikka Magic", Description: "Marinated paneer pieces for a culinary journey.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 349, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Mini Veg Tacos", Description: "A tiny fiesta in your hands.", PcsDisplay: "3", Unit: "PCS", Calculate: "1", Rate: 359, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Cheesy Corn Spring Roll Twirls", Description: "Golden crispy rolls filled with cheesy corn joy.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 459, Category: "Table Snacks", VegNonVeg: "Veg"},
 
     // TABLE SNACKS - NON-VEG
-    {Name: "Starship Chicken Nuggets", Description: "Star-shaped nuggets for flavorful space rides.", PcsDisplay: "6 PCS", Rate: 189, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
-    {Name: "Chicken Zippy Burgers", Description: "Chicken patty with a cheesy spread and our secret sauce on a soft bun.", PcsDisplay: "2 PCS", Rate: 199, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
-    {Name: "Mini Chicken Delight Sandwiches", Description: "Tiny and delicious, perfect for little munchers.", PcsDisplay: "4 PCS", Rate: 229, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
-    {Name: "Chicken Popcorn Crunchies", Description: "Each bite is a delightful burst of flavor.", PcsDisplay: "10 PCS", Rate: 249, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
-    {Name: "Mini Chicken Mayo Roll-ers", Description: "Rocket-like rolls that are delicious and creamy.", PcsDisplay: "3 PCS", Rate: 299, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
-    {Name: "Chicken Lollipop Galaxy", Description: "Tasty and fun space treats for space explorers.", PcsDisplay: "3 PCS", Rate: 349, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
-    {Name: "Chicken Wings of Wonder", Description: "Tantalizing flavors for food adventurers.", PcsDisplay: "6 PCS", Rate: 349, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
-    {Name: "Crispy Chicken Adventure Strips", Description: "A galaxy of crunch that kids will adore.", PcsDisplay: "6 PCS", Rate: 349, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
-    {Name: "Chicken Springtime Rolls", Description: "Flavorful chicken rolls for tiny hands.", PcsDisplay: "6 PCS", Rate: 349, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
-    {Name: "Chicken Dim-Sum Delights", Description: "Steamed, juicy chicken dim sums wrapped in delicate dough.", PcsDisplay: "6 PCS", Rate: 349, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
-    {Name: "Mini Chicken Tacos", Description: "Mini delights filled with chicken goodness.", PcsDisplay: "3 PCS", Rate: 399, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
-    {Name: "Rocket Chicken Seekh Kebabs", Description: "Tasty and fun rockets of flavor.", PcsDisplay: "4 PCS", Rate: 399, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
-    {Name: "Zesty Chilli Chicken Crunch (Dry)", Description: "Spicy and succulent chicken bursts.", PcsDisplay: "10 PCS", Rate: 449, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
-    {Name: "Fin-Tastic Fish Fingers", Description: "Crispy fish treats for adventurous eaters.", PcsDisplay: "6 PCS", Rate: 489, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
+    {Name: "Starship Chicken Nuggets", Description: "Star-shaped nuggets for flavorful space rides.", PcsDisplay: "6", Calculate: "1", Unit: "PCS", Rate: 189, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
+    {Name: "Chicken Zippy Burgers", Description: "Chicken patty with a cheesy spread and our secret sauce on a soft bun.", PcsDisplay: "2", Unit: "PCS", Calculate: "1", Rate: 199, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
+    {Name: "Mini Chicken Delight Sandwiches", Description: "Tiny and delicious, perfect for little munchers.", PcsDisplay: "4", Unit: "PCS", Calculate: "1", Rate: 229, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
+    {Name: "Chicken Popcorn Crunchies", Description: "Each bite is a delightful burst of flavor.", PcsDisplay: "10", Unit: "PCS", Calculate: "1", Rate: 249, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
+    {Name: "Mini Chicken Mayo Roll-ers", Description: "Rocket-like rolls that are delicious and creamy.", PcsDisplay: "3", Unit: "PCS", Calculate: "1", Rate: 299, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
+    {Name: "Chicken Lollipop Galaxy", Description: "Tasty and fun space treats for space explorers.", PcsDisplay: "3", Unit: "PCS", Calculate: "1", Rate: 349, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
+    {Name: "Chicken Wings of Wonder", Description: "Tantalizing flavors for food adventurers.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 349, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
+    {Name: "Crispy Chicken Adventure Strips", Description: "A galaxy of crunch that kids will adore.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 349, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
+    {Name: "Chicken Springtime Rolls", Description: "Flavorful chicken rolls for tiny hands.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 349, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
+    {Name: "Chicken Dim-Sum Delights", Description: "Steamed, juicy chicken dim sums wrapped in delicate dough.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 349, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
+    {Name: "Mini Chicken Tacos", Description: "Mini delights filled with chicken goodness.", PcsDisplay: "3", Unit: "PCS", Calculate: "1", Rate: 399, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
+    {Name: "Rocket Chicken Seekh Kebabs", Description: "Tasty and fun rockets of flavor.", PcsDisplay: "4", Unit: "PCS", Calculate: "1", Rate: 399, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
+    {Name: "Zesty Chilli Chicken Crunch (Dry)", Description: "Spicy and succulent chicken bursts.", PcsDisplay: "10", Unit: "PCS", Calculate: "1", Rate: 449, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
+    {Name: "Fin-Tastic Fish Fingers", Description: "Crispy fish treats for adventurous eaters.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 489, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
 
     // MAIN COURSE - VEG
-    {Name: "Extravaganza Masala Maggi", Description: "A masala adventure with flavorful and spicy noodles.", PcsDisplay: "", Rate: 149, Category: "Main Course", VegNonVeg: "Veg"},
-    {Name: "Peri Peri Magic Maggi", Description: "Noodles with a kick to spice up the meal.", PcsDisplay: "", Rate: 149, Category: "Main Course", VegNonVeg: "Veg"},
-    {Name: "Cheese Bliss Maggi", Description: "Yummy and cheesy noodle delight.", PcsDisplay: "", Rate: 189, Category: "Main Course", VegNonVeg: "Veg"},
-    {Name: "Mac 'n' Cheesy Spaceships", Description: "Creamy spaceships of cheesy goodness.", PcsDisplay: "", Rate: 299, Category: "Main Course", VegNonVeg: "Veg"},
-    {Name: "Veggie Marvel Manchurian", Description: "Soft veggie balls in a flavorful soy-based sauce.", PcsDisplay: "", Rate: 369, Category: "Main Course", VegNonVeg: "Veg"},
-    {Name: "Idli Delights", Description: "Mini Idlis with Sambhar & Chutney.", PcsDisplay: "", Rate: 379, Category: "Main Course", VegNonVeg: "Veg"},
-    {Name: "Playtime Bombay Pav Bhaji", Description: "A planet of flavorful, lip-smacking flavors.", PcsDisplay: "", Rate: 379, Category: "Main Course", VegNonVeg: "Veg"},
-    {Name: "Royal Rajma with Steamed Rice", Description: "Kidney beans in rich tomato gravy with steamed rice.", PcsDisplay: "", Rate: 399, Category: "Main Course", VegNonVeg: "Veg"},
-    {Name: "Tangy Chilli Paneer (Gravy)", Description: "Paneer cubes in spicy and tangy gravy with bell peppers.", PcsDisplay: "", Rate: 399, Category: "Main Course", VegNonVeg: "Veg"},
-    {Name: "Channa Celestial", Description: "Chickpeas in aromatic gravy with wheat kulchas.", PcsDisplay: "", Rate: 399, Category: "Main Course", VegNonVeg: "Veg"},
-    {Name: "Creamy Alfredo Pasta", Description: "Velvety white sauce whole-wheat pasta with a hint of garlic.", PcsDisplay: "", Rate: 449, Category: "Main Course", VegNonVeg: "Veg"},
-    {Name: "Planet Penne Delight", Description: "Whole wheat penne in flavorful red sauce with herbs.", PcsDisplay: "", Rate: 449, Category: "Main Course", VegNonVeg: "Veg"},
-    {Name: "Pink Sauce Fusion Penne", Description: "Balanced creamy, tangy, and savory mix sauce whole-wheat pasta.", PcsDisplay: "", Rate: 449, Category: "Main Course", VegNonVeg: "Veg"},
-    {Name: "Dal Makhani Marvel", Description: "Served with Malabari Paranthas or Wheat Kulchas.", PcsDisplay: "", Rate: 469, Category: "Main Course", VegNonVeg: "Veg"},
-    {Name: "Paneer Star Makhani", Description: "Soft paneer in rich tomato-based gravy with Paranthas/Kulchas.", PcsDisplay: "", Rate: 469, Category: "Main Course", VegNonVeg: "Veg"},
-    {Name: "Kadhai Paneer Delight", Description: "Served with Malabari Paranthas or Wheat Kulchas.", PcsDisplay: "", Rate: 469, Category: "Main Course", VegNonVeg: "Veg"},
-    {Name: "Stir Fried Vegetables", Description: "Veggies in Butter Garlic/Hot Garlic Sauce.", PcsDisplay: "", Rate: 499, Category: "Main Course", VegNonVeg: "Veg"},
-    {Name: "Thai Curry (Veg)", Description: "Green/Red/Yellow Thai Curry with Jasmine Rice.", PcsDisplay: "", Rate: 659, Category: "Main Course", VegNonVeg: "Veg"},
+    {Name: "Extravaganza Masala Maggi", Description: "A masala adventure with flavorful and spicy noodles.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 149, Category: "Main Course", VegNonVeg: "Veg"},
+    {Name: "Peri Peri Magic Maggi", Description: "Noodles with a kick to spice up the meal.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 149, Category: "Main Course", VegNonVeg: "Veg"},
+    {Name: "Cheese Bliss Maggi", Description: "Yummy and cheesy noodle delight.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 189, Category: "Main Course", VegNonVeg: "Veg"},
+    {Name: "Mac 'n' Cheesy Spaceships", Description: "Creamy spaceships of cheesy goodness.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 299, Category: "Main Course", VegNonVeg: "Veg"},
+    {Name: "Veggie Marvel Manchurian", Description: "Soft veggie balls in a flavorful soy-based sauce.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 369, Category: "Main Course", VegNonVeg: "Veg"},
+    {Name: "Idli Delights", Description: "Mini Idlis with Sambhar & Chutney.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 379, Category: "Main Course", VegNonVeg: "Veg"},
+    {Name: "Playtime Bombay Pav Bhaji", Description: "A planet of flavorful, lip-smacking flavors.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 379, Category: "Main Course", VegNonVeg: "Veg"},
+    {Name: "Royal Rajma with Steamed Rice", Description: "Kidney beans in rich tomato gravy with steamed rice.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 399, Category: "Main Course", VegNonVeg: "Veg"},
+    {Name: "Tangy Chilli Paneer (Gravy)", Description: "Paneer cubes in spicy and tangy gravy with bell peppers.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 399, Category: "Main Course", VegNonVeg: "Veg"},
+    {Name: "Channa Celestial", Description: "Chickpeas in aromatic gravy with wheat kulchas.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 399, Category: "Main Course", VegNonVeg: "Veg"},
+    {Name: "Creamy Alfredo Pasta", Description: "Velvety white sauce whole-wheat pasta with a hint of garlic.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 449, Category: "Main Course", VegNonVeg: "Veg"},
+    {Name: "Planet Penne Delight", Description: "Whole wheat penne in flavorful red sauce with herbs.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 449, Category: "Main Course", VegNonVeg: "Veg"},
+    {Name: "Pink Sauce Fusion Penne", Description: "Balanced creamy, tangy, and savory mix sauce whole-wheat pasta.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 449, Category: "Main Course", VegNonVeg: "Veg"},
+    {Name: "Dal Makhani Marvel", Description: "Served with Malabari Paranthas or Wheat Kulchas.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 469, Category: "Main Course", VegNonVeg: "Veg"},
+    {Name: "Paneer Star Makhani", Description: "Soft paneer in rich tomato-based gravy with Paranthas/Kulchas.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 469, Category: "Main Course", VegNonVeg: "Veg"},
+    {Name: "Kadhai Paneer Delight", Description: "Served with Malabari Paranthas or Wheat Kulchas.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 469, Category: "Main Course", VegNonVeg: "Veg"},
+    {Name: "Stir Fried Vegetables", Description: "Veggies in Butter Garlic/Hot Garlic Sauce.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 499, Category: "Main Course", VegNonVeg: "Veg"},
+    {Name: "Thai Curry (Veg)", Description: "Green/Red/Yellow Thai Curry with Jasmine Rice.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 659, Category: "Main Course", VegNonVeg: "Veg"},
 
     // MAIN COURSE - NON-VEG
-    {Name: "Dynamite Chicken Chili (Gravy)", Description: "Succulent chicken pieces in a thick, savory gravy.", PcsDisplay: "", Rate: 499, Category: "Main Course", VegNonVeg: "Non-Veg"},
-    {Name: "Sizzling Chicken Manchurian", Description: "Juicy chicken balls in a zesty soy-garlic sauce.", PcsDisplay: "", Rate: 499, Category: "Main Course", VegNonVeg: "Non-Veg"},
-    {Name: "Savory Shredded Chicken", Description: "Tossed in Butter Garlic/Hot Garlic Sauce.", PcsDisplay: "", Rate: 599, Category: "Main Course", VegNonVeg: "Non-Veg"},
-    {Name: "Butter Chicken Bliss", Description: "Mild and creamy tomato-based gravy with Paranthas/Kulchas.", PcsDisplay: "", Rate: 599, Category: "Main Course", VegNonVeg: "Non-Veg"},
-    {Name: "Kadhai Chicken Universe", Description: "A burst of yumminess perfect for tiny taste buds with Paranthas/Kulchas.", PcsDisplay: "", Rate: 599, Category: "Main Course", VegNonVeg: "Non-Veg"},
-    {Name: "Chicken Keema Comet", Description: "Flavorful chicken keema served with soft Bombay pav.", PcsDisplay: "", Rate: 599, Category: "Main Course", VegNonVeg: "Non-Veg"},
-    {Name: "Chicken Curry Magic", Description: "Mild, kid-friendly curry with Paranthas/Kulchas.", PcsDisplay: "", Rate: 599, Category: "Main Course", VegNonVeg: "Non-Veg"},
-    {Name: "Thai Curry (Non-Veg)", Description: "Green/Red/Yellow Thai Curry with Jasmine Rice.", PcsDisplay: "", Rate: 699, Category: "Main Course", VegNonVeg: "Non-Veg"},
+    {Name: "Dynamite Chicken Chili (Gravy)", Description: "Succulent chicken pieces in a thick, savory gravy.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 499, Category: "Main Course", VegNonVeg: "Non-Veg"},
+    {Name: "Sizzling Chicken Manchurian", Description: "Juicy chicken balls in a zesty soy-garlic sauce.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 499, Category: "Main Course", VegNonVeg: "Non-Veg"},
+    {Name: "Savory Shredded Chicken", Description: "Tossed in Butter Garlic/Hot Garlic Sauce.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 599, Category: "Main Course", VegNonVeg: "Non-Veg"},
+    {Name: "Butter Chicken Bliss", Description: "Mild and creamy tomato-based gravy with Paranthas/Kulchas.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 599, Category: "Main Course", VegNonVeg: "Non-Veg"},
+    {Name: "Kadhai Chicken Universe", Description: "A burst of yumminess perfect for tiny taste buds with Paranthas/Kulchas.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 599, Category: "Main Course", VegNonVeg: "Non-Veg"},
+    {Name: "Chicken Keema Comet", Description: "Flavorful chicken keema served with soft Bombay pav.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 599, Category: "Main Course", VegNonVeg: "Non-Veg"},
+    {Name: "Chicken Curry Magic", Description: "Mild, kid-friendly curry with Paranthas/Kulchas.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 599, Category: "Main Course", VegNonVeg: "Non-Veg"},
+    {Name: "Thai Curry (Non-Veg)", Description: "Green/Red/Yellow Thai Curry with Jasmine Rice.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 699, Category: "Main Course", VegNonVeg: "Non-Veg"},
 
     // RICE & NOODLES
-    {Name: "Steamed Bliss Rice", Description: "Soft, warm, and perfectly prepared steamed rice.", PcsDisplay: "", Rate: 119, Category: "Rice", VegNonVeg: "Veg"},
-    {Name: "Cumin Fusion Rice", Description: "Fragrance fused with cumin for a savory taste.", PcsDisplay: "", Rate: 159, Category: "Rice", VegNonVeg: "Veg"},
-    {Name: "Veggie Fiesta Fried Rice", Description: "A colorful bounce of fresh vegetables and fried rice.", PcsDisplay: "", Rate: 299, Category: "Rice", VegNonVeg: "Veg"},
-    {Name: "Veggie Galaxy Pulao", Description: "A light rice dish filled with colorful veggies.", PcsDisplay: "", Rate: 349, Category: "Rice", VegNonVeg: "Veg"},
-    {Name: "Vegetable Temptation Biryani", Description: "Aromatic rice and veggies served with Raita.", PcsDisplay: "", Rate: 449, Category: "Rice", VegNonVeg: "Veg"},
-    {Name: "Eggs-cursion Fried Rice", Description: "Embark on a tasty adventure with egg-citing fried rice.", PcsDisplay: "", Rate: 349, Category: "Rice", VegNonVeg: "Non-Veg"},
-    {Name: "Chicken Sizzle Fried Rice", Description: "Sizzling dance of chicken and rice.", PcsDisplay: "", Rate: 399, Category: "Rice", VegNonVeg: "Non-Veg"},
-    {Name: "Original Chicken Biryani", Description: "Aromatic rice with succulent chicken and Raita.", PcsDisplay: "", Rate: 499, Category: "Rice", VegNonVeg: "Non-Veg"},
-    {Name: "Vibrant Hakka Noodles", Description: "Colorful noodles for a flavor-packed experience.", PcsDisplay: "", Rate: 299, Category: "Noodles", VegNonVeg: "Veg"},
-    {Name: "Wiggly Chilli Garlic Noodles", Description: "Thin noodles with a hint of garlic.", PcsDisplay: "", Rate: 289, Category: "Noodles", VegNonVeg: "Veg"},
-    {Name: "Eggy Zigzag Noodles", Description: "Deliciously tangled world of egg-filled noodles.", PcsDisplay: "", Rate: 329, Category: "Noodles", VegNonVeg: "Non-Veg"},
-    {Name: "Chicken Haaka Comet Noodles", Description: "Vibrant noodles with a splash of flavor.", PcsDisplay: "", Rate: 399, Category: "Noodles", VegNonVeg: "Non-Veg"},
-
+    {Name: "Steamed Bliss Rice", Description: "Soft, warm, and perfectly prepared steamed rice.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 119, Category: "Rice", VegNonVeg: "Veg"},
+    {Name: "Cumin Fusion Rice", Description: "Fragrance fused with cumin for a savory taste.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 159, Category: "Rice", VegNonVeg: "Veg"},
+    {Name: "Veggie Fiesta Fried Rice", Description: "A colorful bounce of fresh vegetables and fried rice.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 299, Category: "Rice", VegNonVeg: "Veg"},
+    {Name: "Veggie Galaxy Pulao", Description: "A light rice dish filled with colorful veggies.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 349, Category: "Rice", VegNonVeg: "Veg"},
+    {Name: "Vegetable Temptation Biryani", Description: "Aromatic rice and veggies served with Raita.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 449, Category: "Rice", VegNonVeg: "Veg"},
+    {Name: "Eggs-cursion Fried Rice", Description: "Embark on a tasty adventure with egg-citing fried rice.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 349, Category: "Rice", VegNonVeg: "Non-Veg"},
+    {Name: "Chicken Sizzle Fried Rice", Description: "Sizzling dance of chicken and rice.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 399, Category: "Rice", VegNonVeg: "Non-Veg"},
+    {Name: "Original Chicken Biryani", Description: "Aromatic rice with succulent chicken and Raita.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 499, Category: "Rice", VegNonVeg: "Non-Veg"},
+    {Name: "Vibrant Hakka Noodles", Description: "Colorful noodles for a flavor-packed experience.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 299, Category: "Noodles", VegNonVeg: "Veg"},
+    {Name: "Wiggly Chilli Garlic Noodles", Description: "Thin noodles with a hint of garlic.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 289, Category: "Noodles", VegNonVeg: "Veg"},
+    {Name: "Eggy Zigzag Noodles", Description: "Deliciously tangled world of egg-filled noodles.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 329, Category: "Noodles", VegNonVeg: "Non-Veg"},
+    {Name: "Chicken Haaka Comet Noodles", Description: "Vibrant noodles with a splash of flavor.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 399, Category: "Noodles", VegNonVeg: "Non-Veg"},
     // DESSERTS & DRINKS
-    {Name: "Desi Ghee Gulab Jamun", Description: "Traditional sweet treats; soft and melt-in-the-mouth.", PcsDisplay: "1 PC", Rate: 49, Category: "Dessert", VegNonVeg: "Veg"},
-    {Name: "Fluffy Rasgulla Clouds", Description: "Soft, spongy, and sugar-syrup-soaked treats.", PcsDisplay: "1 PC", Rate: 39, Category: "Dessert", VegNonVeg: "Veg"},
-    {Name: "Ice Cream", Description: "Choice of Vanilla, Chocolate, Strawberry, or Butterscotch.", PcsDisplay: "", Rate: 59, Category: "Dessert", VegNonVeg: "Veg"},
-    {Name: "Magical Brownie Planet", Description: "Moist eggless brownie, perfect for chocolate lovers.", PcsDisplay: "1 PC", Rate: 59, Category: "Dessert", VegNonVeg: "Veg"},
-    {Name: "Ice Cream with Brownies", Description: "Vanilla ice cream with moist eggless brownie goodness.", PcsDisplay: "", Rate: 79, Category: "Dessert", VegNonVeg: "Veg"},
-    {Name: "Kool Kulfi", Description: "Traditional rich and creamy frozen kulfi.", PcsDisplay: "1 PC", Rate: 89, Category: "Dessert", VegNonVeg: "Veg"},
-    {Name: "Decadent Choco Lava Delight", Description: "Warm dessert with a gooey chocolate center.", PcsDisplay: "1 PC", Rate: 99, Category: "Dessert", VegNonVeg: "Veg"},
-    {Name: "Chocolate Mousse Cup", Description: "Light and airy chocolate mousse.", PcsDisplay: "1 PC", Rate: 99, Category: "Dessert", VegNonVeg: "Veg"},
-    {Name: "Chocolate Donuts", Description: "Delightfully soft chocolate donuts.", PcsDisplay: "1 PC", Rate: 99, Category: "Dessert", VegNonVeg: "Veg"},
-    {Name: "Little Jalebis With Rabri", Description: "Traditional jalebis paired with creamy rabri.", PcsDisplay: "", Rate: 229, Category: "Dessert", VegNonVeg: "Veg"},
-    {Name: "Gajar Halwa", Description: "Rich dessert made with grated carrots and milk.", PcsDisplay: "250 GMS", Rate: 299, Category: "Dessert", VegNonVeg: "Veg"},
-    {Name: "Hot Chocolate Fondue", Description: "Marshmallows with hot chocolate fondue.", PcsDisplay: "30 PCS", Rate: 1999, Category: "Dessert", VegNonVeg: "Veg"},
-    {Name: "Fresh Lemonade", Description: "Refreshing blend of lemons and sweetness.", PcsDisplay: "200 ml", Rate: 39, Category: "Drinks", VegNonVeg: "Veg"},
-    {Name: "Lemon Ice Tea", Description: "Refreshing tea infused with citrus goodness.", PcsDisplay: "200 ml", Rate: 49, Category: "Drinks", VegNonVeg: "Veg"},
-    {Name: "Hot Tea", Description: "Perfectly brewed hot tea.", PcsDisplay: "200 ml", Rate: 49, Category: "Drinks", VegNonVeg: "Veg"},
-    {Name: "Blue Curacao", Description: "A sweet and vibrant tropical sensation.", PcsDisplay: "200 ml", Rate: 79, Category: "Drinks", VegNonVeg: "Veg"},
-    {Name: "Hot Coffee", Description: "Steaming cup of rich, aromatic coffee.", PcsDisplay: "200 ml", Rate: 79, Category: "Drinks", VegNonVeg: "Veg"},
-    {Name: "Hot Chocolate", Description: "Warm, sweet drink made with rich cocoa.", PcsDisplay: "200 ml", Rate: 89, Category: "Drinks", VegNonVeg: "Veg"},
-    {Name: "Classic Tomato Soup", Description: "Comforting cup of velvety tomato goodness.", PcsDisplay: "200 ml", Rate: 89, Category: "Drinks", VegNonVeg: "Veg"},
-    {Name: "Smoothies", Description: "Choice of Vanilla, Chocolate, or Strawberry.", PcsDisplay: "200 ml", Rate: 99, Category: "Drinks", VegNonVeg: "Veg"}
+    {Name: "Desi Ghee Gulab Jamun", Description: "Traditional sweet treats; soft and melt-in-the-mouth.", PcsDisplay: "1", Unit: "PC", Calculate: "1", Rate: 49, Category: "Dessert", VegNonVeg: "Veg"},
+    {Name: "Fluffy Rasgulla Clouds", Description: "Soft, spongy, and sugar-syrup-soaked treats.", PcsDisplay: "1", Unit: "PC", Calculate: "1", Rate: 39, Category: "Dessert", VegNonVeg: "Veg"},
+    {Name: "Ice Cream", Description: "Choice of Vanilla, Chocolate, Strawberry, or Butterscotch.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 59, Category: "Dessert", VegNonVeg: "Veg"},
+    {Name: "Magical Brownie Planet", Description: "Moist eggless brownie, perfect for chocolate lovers.", PcsDisplay: "1", Unit: "PC", Calculate: "1", Rate: 59, Category: "Dessert", VegNonVeg: "Veg"},
+    {Name: "Ice Cream with Brownies", Description: "Vanilla ice cream with moist eggless brownie goodness.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 79, Category: "Dessert", VegNonVeg: "Veg"},
+    {Name: "Kool Kulfi", Description: "Traditional rich and creamy frozen kulfi.", PcsDisplay: "1", Unit: "PC", Calculate: "1", Rate: 89, Category: "Dessert", VegNonVeg: "Veg"},
+    {Name: "Decadent Choco Lava Delight", Description: "Warm dessert with a gooey chocolate center.", PcsDisplay: "1", Unit: "PC", Calculate: "1", Rate: 99, Category: "Dessert", VegNonVeg: "Veg"},
+    {Name: "Chocolate Mousse Cup", Description: "Light and airy chocolate mousse.", PcsDisplay: "1", Unit: "PC", Calculate: "1", Rate: 99, Category: "Dessert", VegNonVeg: "Veg"},
+    {Name: "Chocolate Donuts", Description: "Delightfully soft chocolate donuts.", PcsDisplay: "1", Unit: "PC", Calculate: "1", Rate: 99, Category: "Dessert", VegNonVeg: "Veg"},
+    {Name: "Little Jalebis With Rabri", Description: "Traditional jalebis paired with creamy rabri.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 229, Category: "Dessert", VegNonVeg: "Veg"},
+    {Name: "Gajar Halwa", Description: "Rich dessert made with grated carrots and milk.", PcsDisplay: "250", Unit: "GMS", Calculate: "0", Rate: 299, Category: "Dessert", VegNonVeg: "Veg"},
+    {Name: "Hot Chocolate Fondue", Description: "Marshmallows with hot chocolate fondue.", PcsDisplay: "30", Unit: "PCS", Calculate: "1", Rate: 1999, Category: "Dessert", VegNonVeg: "Veg"},
+    {Name: "Fresh Lemonade", Description: "Refreshing blend of lemons and sweetness.", PcsDisplay: "200", Unit: "ML", Calculate: "0", Rate: 39, Category: "Drinks", VegNonVeg: "Veg"},
+    {Name: "Lemon Ice Tea", Description: "Refreshing tea infused with citrus goodness.", PcsDisplay: "200", Unit: "ML", Calculate: "0", Rate: 49, Category: "Drinks", VegNonVeg: "Veg"},
+    {Name: "Hot Tea", Description: "Perfectly brewed hot tea.", PcsDisplay: "200", Unit: "ML", Calculate: "0", Rate: 49, Category: "Drinks", VegNonVeg: "Veg"},
+    {Name: "Blue Curacao", Description: "A sweet and vibrant tropical sensation.", PcsDisplay: "200", Unit: "ML", Calculate: "0", Rate: 79, Category: "Drinks", VegNonVeg: "Veg"},
+    {Name: "Hot Coffee", Description: "Steaming cup of rich, aromatic coffee.", PcsDisplay: "200", Unit: "ML", Calculate: "0", Rate: 79, Category: "Drinks", VegNonVeg: "Veg"},
+    {Name: "Hot Chocolate", Description: "Warm, sweet drink made with rich cocoa.", PcsDisplay: "200", Unit: "ML", Calculate: "0", Rate: 89, Category: "Drinks", VegNonVeg: "Veg"},
+    {Name: "Classic Tomato Soup", Description: "Comforting cup of velvety tomato goodness.", PcsDisplay: "200", Unit: "ML", Calculate: "0", Rate: 89, Category: "Drinks", VegNonVeg: "Veg"},
+    {Name: "Smoothies", Description: "Choice of Vanilla, Chocolate, or Strawberry.", PcsDisplay: "200", Unit: "ML", Calculate: "0", Rate: 99, Category: "Drinks", VegNonVeg: "Veg"}
 ];
   renderMenu(menuItems);
 }
@@ -796,6 +795,7 @@ function addItemToTable(item, idx){
   tr.dataset.idx = idx;
   const rate = Number(item['Rate']||0);
   const pcsDisplay = item['PcsDisplay'] || '';
+  const unit = item['Unit'] || 'PCS';
   const vegLabel = (item['VegNonVeg'] || '').toString().trim();
   const vegClass = vegLabel.toLowerCase().includes('non') ? 'non-veg' : (vegLabel ? 'veg' : 'veg');
   tr.innerHTML = `<td><strong>${item['Name']}</strong> <button type="button" class="veg-toggle ${vegClass}" aria-pressed="${vegLabel.toLowerCase().includes('non')}">${vegLabel || 'Veg'}</button>
@@ -804,7 +804,9 @@ function addItemToTable(item, idx){
     <td><input class="portions" type="number" min="0" value="1" style="width:60px;padding:6px;border:1px solid #ccc;border-radius:6px" /></td>
     <td><input class="rate" type="number" min="0" step="0.01" value="${rate}" style="width:100px;padding:6px;border:1px solid #ccc;border-radius:6px;text-align:right" /></td>
     <td class="col-right amount">${formatCurrency(rate)}</td>
-    <td class="pcsDisplay">${pcsDisplay}</td>
+    <td><input class="pcsQty" type="text" value="${pcsDisplay}" style="width:70px;padding:6px;border:1px solid #ccc;border-radius:6px;text-align:center" /></td>
+    <td><select class="pcsUnit" style="width:90px;padding:6px;border:1px solid #ccc;border-radius:6px"><option value="PCS" ${unit==='PCS'?'selected':''}>PCS</option><option value="PC" ${unit==='PC'?'selected':''}>PC</option><option value="GMS" ${unit==='GMS'?'selected':''}>GMS</option><option value="ML" ${unit==='ML'?'selected':''}>ML</option></select></td>
+    <td style="text-align:center"><input class="calculateToggle" type="checkbox" style="width:18px;height:18px;cursor:pointer" /></td>
     <td>
       <div style="display:flex;gap:6px;align-items:center;justify-content:center">
         <button class="icon-btn mobile-move upBtn" title="Move up" aria-label="Move up">
@@ -820,10 +822,12 @@ function addItemToTable(item, idx){
       </div>
     </td>`;
   tr.dataset.rate = rate;
-  tr.dataset.pcsOriginal = pcsDisplay;
+  tr.dataset.pcsDisplay = pcsDisplay;
+  tr.dataset.unit = unit;
   tr.dataset.category = item.Category || 'Other';
   tr.dataset.vegNonVeg = item.VegNonVeg || '';
   tr.dataset.description = item.Description || '';
+  tr.dataset.calculate = '0'; // default: no auto-calculation
   // Append row into category tbody
   const cat = tr.dataset.category || 'Other';
   const catBody = getCategoryBody(cat);
@@ -852,6 +856,27 @@ function addItemToTable(item, idx){
   const rateInput = tr.querySelector('.rate');
   if (rateInput){
     rateInput.addEventListener('input', ()=>{ updateRowAmount(tr); });
+  }
+  const pcsQtyInput = tr.querySelector('.pcsQty');
+  if (pcsQtyInput){
+    pcsQtyInput.addEventListener('input', ()=>{ 
+      tr.dataset.pcsDisplay = pcsQtyInput.value;
+      // If calculate is enabled, update amount when pcsQty changes
+      if (tr.dataset.calculate === '1'){
+        updateRowAmount(tr);
+      }
+    });
+  }
+  const unitSelect = tr.querySelector('.pcsUnit');
+  if (unitSelect){
+    unitSelect.addEventListener('change', ()=>{ tr.dataset.unit = unitSelect.value; });
+  }
+  const calculateToggle = tr.querySelector('.calculateToggle');
+  if (calculateToggle){
+    calculateToggle.addEventListener('change', ()=>{
+      tr.dataset.calculate = calculateToggle.checked ? '1' : '0';
+      updateRowAmount(tr);
+    });
   }
   // delete button
   tr.querySelector('.deleteBtn').addEventListener('click', (e)=>{ handleDeleteRow(tr); });
@@ -1035,7 +1060,8 @@ function addCustomItem(){
   const desc = document.getElementById('customDesc').value.trim();
   const category = document.getElementById('customCategory').value.trim();
   const vegNonVeg = document.getElementById('customVegNonVeg').value.trim();
-  const pcs = document.getElementById('customPcs').value.trim();
+  const pcsDisplay = document.getElementById('customPcs').value.trim();
+  const unit = 'PCS'; // default unit for custom items
   const portions = Number(document.getElementById('customPortions').value) || 0;
   const rate = Number(document.getElementById('customRate').value) || 0;
 
@@ -1050,7 +1076,9 @@ function addCustomItem(){
     <td><input class="portions" type="number" min="0" value="${portions}" style="width:60px;padding:6px;border:1px solid #ccc;border-radius:6px" /></td>
     <td><input class="rate" type="number" min="0" step="0.01" value="${rate}" style="width:100px;padding:6px;border:1px solid #ccc;border-radius:6px;text-align:right" /></td>
     <td class="col-right amount">${formatCurrency(portions * rate)}</td>
-    <td class="pcsDisplay">${pcs}</td>
+    <td><input class="pcsQty" type="text" value="${pcsDisplay}" style="width:70px;padding:6px;border:1px solid #ccc;border-radius:6px;text-align:center" /></td>
+    <td><select class="pcsUnit" style="width:90px;padding:6px;border:1px solid #ccc;border-radius:6px"><option value="PCS">PCS</option><option value="PC">PC</option><option value="GMS">GMS</option><option value="ML">ML</option></select></td>
+    <td style="text-align:center"><input class="calculateToggle" type="checkbox" style="width:18px;height:18px;cursor:pointer" /></td>
     <td>
       <div style="display:flex;gap:6px;align-items:center;justify-content:center">
         <button class="icon-btn mobile-move upBtn" title="Move up" aria-label="Move up">
@@ -1068,9 +1096,11 @@ function addCustomItem(){
   
   tr.dataset.description = desc;
   tr.dataset.rate = rate;
-  tr.dataset.pcsOriginal = pcs;
+  tr.dataset.pcsDisplay = pcsDisplay;
+  tr.dataset.unit = unit;
   tr.dataset.category = category || '';
   tr.dataset.vegNonVeg = vegNonVeg || '';
+  tr.dataset.calculate = '0'; // default: no auto-calculation
   // Append to category tbody
   const cat = tr.dataset.category || 'Other';
   const catBody = getCategoryBody(cat);
@@ -1080,6 +1110,24 @@ function addCustomItem(){
   tr.querySelector('.portions').addEventListener('input', ()=>updateCustomRowAmount(tr));
   const rateInputC = tr.querySelector('.rate');
   if (rateInputC){ rateInputC.addEventListener('input', ()=>updateCustomRowAmount(tr)); }
+  const pcsQtyInputC = tr.querySelector('.pcsQty');
+  if (pcsQtyInputC){ 
+    pcsQtyInputC.addEventListener('input', ()=>{ 
+      tr.dataset.pcsDisplay = pcsQtyInputC.value;
+      if (tr.dataset.calculate === '1'){
+        updateCustomRowAmount(tr);
+      }
+    }); 
+  }
+  const unitSelectC = tr.querySelector('.pcsUnit');
+  if (unitSelectC){ unitSelectC.addEventListener('change', ()=>{ tr.dataset.unit = unitSelectC.value; }); }
+  const calculateToggleC = tr.querySelector('.calculateToggle');
+  if (calculateToggleC){
+    calculateToggleC.addEventListener('change', ()=>{
+      tr.dataset.calculate = calculateToggleC.checked ? '1' : '0';
+      updateCustomRowAmount(tr);
+    });
+  }
   tr.querySelector('.deleteBtn').addEventListener('click', ()=>{ handleDeleteRow(tr); });
   const upBtnC = tr.querySelector('.upBtn');
   if (upBtnC) upBtnC.addEventListener('click', ()=>moveRowUp(tr));
@@ -1116,9 +1164,11 @@ function addCustomItem(){
 }
 
 function updateCustomRowAmount(tr){
+  // Amount is ALWAYS: Portions field × Rate
   const portions = Number(tr.querySelector('.portions').value) || 0;
   const rateEl = tr.querySelector('.rate');
   const rate = rateEl ? Number(rateEl.value) : (Number(tr.dataset.rate) || 0);
+  
   const amt = portions * rate;
   tr.querySelector('.amount').textContent = formatCurrency(amt);
   updatePcsDisplay(tr);
@@ -1126,27 +1176,19 @@ function updateCustomRowAmount(tr){
 }
 
 function updateRowAmount(tr){
+  // Amount is ALWAYS: Portions field × Rate
   const portions = Number(tr.querySelector('.portions').value) || 0;
   const rateEl = tr.querySelector('.rate');
   const rate = rateEl ? Number(rateEl.value) : (Number(tr.dataset.rate) || 0);
+  
   const amt = portions * rate;
   tr.querySelector('.amount').textContent = formatCurrency(amt);
-  updatePcsDisplay(tr);
   updateTotal();
 }
 
 function updatePcsDisplay(tr){
-  const original = tr.dataset.pcsOriginal || '';
-  const pcsEl = tr.querySelector('.pcsDisplay');
-  const portions = Number(tr.querySelector('.portions').value) || 0;
-  const m = (original || '').toString().trim().match(/^\s*(\d+)\s*(?:PC|PCS)\b/i);
-  if (m){
-    const base = Number(m[1]);
-    const total = base * portions;
-    if (pcsEl) pcsEl.textContent = `${total} PCS`;
-  } else {
-    if (pcsEl) pcsEl.textContent = original || '';
-  }
+  // No automatic calculation - user manually enters PCS value
+  // This function is kept for backward compatibility but does nothing
 }
 
 function extractNumber(val) {
@@ -1217,13 +1259,24 @@ function collectPayload(){
     const descEl = tr.querySelector('.description-input');
     if (descEl) desc = descEl.value.trim();
     const portions = Number(tr.querySelector('.portions') ? tr.querySelector('.portions').value : 0) || 0;
-    const pcsEl = tr.querySelector('.pcsDisplay');
-    const pcsDisplay = pcsEl ? (pcsEl.value !== undefined ? pcsEl.value : pcsEl.textContent.trim()) : '';
+    const pcsQtyEl = tr.querySelector('.pcsQty');
+    const pcsQtyBase = pcsQtyEl ? pcsQtyEl.value.trim() : (tr.dataset.pcsDisplay || '');
+    const unitEl = tr.querySelector('.pcsUnit');
+    const unit = unitEl ? unitEl.value : (tr.dataset.unit || 'PCS');
     const rateEl = tr.querySelector('.rate');
     const rate = rateEl ? Number(rateEl.value) : (Number(tr.dataset.rate) || 0);
     const category = tr.dataset.category || 'Other';
     const vegNonVeg = tr.dataset.vegNonVeg || '';
-    items.push({ Name: name, Description: desc, Category: category, VegNonVeg: vegNonVeg, Portions: portions, PcsDisplay: pcsDisplay, Rate: rate, Amount: portions*rate });
+    const calculate = tr.dataset.calculate || '0';
+    
+    // Calculate PcsDisplay: if Calculate=1, multiply by Portions; otherwise use base value
+    let pcsDisplay = pcsQtyBase;
+    if (calculate === '1'){
+      const baseNum = extractNumber(pcsQtyBase);
+      pcsDisplay = String(baseNum * portions);
+    }
+    
+    items.push({ Name: name, Description: desc, Category: category, VegNonVeg: vegNonVeg, Portions: portions, PcsDisplay: pcsDisplay, Unit: unit, Rate: rate, Amount: portions*rate, Calculate: calculate });
   });
 
   // Format date as dd/mm/yyyy
