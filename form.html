@@ -377,7 +377,7 @@
           </select>
         </div>
         <div>
-          <label>Total Pcs.</label> 
+          <label>Pcs.</label> 
           <input id="customPcs" type="text" placeholder="e.g., 1 KG, 6 PCS" />
         </div>
         <div>
@@ -823,7 +823,7 @@ function addItemToTable(item, idx){
   tr.dataset.idx = idx;
   const rate = Number(item['Rate']||0);
   const pcsDisplay = item['PcsDisplay'] || '';
-  const unit = item['Unit'] || 'PCS';
+  const unit = item['Unit'] !== undefined ? item['Unit'] : '';
   const vegLabel = (item['VegNonVeg'] || '').toString().trim();
   const vegClass = vegLabel.toLowerCase().includes('non') ? 'non-veg' : (vegLabel ? 'veg' : 'veg');
   const calculateChecked = (item['Calculate'] === '1' || item['Calculate'] === 1) ? 'checked' : '';
@@ -834,7 +834,7 @@ function addItemToTable(item, idx){
     <td style="text-align:center"><input class="rate" type="number" min="0" step="0.01" value="${rate}" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
     <td style="text-align:center" class="amount">${formatCurrency(rate)}</td>
     <td style="text-align:center"><input class="pcsQty" type="text" value="${pcsDisplay}" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center" /><div class="pcsDisplayReview" style="font-size:10px;color:#666;margin-top:2px;font-weight:500">→ ${pcsDisplay}</div></td>
-    <td style="text-align:center"><select class="pcsUnit" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;font-size:12px"><option value="PCS" ${unit==='PCS'?'selected':''}>PCS</option><option value="PC" ${unit==='PC'?'selected':''}>PC</option><option value="GMS" ${unit==='GMS'?'selected':''}>GMS</option><option value="ML" ${unit==='ML'?'selected':''}>ML</option></select></td>
+    <td style="text-align:center"><select class="pcsUnit" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;font-size:12px"><option value="" ${unit===''?'selected':''}>NA</option><option value="PCS" ${unit==='PCS'?'selected':''}>PCS</option><option value="PC" ${unit==='PC'?'selected':''}>PC</option><option value="GMS" ${unit==='GMS'?'selected':''}>GMS</option><option value="ML" ${unit==='ML'?'selected':''}>ML</option></select></td>
     <td style="text-align:center"><input class="calculateToggle" type="checkbox" ${calculateChecked} style="width:16px;height:16px;cursor:pointer" /></td>
     <td style="text-align:center">
       <div style="display:flex;gap:4px;align-items:center;justify-content:center;flex-wrap:wrap">
@@ -1106,7 +1106,7 @@ function addCustomItem(){
     <td style="text-align:center"><input class="rate" type="number" min="0" step="0.01" value="${rate}" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
     <td style="text-align:center" class="amount">${formatCurrency(portions * rate)}</td>
     <td style="text-align:center"><input class="pcsQty" type="text" value="${pcsDisplay}" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center" /><div class="pcsDisplayReview" style="font-size:10px;color:#666;margin-top:2px;font-weight:500">→ ${pcsDisplay}</div></td>
-    <td style="text-align:center"><select class="pcsUnit" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;font-size:12px"><option value="PCS">PCS</option><option value="PC">PC</option><option value="GMS">GMS</option><option value="ML">ML</option></select></td>
+    <td style="text-align:center"><select class="pcsUnit" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;font-size:12px"><option value="">NA</option><option value="PCS">PCS</option><option value="PC">PC</option><option value="GMS">GMS</option><option value="ML">ML</option></select></td>
     <td style="text-align:center"><input class="calculateToggle" type="checkbox" style="width:16px;height:16px;cursor:pointer" /></td>
     <td style="text-align:center">
       <div style="display:flex;gap:4px;align-items:center;justify-content:center;flex-wrap:wrap">
