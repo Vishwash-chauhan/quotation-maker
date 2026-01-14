@@ -826,15 +826,16 @@ function addItemToTable(item, idx){
   const unit = item['Unit'] || 'PCS';
   const vegLabel = (item['VegNonVeg'] || '').toString().trim();
   const vegClass = vegLabel.toLowerCase().includes('non') ? 'non-veg' : (vegLabel ? 'veg' : 'veg');
+  const calculateChecked = (item['Calculate'] === '1' || item['Calculate'] === 1) ? 'checked' : '';
   tr.innerHTML = `<td><strong>${item['Name']}</strong> <button type="button" class="veg-toggle ${vegClass}" aria-pressed="${vegLabel.toLowerCase().includes('non')}">${vegLabel || 'Veg'}</button>
       <div style="margin-top:6px;font-size:12px;color:#666;"><textarea class="description-input" rows="2" placeholder="Description" style="font-size:12px">${item['Description']||''}</textarea></div>
     </td>
     <td style="text-align:center"><input class="portions" type="number" min="0" value="1" style="width:55px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center" /></td>
     <td style="text-align:center"><input class="rate" type="number" min="0" step="0.01" value="${rate}" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
     <td style="text-align:center" class="amount">${formatCurrency(rate)}</td>
-    <td style="text-align:center"><input class="pcsQty" type="text" value="${pcsDisplay}" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center" /></td>
+    <td style="text-align:center"><input class="pcsQty" type="text" value="${pcsDisplay}" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center" /><div class="pcsDisplayReview" style="font-size:10px;color:#666;margin-top:2px;font-weight:500">→ ${pcsDisplay}</div></td>
     <td style="text-align:center"><select class="pcsUnit" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;font-size:12px"><option value="PCS" ${unit==='PCS'?'selected':''}>PCS</option><option value="PC" ${unit==='PC'?'selected':''}>PC</option><option value="GMS" ${unit==='GMS'?'selected':''}>GMS</option><option value="ML" ${unit==='ML'?'selected':''}>ML</option></select></td>
-    <td style="text-align:center"><input class="calculateToggle" type="checkbox" style="width:16px;height:16px;cursor:pointer" /></td>
+    <td style="text-align:center"><input class="calculateToggle" type="checkbox" ${calculateChecked} style="width:16px;height:16px;cursor:pointer" /></td>
     <td style="text-align:center">
       <div style="display:flex;gap:4px;align-items:center;justify-content:center;flex-wrap:wrap">
         <button class="icon-btn mobile-move upBtn" title="Move up" aria-label="Move up" style="padding:4px">
@@ -855,7 +856,7 @@ function addItemToTable(item, idx){
   tr.dataset.category = item.Category || 'Other';
   tr.dataset.vegNonVeg = item.VegNonVeg || '';
   tr.dataset.description = item.Description || '';
-  tr.dataset.calculate = '0'; // default: no auto-calculation
+  tr.dataset.calculate = (item['Calculate'] === '1' || item['Calculate'] === 1) ? '1' : '0';
   // Append row into category tbody
   const cat = tr.dataset.category || 'Other';
   const catBody = getCategoryBody(cat);
@@ -1104,7 +1105,7 @@ function addCustomItem(){
     <td style="text-align:center"><input class="portions" type="number" min="0" value="${portions}" style="width:55px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center" /></td>
     <td style="text-align:center"><input class="rate" type="number" min="0" step="0.01" value="${rate}" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
     <td style="text-align:center" class="amount">${formatCurrency(portions * rate)}</td>
-    <td style="text-align:center"><input class="pcsQty" type="text" value="${pcsDisplay}" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center" /></td>
+    <td style="text-align:center"><input class="pcsQty" type="text" value="${pcsDisplay}" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center" /><div class="pcsDisplayReview" style="font-size:10px;color:#666;margin-top:2px;font-weight:500">→ ${pcsDisplay}</div></td>
     <td style="text-align:center"><select class="pcsUnit" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;font-size:12px"><option value="PCS">PCS</option><option value="PC">PC</option><option value="GMS">GMS</option><option value="ML">ML</option></select></td>
     <td style="text-align:center"><input class="calculateToggle" type="checkbox" style="width:16px;height:16px;cursor:pointer" /></td>
     <td style="text-align:center">
@@ -1201,6 +1202,28 @@ function updateCustomRowAmount(tr){
   tr.querySelector('.amount').textContent = formatCurrency(amt);
   updatePcsDisplay(tr);
   updateTotal();
+  updatePcsDisplayReview(tr);
+}
+
+function updatePcsDisplayReview(tr){
+  const pcsQtyEl = tr.querySelector('.pcsQty');
+  const portionsEl = tr.querySelector('.portions');
+  const calculateToggle = tr.querySelector('.calculateToggle');
+  const reviewEl = tr.querySelector('.pcsDisplayReview');
+  
+  if (!pcsQtyEl || !reviewEl) return;
+  
+  const pcsQty = pcsQtyEl.value || '0';
+  const portions = portionsEl ? Number(portionsEl.value) || 0 : 0;
+  const isCalculate = calculateToggle && calculateToggle.checked;
+  
+  let finalPcs = pcsQty;
+  if (isCalculate){
+    const baseNum = extractNumber(pcsQty);
+    finalPcs = String(baseNum * portions);
+  }
+  
+  reviewEl.textContent = '→ ' + finalPcs;
 }
 
 function updateRowAmount(tr){
@@ -1212,6 +1235,7 @@ function updateRowAmount(tr){
   const amt = portions * rate;
   tr.querySelector('.amount').textContent = formatCurrency(amt);
   updateTotal();
+  updatePcsDisplayReview(tr);
 }
 
 function updatePcsDisplay(tr){
