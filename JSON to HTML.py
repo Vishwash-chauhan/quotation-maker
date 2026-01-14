@@ -379,7 +379,7 @@ for cat, items in categories.items():
               <td style="text-align: center;">{portions}</td>
               <td style="text-align: center;">{rate_display}</td>
               <td style="text-align: center;">{amount_display}</td>
-              <td style="text-align: center;">{d.get('PcsDisplay','')}</td>
+              <td style="text-align: center;">{d.get('PcsDisplay') or d.get('Pcs','')} {d.get('Unit','')}</td>
             </tr>"""
     html += "</tbody></table>"
 
