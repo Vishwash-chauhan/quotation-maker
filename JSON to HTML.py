@@ -426,10 +426,18 @@ if host_reqs:
 
 html += "</td></tr></tbody></table>"
 
-# Link to master menu (placed after the very last menu table)
+# Link to master menu (PDF-Compatible Horizontal Layout)
 html += """
-    <div style="margin-top: 10px; text-align: center; font-size: 14px;">
-      <p style="margin: 6px 0 0 0;"><strong>Visit Our Master Menu At</strong><br><a href="https://tinyurl.com/4tzr93wn">https://tinyurl.com/4tzr93wn</a></p>
+    <div style="margin: 20px 0; text-align: center; page-break-inside: avoid;">
+      <div style="display: inline-block; background-color: #F6B27A; padding: 10px 20px; border-radius: 8px; width: 85%;">
+        <span style="font-weight: 800; color: #2D3E50; font-size: 16px; text-transform: uppercase; vertical-align: middle;">
+            Visit Our Master Menu
+        </span>
+        <br/>
+        <a href="https://tinyurl.com/4tzr93wn" style="color: #2D3E50; text-decoration: underline; font-weight: 800; font-size: 16px; margin-left: 8px; vertical-align: middle;">
+            tinyurl.com/4tzr93wn
+        </a>
+      </div>
     </div>
 """
 
