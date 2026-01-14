@@ -344,10 +344,10 @@ for cat, items in categories.items():
           <thead>
             <tr>
               <th style="background: #F6B27A; color: #2D3E50;">{cat.upper()}</th>
-              <th style="text-align: center; background: #F6B27A; color: #2D3E50;">PCS</th>
               <th style="text-align: center; background: #F6B27A; color: #2D3E50;">PORTION</th>
               <th style="text-align: center; background: #F6B27A; color: #2D3E50;">RATE</th>
               <th style="text-align: center; background: #F6B27A; color: #2D3E50;">AMOUNT</th>
+              <th style="text-align: center; background: #F6B27A; color: #2D3E50;">PCS</th>
             </tr>
           </thead>
           <tbody>
@@ -376,10 +376,10 @@ for cat, items in categories.items():
                 <strong>{d.get('Name','')}</strong><span class='badge'>{d.get('Veg/Non Veg','').strip()}</span>
                 <span class='description'>{d.get('Description','')}</span>
               </td>
-              <td style="text-align: center;">{d.get('Pcs','')}</td>
               <td style="text-align: center;">{portions}</td>
               <td style="text-align: center;">{rate_display}</td>
               <td style="text-align: center;">{amount_display}</td>
+              <td style="text-align: center;">{d.get('PcsDisplay','')}</td>
             </tr>"""
     html += "</tbody></table>"
 
