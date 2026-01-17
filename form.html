@@ -815,6 +815,9 @@ function renderMenu(items){
 
 let currentCategoryFilter = null; // Track active category filter
 
+// Define the desired order of categories
+const categoryOrder = ['Table Snacks', 'Main Course', 'Rice', 'Noodles', 'Dessert', 'Drinks'];
+
 function renderFilterButtons(items){
   const filterBtnEl = document.getElementById('filterButtons');
   const filterDropdownEl = document.getElementById('filterDropdown');
@@ -822,12 +825,26 @@ function renderFilterButtons(items){
   filterDropdownEl.innerHTML = '';
   
   // Extract unique categories from items
-  const categories = [...new Set(items.map(m => m.Category || 'Other'))].sort();
+  const allCategories = [...new Set(items.map(m => m.Category || 'Other'))];
+  
+  // Sort categories according to predefined order
+  const categories = allCategories.sort((a, b) => {
+    const indexA = categoryOrder.indexOf(a);
+    const indexB = categoryOrder.indexOf(b);
+    // If both are in the predefined order, use that order
+    if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+    // If only one is in the predefined order, it comes first
+    if (indexA !== -1) return -1;
+    if (indexB !== -1) return 1;
+    // If neither is in the predefined order, sort alphabetically
+    return a.localeCompare(b);
+  });
   
   // Add "All" button
   const allBtn = document.createElement('button');
   allBtn.type = 'button';
   allBtn.className = 'filter-btn active';
+
   allBtn.textContent = 'All Items';
   allBtn.addEventListener('click', ()=>{
     currentCategoryFilter = null;
