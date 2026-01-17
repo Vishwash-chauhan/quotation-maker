@@ -18,6 +18,16 @@
     .col{flex:1}
     .search{margin-top:10px;padding:10px;border:1px solid #ddd;border-radius:6px;width:100%;}
     .search:focus{outline:none;border-color:#2D3E50;box-shadow:0 0 0 3px rgba(45,62,80,0.1)}
+    .filter-buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;margin-bottom:12px}
+    .filter-btn{padding:8px 14px;border:1px solid #ddd;background:#f5f5f5;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;color:#333;transition:all 0.2s}
+    .filter-btn:hover{border-color:#2D3E50;background:#e8f0f5}
+    .filter-btn.active{background:#2D3E50;color:white;border-color:#2D3E50}
+    .filter-dropdown{display:none;width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-size:14px;background:white}
+    .search-help{font-size:12px;color:#888;margin-top:6px;font-style:italic}
+    @media (max-width: 600px){
+      .filter-buttons{display:none}
+      .filter-dropdown{display:block}
+    }
     .menu-list{max-height:360px;overflow:auto;border:1px solid #e6e6e6;padding:8px;margin-top:8px;border-radius:6px}
     .category{margin-bottom:12px;border-bottom:1px solid #f0f0f0;padding-bottom:8px}
     .category-header{font-weight:700;padding:8px 6px;background:#fbfbfb;border-radius:4px;margin-bottom:6px;border:1px solid #f3f3f3}
@@ -317,8 +327,9 @@
     <p class="muted" style="margin-top:8px;"></p>
 
     <label style="margin-top:16px">Search & select menu items</label>
-    <input id="search" class="search" placeholder="Search menu..." />
-    <div id="menuList" class="menu-list">Loading menu…</div>
+    <div class="filter-buttons" id="filterButtons"></div>
+    <select id="filterDropdown" class="filter-dropdown"></select>
+    <input id="search" class="search" placeholder="Search by dish name or ingredient (e.g., Chicken, Paneer, Rice)..." />    <div id="menuList" class="menu-list">Loading menu…</div>
 
     <h3 style="margin-top:18px">Selected Items</h3>
     <div id="tableWrap">
@@ -799,21 +810,109 @@ function renderMenu(items){
 
     menuListEl.appendChild(container);
   });
+  renderFilterButtons(items);
 }
 
-searchEl.addEventListener('input', ()=>{
+let currentCategoryFilter = null; // Track active category filter
+
+function renderFilterButtons(items){
+  const filterBtnEl = document.getElementById('filterButtons');
+  const filterDropdownEl = document.getElementById('filterDropdown');
+  filterBtnEl.innerHTML = '';
+  filterDropdownEl.innerHTML = '';
+  
+  // Extract unique categories from items
+  const categories = [...new Set(items.map(m => m.Category || 'Other'))].sort();
+  
+  // Add "All" button
+  const allBtn = document.createElement('button');
+  allBtn.type = 'button';
+  allBtn.className = 'filter-btn active';
+  allBtn.textContent = 'All Items';
+  allBtn.addEventListener('click', ()=>{
+    currentCategoryFilter = null;
+    updateFilterButtons();
+    updateFilterDropdown();
+    applyFilters();
+  });
+  filterBtnEl.appendChild(allBtn);
+  
+  // Add "All" option to dropdown
+  const allOption = document.createElement('option');
+  allOption.value = '';
+  allOption.textContent = 'All Items';
+  filterDropdownEl.appendChild(allOption);
+  
+  // Add category buttons and dropdown options
+  categories.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'filter-btn';
+    btn.textContent = cat;
+    btn.addEventListener('click', ()=>{
+      currentCategoryFilter = cat;
+      updateFilterButtons();
+      updateFilterDropdown();
+      applyFilters();
+    });
+    filterBtnEl.appendChild(btn);
+    
+    // Add to dropdown
+    const option = document.createElement('option');
+    option.value = cat;
+    option.textContent = cat;
+    filterDropdownEl.appendChild(option);
+  });
+  
+  // Add dropdown change listener
+  filterDropdownEl.addEventListener('change', (e)=>{
+    currentCategoryFilter = e.target.value || null;
+    updateFilterButtons();
+    applyFilters();
+  });
+}
+
+function updateFilterButtons(){
+  const buttons = document.querySelectorAll('.filter-btn');
+  buttons.forEach(btn => {
+    if ((currentCategoryFilter === null && btn.textContent === 'All Items') ||
+        (currentCategoryFilter !== null && btn.textContent === currentCategoryFilter)) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+}
+
+function updateFilterDropdown(){
+  const filterDropdownEl = document.getElementById('filterDropdown');
+  filterDropdownEl.value = currentCategoryFilter || '';
+}
+
+function applyFilters(){
   const q = searchEl.value.trim().toLowerCase();
   const nodes = menuListEl.querySelectorAll('.menu-item');
+  
   nodes.forEach((n, i)=>{
     const txt = n.querySelector('.meta').textContent.toLowerCase();
-    n.style.display = txt.indexOf(q) === -1 ? 'none' : 'flex';
-  })
+    const categoryHeader = n.closest('.category').querySelector('.category-header').textContent;
+    
+    const matchesSearch = txt.indexOf(q) !== -1;
+    const matchesCategory = currentCategoryFilter === null || categoryHeader === currentCategoryFilter;
+    
+    n.style.display = (matchesSearch && matchesCategory) ? 'flex' : 'none';
+  });
+  
   // hide empty categories
   const cats = menuListEl.querySelectorAll('.category');
   cats.forEach(cat => {
-    const visible = cat.querySelectorAll('.menu-item').length && cat.querySelectorAll('.menu-item[style*="display: none"]').length !== cat.querySelectorAll('.menu-item').length;
-    cat.style.display = visible ? 'block' : 'none';
+    const visibleItems = Array.from(cat.querySelectorAll('.menu-item')).filter(item => item.style.display !== 'none');
+    cat.style.display = visibleItems.length > 0 ? 'block' : 'none';
   });
+}
+
+searchEl.addEventListener('input', ()=>{
+  applyFilters();
 })
 
 function addItemToTable(item, idx){
