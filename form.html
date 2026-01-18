@@ -960,7 +960,36 @@ function addItemToTable(item, idx){
   const vegLabel = (item['VegNonVeg'] || '').toString().trim();
   const vegClass = vegLabel.toLowerCase().includes('non') ? 'non-veg' : (vegLabel ? 'veg' : 'veg');
   const calculateChecked = (item['Calculate'] === '1' || item['Calculate'] === 1) ? 'checked' : '';
-  tr.innerHTML = `<td><strong>${item['Name']}</strong> <button type="button" class="veg-toggle ${vegClass}" aria-pressed="${vegLabel.toLowerCase().includes('non')}">${vegLabel || 'Veg'}</button>
+  const isLiveStation = (item.Category || '') === 'Live Stations';
+  
+  if (isLiveStation) {
+    // LIVE STATIONS: Different column structure
+    tr.innerHTML = `<td colspan="2"><strong>${item['Name']}</strong>
+      <div style="margin-top:6px;font-size:12px;color:#666;"><textarea class="description-input" rows="2" placeholder="Description" style="font-size:12px">${item['Description']||''}</textarea></div>
+    </td>
+    <td style="text-align:center"><input class="setup" type="number" min="0" step="0.01" value="0" style="width:65px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
+    <td style="text-align:center"><input class="rate" type="number" min="0" step="0.01" value="${rate}" style="width:65px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
+    <td style="text-align:center"><input class="noOfPeople" type="number" min="0" value="0" style="width:65px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center" /></td>
+    <td style="text-align:center" class="amount">₹0</td>
+    <td style="text-align:center">
+      <div style="display:flex;gap:4px;align-items:center;justify-content:center;flex-wrap:wrap">
+        <button class="icon-btn mobile-move upBtn" title="Move up" aria-label="Move up" style="padding:4px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 19V6" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 12l7-7 7 7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="icon-btn mobile-move downBtn" title="Move down" aria-label="Move down" style="padding:4px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 5v14" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 12l-7 7-7-7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="icon-btn deleteBtn" title="Delete" aria-label="Delete" style="padding:4px"> 
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 6h18" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <span class="drag-handle" title="Drag to reorder" aria-label="Drag to reorder">☰</span>
+      </div>
+    </td>`;
+    tr.dataset.setup = '0';
+    tr.dataset.noOfPeople = '0';
+  } else {
+    // REGULAR ITEMS: Original column structure
+    tr.innerHTML = `<td><strong>${item['Name']}</strong> <button type="button" class="veg-toggle ${vegClass}" aria-pressed="${vegLabel.toLowerCase().includes('non')}">${vegLabel || 'Veg'}</button>
       <div style="margin-top:6px;font-size:12px;color:#666;"><textarea class="description-input" rows="2" placeholder="Description" style="font-size:12px">${item['Description']||''}</textarea></div>
     </td>
     <td style="text-align:center"><input class="portions" type="number" min="0" value="1" style="width:55px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center" /></td>
@@ -983,6 +1012,8 @@ function addItemToTable(item, idx){
         <span class="drag-handle" title="Drag to reorder" aria-label="Drag to reorder">☰</span>
       </div>
     </td>`;
+  }
+  
   tr.dataset.rate = rate;
   tr.dataset.pcsDisplay = pcsDisplay;
   tr.dataset.unit = unit;
@@ -990,75 +1021,111 @@ function addItemToTable(item, idx){
   tr.dataset.vegNonVeg = item.VegNonVeg || '';
   tr.dataset.description = item.Description || '';
   tr.dataset.calculate = (item['Calculate'] === '1' || item['Calculate'] === 1) ? '1' : '0';
+  
   // Append row into category tbody
   const cat = tr.dataset.category || 'Other';
   const catBody = getCategoryBody(cat);
   catBody.appendChild(tr);
-  const vegBtn = tr.querySelector('.veg-toggle');
-  if (vegBtn){
-    vegBtn.addEventListener('click', ()=>{
-      const cur = (tr.dataset.vegNonVeg||'').toString().trim();
-      let next = 'Veg';
-      if (cur === 'Veg') next = 'Non-Veg';
-      else if (cur === 'Non-Veg') next = 'Veg & Non-Veg';
-      else if (cur === 'Veg & Non-Veg') next = 'Veg';
-      
-      tr.dataset.vegNonVeg = next;
-      vegBtn.textContent = next;
-      vegBtn.classList.remove('non-veg', 'veg');
-      
-      if (next === 'Non-Veg' || next === 'Veg & Non-Veg') {
-        vegBtn.classList.add('non-veg');
-        vegBtn.setAttribute('aria-pressed', 'true');
-      } else {
-        vegBtn.classList.add('veg');
-        vegBtn.setAttribute('aria-pressed', 'false');
-      }
-    });
-    // ensure button reflects initial state
-    const initial = (tr.dataset.vegNonVeg||'').toString().trim();
-    if (initial === 'Non-Veg' || initial === 'Veg & Non-Veg'){ vegBtn.textContent=initial; vegBtn.classList.add('non-veg'); vegBtn.setAttribute('aria-pressed', 'true'); }
-    else { vegBtn.textContent = initial || 'Veg'; vegBtn.classList.add('veg'); vegBtn.setAttribute('aria-pressed', 'false'); }
-  }
+  
   const descInput = tr.querySelector('.description-input');
   if (descInput){
     descInput.addEventListener('input', ()=>{ tr.dataset.description = descInput.value; });
   }
-  const portionsInput = tr.querySelector('.portions');
-  portionsInput.addEventListener('input', ()=>updateRowAmount(tr));
-  const rateInput = tr.querySelector('.rate');
-  if (rateInput){
-    rateInput.addEventListener('input', ()=>{ updateRowAmount(tr); });
-  }
-  const pcsQtyInput = tr.querySelector('.pcsQty');
-  if (pcsQtyInput){
-    pcsQtyInput.addEventListener('input', ()=>{ 
-      tr.dataset.pcsDisplay = pcsQtyInput.value;
-      // If calculate is enabled, update amount when pcsQty changes
-      if (tr.dataset.calculate === '1'){
+  
+  if (isLiveStation) {
+    // Live Stations event listeners
+    const setupInput = tr.querySelector('.setup');
+    const rateInput = tr.querySelector('.rate');
+    const noOfPeopleInput = tr.querySelector('.noOfPeople');
+    
+    if (setupInput) {
+      setupInput.addEventListener('input', ()=>{
+        tr.dataset.setup = setupInput.value;
+        updateLiveStationAmount(tr);
+      });
+    }
+    if (rateInput) {
+      rateInput.addEventListener('input', ()=>{
+        tr.dataset.rate = Number(rateInput.value) || 0;
+        updateLiveStationAmount(tr);
+      });
+    }
+    if (noOfPeopleInput) {
+      noOfPeopleInput.addEventListener('input', ()=>{
+        tr.dataset.noOfPeople = noOfPeopleInput.value;
+        updateLiveStationAmount(tr);
+      });
+    }
+    updateLiveStationAmount(tr);
+  } else {
+    // Regular items event listeners
+    const vegBtn = tr.querySelector('.veg-toggle');
+    if (vegBtn){
+      vegBtn.addEventListener('click', ()=>{
+        const cur = (tr.dataset.vegNonVeg||'').toString().trim();
+        let next = 'Veg';
+        if (cur === 'Veg') next = 'Non-Veg';
+        else if (cur === 'Non-Veg') next = 'Veg & Non-Veg';
+        else if (cur === 'Veg & Non-Veg') next = 'Veg';
+        
+        tr.dataset.vegNonVeg = next;
+        vegBtn.textContent = next;
+        vegBtn.classList.remove('non-veg', 'veg');
+        
+        if (next === 'Non-Veg' || next === 'Veg & Non-Veg') {
+          vegBtn.classList.add('non-veg');
+          vegBtn.setAttribute('aria-pressed', 'true');
+        } else {
+          vegBtn.classList.add('veg');
+          vegBtn.setAttribute('aria-pressed', 'false');
+        }
+      });
+      // ensure button reflects initial state
+      const initial = (tr.dataset.vegNonVeg||'').toString().trim();
+      if (initial === 'Non-Veg' || initial === 'Veg & Non-Veg'){ vegBtn.textContent=initial; vegBtn.classList.add('non-veg'); vegBtn.setAttribute('aria-pressed', 'true'); }
+      else { vegBtn.textContent = initial || 'Veg'; vegBtn.classList.add('veg'); vegBtn.setAttribute('aria-pressed', 'false'); }
+    }
+    
+    const portionsInput = tr.querySelector('.portions');
+    portionsInput.addEventListener('input', ()=>updateRowAmount(tr));
+    const rateInput = tr.querySelector('.rate');
+    if (rateInput){
+      rateInput.addEventListener('input', ()=>{ updateRowAmount(tr); });
+    }
+    const pcsQtyInput = tr.querySelector('.pcsQty');
+    if (pcsQtyInput){
+      pcsQtyInput.addEventListener('input', ()=>{ 
+        tr.dataset.pcsDisplay = pcsQtyInput.value;
+        // If calculate is enabled, update amount when pcsQty changes
+        if (tr.dataset.calculate === '1'){
+          updateRowAmount(tr);
+        }
+      });
+    }
+    const unitSelect = tr.querySelector('.pcsUnit');
+    if (unitSelect){
+      unitSelect.addEventListener('change', ()=>{ tr.dataset.unit = unitSelect.value; });
+    }
+    const calculateToggle = tr.querySelector('.calculateToggle');
+    if (calculateToggle){
+      calculateToggle.addEventListener('change', ()=>{
+        tr.dataset.calculate = calculateToggle.checked ? '1' : '0';
         updateRowAmount(tr);
-      }
-    });
+      });
+    }
   }
-  const unitSelect = tr.querySelector('.pcsUnit');
-  if (unitSelect){
-    unitSelect.addEventListener('change', ()=>{ tr.dataset.unit = unitSelect.value; });
-  }
-  const calculateToggle = tr.querySelector('.calculateToggle');
-  if (calculateToggle){
-    calculateToggle.addEventListener('change', ()=>{
-      tr.dataset.calculate = calculateToggle.checked ? '1' : '0';
-      updateRowAmount(tr);
-    });
-  }
-  // delete button
+  
+  // delete button (common for both)
   tr.querySelector('.deleteBtn').addEventListener('click', (e)=>{ handleDeleteRow(tr); });
   const upBtn = tr.querySelector('.upBtn');
   if (upBtn) upBtn.addEventListener('click', ()=>moveRowUp(tr));
   const downBtn = tr.querySelector('.downBtn');
   if (downBtn) downBtn.addEventListener('click', ()=>moveRowDown(tr));
   makeRowDraggable(tr);
-  updateRowAmount(tr);
+  
+  if (!isLiveStation) {
+    updateRowAmount(tr);
+  }
 }
 
 function getCategoryBody(category){
@@ -1071,7 +1138,19 @@ function getCategoryBody(category){
   const colCount = table.querySelectorAll('thead th').length || 6;
   const headerRow = document.createElement('tr');
   headerRow.className = 'category-row';
-  headerRow.innerHTML = `<td colspan="${colCount}"><strong>${category}</strong></td>`;
+  
+  // For Live Stations, show different column structure
+  if (category === 'Live Stations') {
+    headerRow.innerHTML = `<td colspan="2" style="font-weight:700;padding:8px;"><strong>${category}</strong></td>
+      <td style="text-align:center;font-weight:600;font-size:12px;padding:8px;width:70px">Setup</td>
+      <td style="text-align:center;font-weight:600;font-size:12px;padding:8px;width:70px">Rate</td>
+      <td style="text-align:center;font-weight:600;font-size:12px;padding:8px;width:70px">No. People</td>
+      <td style="text-align:center;font-weight:600;font-size:12px;padding:8px;width:70px">Amount</td>
+      <td style="text-align:center;font-weight:600;font-size:12px;padding:8px;width:90px">Action</td>`;
+  } else {
+    headerRow.innerHTML = `<td colspan="${colCount}"><strong>${category}</strong></td>`;
+  }
+  
   tb.appendChild(headerRow);
   // insert before tfoot
   const tfoot = table.querySelector('tfoot');
@@ -1370,6 +1449,17 @@ function updatePcsDisplayReview(tr){
   reviewEl.textContent = '→ ' + finalPcs;
 }
 
+function updateLiveStationAmount(tr){
+  // Amount = Setup + (Rate × No. Of People)
+  const setup = Number(tr.querySelector('.setup').value) || 0;
+  const rate = Number(tr.querySelector('.rate').value) || 0;
+  const noOfPeople = Number(tr.querySelector('.noOfPeople').value) || 0;
+  
+  const amt = setup + (rate * noOfPeople);
+  tr.querySelector('.amount').textContent = formatCurrency(amt);
+  updateTotal();
+}
+
 function updateRowAmount(tr){
   // Amount is ALWAYS: Portions field × Rate
   const portions = Number(tr.querySelector('.portions').value) || 0;
@@ -1454,25 +1544,47 @@ function collectPayload(){
     let desc = tr.dataset.description || '';
     const descEl = tr.querySelector('.description-input');
     if (descEl) desc = descEl.value.trim();
-    const portions = Number(tr.querySelector('.portions') ? tr.querySelector('.portions').value : 0) || 0;
-    const pcsQtyEl = tr.querySelector('.pcsQty');
-    const pcsQtyBase = pcsQtyEl ? pcsQtyEl.value.trim() : (tr.dataset.pcsDisplay || '');
-    const unitEl = tr.querySelector('.pcsUnit');
-    const unit = unitEl ? unitEl.value : (tr.dataset.unit || 'PCS');
-    const rateEl = tr.querySelector('.rate');
-    const rate = rateEl ? Number(rateEl.value) : (Number(tr.dataset.rate) || 0);
     const category = tr.dataset.category || 'Other';
     const vegNonVeg = tr.dataset.vegNonVeg || '';
-    const calculate = tr.dataset.calculate || '0';
     
-    // Calculate PcsDisplay: if Calculate=1, multiply by Portions; otherwise use base value
-    let pcsDisplay = pcsQtyBase;
-    if (calculate === '1'){
-      const baseNum = extractNumber(pcsQtyBase);
-      pcsDisplay = String(baseNum * portions);
+    // Check if it's a Live Stations item
+    if (category === 'Live Stations') {
+      const setup = Number(tr.querySelector('.setup') ? tr.querySelector('.setup').value : 0) || 0;
+      const rateEl = tr.querySelector('.rate');
+      const rate = rateEl ? Number(rateEl.value) : 0;
+      const noOfPeople = Number(tr.querySelector('.noOfPeople') ? tr.querySelector('.noOfPeople').value : 0) || 0;
+      const amount = setup + (rate * noOfPeople);
+      
+      items.push({ 
+        Name: name, 
+        Description: desc, 
+        Category: category, 
+        VegNonVeg: vegNonVeg, 
+        Setup: setup,
+        Rate: rate,
+        NoOfPeople: noOfPeople,
+        Amount: amount
+      });
+    } else {
+      // Regular item
+      const portions = Number(tr.querySelector('.portions') ? tr.querySelector('.portions').value : 0) || 0;
+      const pcsQtyEl = tr.querySelector('.pcsQty');
+      const pcsQtyBase = pcsQtyEl ? pcsQtyEl.value.trim() : (tr.dataset.pcsDisplay || '');
+      const unitEl = tr.querySelector('.pcsUnit');
+      const unit = unitEl ? unitEl.value : (tr.dataset.unit || 'PCS');
+      const rateEl = tr.querySelector('.rate');
+      const rate = rateEl ? Number(rateEl.value) : (Number(tr.dataset.rate) || 0);
+      const calculate = tr.dataset.calculate || '0';
+      
+      // Calculate PcsDisplay: if Calculate=1, multiply by Portions; otherwise use base value
+      let pcsDisplay = pcsQtyBase;
+      if (calculate === '1'){
+        const baseNum = extractNumber(pcsQtyBase);
+        pcsDisplay = String(baseNum * portions);
+      }
+      
+      items.push({ Name: name, Description: desc, Category: category, VegNonVeg: vegNonVeg, Portions: portions, PcsDisplay: pcsDisplay, Unit: unit, Rate: rate, Amount: portions*rate, Calculate: calculate });
     }
-    
-    items.push({ Name: name, Description: desc, Category: category, VegNonVeg: vegNonVeg, Portions: portions, PcsDisplay: pcsDisplay, Unit: unit, Rate: rate, Amount: portions*rate, Calculate: calculate });
   });
 
   // Format date as dd/mm/yyyy
