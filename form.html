@@ -387,6 +387,7 @@
             <option value="">— Select —</option>
             <option value="Veg">Veg</option>
             <option value="Non-Veg">Non-Veg</option>
+            <option value="Veg & Non-Veg">Veg & Non-Veg</option>
           </select>
         </div>
         <div>
@@ -778,11 +779,17 @@ menuItems = [
     {Name: "Smoothies", Description: "Choice of Vanilla, Chocolate, or Strawberry.", PcsDisplay: "200", Unit: "ML", Calculate: "0", Rate: 99, Category: "Drinks", VegNonVeg: "Veg"},
 
     // LIVE STATIONS
-    {Name: "Pasta Station", Description: "Fresh, hot pasta cooked live with your choice of sauce - Pink, White or Red Sauce. Finished with veggies, herbs, and cheese. Simple, tasty, and loved by all!", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 9999, Category: "Live Stations", VegNonVeg: "Veg"},
-    {Name: "Popcorn Station", Description: "A guaranteed crowd-puller for movie nights, birthdays, or any fun gathering!", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 8999, Category: "Live Stations", VegNonVeg: "Veg"},
-    {Name: "Chocolate Fountain", Description: "Big chocolate fountain with assortments like marshmallows, brownies, strawberries on skewers.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 9999, Category: "Live Stations", VegNonVeg: "Veg"},
-    {Name: "Cotton Candy Station", Description: "Clouds of sugary sweetness spin right before your eyes, creating a magical treat that delights kids and adults alike.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 9999, Category: "Live Stations", VegNonVeg: "Veg"},
-    {Name: "Waffle Station", Description: "Waffles, Dark Chocolate, White Chocolate, Hazelnut Paste, Strawberry syrup, Chocochips, Nuts, Sprinkles, Vanilla Ice Cream.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 9999, Category: "Live Stations", VegNonVeg: "Veg"}
+    {Name: "Waffle Station", Description: "Freshly cooked golden waffles with a delightful array of toppings including chocolates, syrups, nuts, and ice cream.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 9999, Category: "Live Stations", VegNonVeg: "Veg"},
+    {Name: "Churros Station", Description: "Delicious churros served with a variety of dipping sauces.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 9999, Category: "Live Stations", VegNonVeg: "Veg"},
+    {Name: "Mini Pancakes", Description: "Fluffy mini pancakes served with syrup and toppings.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 9999, Category: "Live Stations", VegNonVeg: "Veg"},
+    {Name: "Popcorn Station", Description: "A guaranteed crowd-puller for movie nights, birthdays, or any fun gathering!", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 7999, Category: "Live Stations", VegNonVeg: "Veg"},
+    {Name: "Cotton Candy Station", Description: "Clouds of sugary sweetness spin right before your eyes, creating a magical treat that delights kids and adults alike.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 7999, Category: "Live Stations", VegNonVeg: "Veg"},
+    {Name: "Chocolate Fountain", Description: "Big chocolate fountain with assortments like marshmallows, brownies, strawberries on skewers.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 7999, Category: "Live Stations", VegNonVeg: "Veg"},
+    {Name: "Potato Spiral", Description: "Crispy spiraled potato on a stick, a crunchy treat perfect for snacking on the go.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 7999, Category: "Live Stations", VegNonVeg: "Veg"},
+    {Name: "Burger Station", Description: "Mini burger station with a variety of fillings and toppings to choose from.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 0, Category: "Live Stations", VegNonVeg: "Veg", CustomPrice: "₹25000 setup + ₹300/- per person"},
+    {Name: "Pizza Station", Description: "Create your own mini pizzas with a variety of toppings and sauces.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 0, Category: "Live Stations", VegNonVeg: "Veg", CustomPrice: "₹5000 setup + ₹500/- per person"},
+    {Name: "Pasta Station", Description: "Fresh, hot pasta cooked live with your choice of sauce - Pink, White or Red Sauce.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 0, Category: "Live Stations", VegNonVeg: "Veg", CustomPrice: "₹25000 setup + ₹300 per person"},
+    {Name: "Dim-Sum Station", Description: "Steamed dim-sums made live with a variety of fillings.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 0, Category: "Live Stations", VegNonVeg: "Veg", CustomPrice: "₹2000 setup + ₹200 per person"},
 ];
   renderMenu(menuItems);
 }
@@ -990,16 +997,27 @@ function addItemToTable(item, idx){
   const vegBtn = tr.querySelector('.veg-toggle');
   if (vegBtn){
     vegBtn.addEventListener('click', ()=>{
-      const cur = (tr.dataset.vegNonVeg||'').toString().toLowerCase().includes('non') ? 'Veg' : 'Non-Veg';
-      tr.dataset.vegNonVeg = cur;
-      vegBtn.textContent = cur;
-      vegBtn.classList.toggle('non-veg', cur === 'Non-Veg');
-      vegBtn.classList.toggle('veg', cur === 'Veg');
-      vegBtn.setAttribute('aria-pressed', cur === 'Non-Veg');
+      const cur = (tr.dataset.vegNonVeg||'').toString().trim();
+      let next = 'Veg';
+      if (cur === 'Veg') next = 'Non-Veg';
+      else if (cur === 'Non-Veg') next = 'Veg & Non-Veg';
+      else if (cur === 'Veg & Non-Veg') next = 'Veg';
+      
+      tr.dataset.vegNonVeg = next;
+      vegBtn.textContent = next;
+      vegBtn.classList.remove('non-veg', 'veg');
+      
+      if (next === 'Non-Veg' || next === 'Veg & Non-Veg') {
+        vegBtn.classList.add('non-veg');
+        vegBtn.setAttribute('aria-pressed', 'true');
+      } else {
+        vegBtn.classList.add('veg');
+        vegBtn.setAttribute('aria-pressed', 'false');
+      }
     });
     // ensure button reflects initial state
     const initial = (tr.dataset.vegNonVeg||'').toString().trim();
-    if (initial.toLowerCase().includes('non')){ vegBtn.textContent='Non-Veg'; vegBtn.classList.add('non-veg'); vegBtn.setAttribute('aria-pressed', 'true'); }
+    if (initial === 'Non-Veg' || initial === 'Veg & Non-Veg'){ vegBtn.textContent=initial; vegBtn.classList.add('non-veg'); vegBtn.setAttribute('aria-pressed', 'true'); }
     else { vegBtn.textContent = initial || 'Veg'; vegBtn.classList.add('veg'); vegBtn.setAttribute('aria-pressed', 'false'); }
   }
   const descInput = tr.querySelector('.description-input');
