@@ -377,6 +377,8 @@
             <option value="Rice">Rice</option>
             <option value="Noodles">Noodles</option>
             <option value="Dessert">Dessert</option>
+            <option value="Drinks">Drinks</option>
+            <option value="Live Stations">Live Stations</option>
           </select>
         </div>
         <div>
@@ -692,6 +694,7 @@ menuItems = [
     {Name: "Paneer Tikka Magic", Description: "Marinated paneer pieces for a culinary journey.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 349, Category: "Table Snacks", VegNonVeg: "Veg"},
     {Name: "Mini Veg Tacos", Description: "A tiny fiesta in your hands.", PcsDisplay: "3", Unit: "PCS", Calculate: "1", Rate: 359, Category: "Table Snacks", VegNonVeg: "Veg"},
     {Name: "Cheesy Corn Spring Roll Twirls", Description: "Golden crispy rolls filled with cheesy corn joy.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 459, Category: "Table Snacks", VegNonVeg: "Veg"},
+    {Name: "Mini Chaat Canapes", Description: "Cripy canapés loaded with zesty chaat for a burst of flavours in every nibble!", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 299, Category: "Table Snacks", VegNonVeg: "Veg"},
 
     // TABLE SNACKS - NON-VEG
     {Name: "Starship Chicken Nuggets", Description: "Star-shaped nuggets for flavorful space rides.", PcsDisplay: "6", Calculate: "1", Unit: "PCS", Rate: 189, Category: "Table Snacks", VegNonVeg: "Non-Veg"},
@@ -772,7 +775,14 @@ menuItems = [
     {Name: "Hot Coffee", Description: "Steaming cup of rich, aromatic coffee.", PcsDisplay: "200", Unit: "ML", Calculate: "0", Rate: 79, Category: "Drinks", VegNonVeg: "Veg"},
     {Name: "Hot Chocolate", Description: "Warm, sweet drink made with rich cocoa.", PcsDisplay: "200", Unit: "ML", Calculate: "0", Rate: 89, Category: "Drinks", VegNonVeg: "Veg"},
     {Name: "Classic Tomato Soup", Description: "Comforting cup of velvety tomato goodness.", PcsDisplay: "200", Unit: "ML", Calculate: "0", Rate: 89, Category: "Drinks", VegNonVeg: "Veg"},
-    {Name: "Smoothies", Description: "Choice of Vanilla, Chocolate, or Strawberry.", PcsDisplay: "200", Unit: "ML", Calculate: "0", Rate: 99, Category: "Drinks", VegNonVeg: "Veg"}
+    {Name: "Smoothies", Description: "Choice of Vanilla, Chocolate, or Strawberry.", PcsDisplay: "200", Unit: "ML", Calculate: "0", Rate: 99, Category: "Drinks", VegNonVeg: "Veg"},
+
+    // LIVE STATIONS
+    {Name: "Pasta Station", Description: "Fresh, hot pasta cooked live with your choice of sauce - Pink, White or Red Sauce. Finished with veggies, herbs, and cheese. Simple, tasty, and loved by all!", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 9999, Category: "Live Stations", VegNonVeg: "Veg"},
+    {Name: "Popcorn Station", Description: "A guaranteed crowd-puller for movie nights, birthdays, or any fun gathering!", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 8999, Category: "Live Stations", VegNonVeg: "Veg"},
+    {Name: "Chocolate Fountain", Description: "Big chocolate fountain with assortments like marshmallows, brownies, strawberries on skewers.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 9999, Category: "Live Stations", VegNonVeg: "Veg"},
+    {Name: "Cotton Candy Station", Description: "Clouds of sugary sweetness spin right before your eyes, creating a magical treat that delights kids and adults alike.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 9999, Category: "Live Stations", VegNonVeg: "Veg"},
+    {Name: "Waffle Station", Description: "Waffles, Dark Chocolate, White Chocolate, Hazelnut Paste, Strawberry syrup, Chocochips, Nuts, Sprinkles, Vanilla Ice Cream.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 9999, Category: "Live Stations", VegNonVeg: "Veg"}
 ];
   renderMenu(menuItems);
 }
@@ -816,7 +826,7 @@ function renderMenu(items){
 let currentCategoryFilter = null; // Track active category filter
 
 // Define the desired order of categories
-const categoryOrder = ['Table Snacks', 'Main Course', 'Rice', 'Noodles', 'Dessert', 'Drinks'];
+const categoryOrder = ['Table Snacks', 'Main Course', 'Rice', 'Noodles', 'Dessert', 'Drinks', 'Live Stations'];
 
 function renderFilterButtons(items){
   const filterBtnEl = document.getElementById('filterButtons');
