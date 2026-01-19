@@ -344,7 +344,7 @@ for cat, items in categories.items():
               <th style="background: #F6B27A; color: #2D3E50;">{cat.upper()}</th>
               <th style="text-align: center; background: #F6B27A; color: #2D3E50;">SETUP</th>
               <th style="text-align: center; background: #F6B27A; color: #2D3E50;">NO. OF PEOPLE</th>
-              <th style="text-align: center; background: #F6B27A; color: #2D3E50;">RATE</th>
+              <th style="text-align: center; background: #F6B27A; color: #2D3E50;">RATE PER PERSON</th>
               <th style="text-align: center; background: #F6B27A; color: #2D3E50;">AMOUNT</th>
             </tr>"""
     else:
@@ -394,7 +394,9 @@ for cat, items in categories.items():
                 setup_display = f"₹{int(s_val):,}" if s_val.is_integer() else f"₹{s_val:,.2f}"
             except:
                 setup_display = setup_raw
-            no_of_people = d.get('NoOfPeople','')
+            no_of_people_raw = d.get('NoOfPeople','')
+            no_of_people = 'NA' if not no_of_people_raw or str(no_of_people_raw).strip() == '0' or str(no_of_people_raw).strip() == '' else no_of_people_raw
+            rate_display_final = 'NA' if not rate_raw or str(rate_raw).strip() == '0' or str(rate_raw).strip() == '' else rate_display
             html += f"""
             <tr>
               <td>
@@ -403,7 +405,7 @@ for cat, items in categories.items():
               </td>
               <td style="text-align: center;">{setup_display}</td>
               <td style="text-align: center;">{no_of_people}</td>
-              <td style="text-align: center;">{rate_display}</td>
+              <td style="text-align: center;">{rate_display_final}</td>
               <td style="text-align: center;">{amount_display}</td>
             </tr>"""
         else:
