@@ -335,25 +335,41 @@ for item in menu_items:
     categories.setdefault(cat, []).append(d)
 
 for cat, items in categories.items():
-    html += f"""
-        <table class="data-table" style="margin-top: 15px;">
-          <tfoot><tr><td colspan="5" class="table-spacer"></td></tr></tfoot>
-          <colgroup>
-            <col style="width:55%" /><col style="width:10%" /><col style="width:10%" /><col style="width:12.5%" /><col style="width:12.5%" />
-          </colgroup>
-          <thead>
+    is_live_station = "live station" in cat.lower()
+    
+    if is_live_station:
+        colgroup = '<col style="width:50%" /><col style="width:12.5%" /><col style="width:12.5%" /><col style="width:12.5%" /><col style="width:12.5%" />'
+        header_row = f"""
+            <tr>
+              <th style="background: #F6B27A; color: #2D3E50;">{cat.upper()}</th>
+              <th style="text-align: center; background: #F6B27A; color: #2D3E50;">SETUP</th>
+              <th style="text-align: center; background: #F6B27A; color: #2D3E50;">NO. OF PEOPLE</th>
+              <th style="text-align: center; background: #F6B27A; color: #2D3E50;">RATE</th>
+              <th style="text-align: center; background: #F6B27A; color: #2D3E50;">AMOUNT</th>
+            </tr>"""
+    else:
+        colgroup = '<col style="width:55%" /><col style="width:10%" /><col style="width:10%" /><col style="width:12.5%" /><col style="width:12.5%" />'
+        header_row = f"""
             <tr>
               <th style="background: #F6B27A; color: #2D3E50;">{cat.upper()}</th>
               <th style="text-align: center; background: #F6B27A; color: #2D3E50;">PORTION</th>
               <th style="text-align: center; background: #F6B27A; color: #2D3E50;">RATE</th>
               <th style="text-align: center; background: #F6B27A; color: #2D3E50;">AMOUNT</th>
               <th style="text-align: center; background: #F6B27A; color: #2D3E50;">PCS</th>
-            </tr>
+            </tr>"""
+    
+    html += f"""
+        <table class="data-table" style="margin-top: 15px;">
+          <tfoot><tr><td colspan="5" class="table-spacer"></td></tr></tfoot>
+          <colgroup>
+            {colgroup}
+          </colgroup>
+          <thead>
+            {header_row}
           </thead>
           <tbody>
     """
     for d in items:
-        portions = d.get('Portion','') if d.get('Portion','') not in (0,'0','') else ''
         rate_raw = d.get('Rate','')
         try:
             r_str = str(rate_raw).replace(',','').strip()
@@ -370,7 +386,29 @@ for cat, items in categories.items():
         except:
             amount_display = amount_raw if amount_raw else ""
 
-        html += f"""
+        if is_live_station:
+            setup_raw = d.get('Setup','')
+            try:
+                s_str = str(setup_raw).replace(',','').strip()
+                s_val = float(s_str)
+                setup_display = f"₹{int(s_val):,}" if s_val.is_integer() else f"₹{s_val:,.2f}"
+            except:
+                setup_display = setup_raw
+            no_of_people = d.get('NoOfPeople','')
+            html += f"""
+            <tr>
+              <td>
+                <strong>{d.get('Name','')}</strong><span class='badge'>{d.get('Veg/Non Veg','').strip()}</span>
+                <span class='description'>{d.get('Description','')}</span>
+              </td>
+              <td style="text-align: center;">{setup_display}</td>
+              <td style="text-align: center;">{no_of_people}</td>
+              <td style="text-align: center;">{rate_display}</td>
+              <td style="text-align: center;">{amount_display}</td>
+            </tr>"""
+        else:
+            portions = d.get('Portion','') if d.get('Portion','') not in (0,'0','') else ''
+            html += f"""
             <tr>
               <td>
                 <strong>{d.get('Name','')}</strong><span class='badge'>{d.get('Veg/Non Veg','').strip()}</span>

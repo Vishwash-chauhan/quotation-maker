@@ -9,10 +9,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        16,
-        304
+        -144,
+        -80
       ],
-      "id": "eebe32b5-e778-4596-8e83-40eb5aee7503",
+      "id": "c3e0e383-9856-4299-a72b-c0cca7c2d000",
       "name": "Sticky Note2"
     },
     {
@@ -22,13 +22,13 @@
         "responseMode": "responseNode",
         "options": {}
       },
-      "id": "7aebdd0b-1339-47b1-9e93-892180d23e4a",
+      "id": "004bdc17-214b-49af-abf9-c429ec5ef02c",
       "name": "Webhook Form",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
       "position": [
-        -512,
-        800
+        -672,
+        416
       ],
       "webhookId": "9b2f3be4-e30e-42e8-9ca7-afce486bf02e"
     },
@@ -40,233 +40,11 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -288,
-        896
+        -448,
+        512
       ],
-      "id": "da711b9f-8703-4a7d-9b76-0bd1214d86f4",
+      "id": "358d4e48-c39b-4757-b74d-6b80db13db7b",
       "name": "Code in Python (Beta)"
-    },
-    {
-      "parameters": {
-        "operation": "append",
-        "documentId": {
-          "__rl": true,
-          "value": "1dQijjlam6sm3GxNXfTZoyMi2yzZl41pAe96Ygvjm_vI",
-          "mode": "list",
-          "cachedResultName": "Quotations",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dQijjlam6sm3GxNXfTZoyMi2yzZl41pAe96Ygvjm_vI/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": 289692086,
-          "mode": "list",
-          "cachedResultName": "Proposed Menu",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dQijjlam6sm3GxNXfTZoyMi2yzZl41pAe96Ygvjm_vI/edit#gid=289692086"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "Name": "={{ $json.Name }}",
-            "Description": "={{ $json.Description }}",
-            "Portion": "={{ $json.Portion }}",
-            "Rate": "={{ $json.Rate }}",
-            "Amount": "={{ $json.Amount }}",
-            "Category": "={{ $json.Category }}",
-            "Veg/Non Veg": "={{ $json[\"Veg/Non Veg\"] }}",
-            "Quote ID": "={{ $('Webhook Form').item.json.body.QuotationId }}",
-            "Pcs": "={{ $json.PcsDisplay }}",
-            "Unit": "={{ $json.Unit }}"
-          },
-          "matchingColumns": [],
-          "schema": [
-            {
-              "id": "Name",
-              "displayName": "Name",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Description",
-              "displayName": "Description",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Portion",
-              "displayName": "Portion",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Rate",
-              "displayName": "Rate",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Pcs",
-              "displayName": "Pcs",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "Unit",
-              "displayName": "Unit",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "Amount",
-              "displayName": "Amount",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Category",
-              "displayName": "Category",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Veg/Non Veg",
-              "displayName": "Veg/Non Veg",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Quote ID",
-              "displayName": "Quote ID",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.7,
-      "position": [
-        -64,
-        704
-      ],
-      "id": "e48d2fb5-1a1c-4830-8a31-50fa038a369d",
-      "name": "Menu",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "DkC9TKrRCkeso6k8",
-          "name": "Google Sheets account 3"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "append",
-        "documentId": {
-          "__rl": true,
-          "value": "1dQijjlam6sm3GxNXfTZoyMi2yzZl41pAe96Ygvjm_vI",
-          "mode": "list",
-          "cachedResultName": "Quotations",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dQijjlam6sm3GxNXfTZoyMi2yzZl41pAe96Ygvjm_vI/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": 749274658,
-          "mode": "list",
-          "cachedResultName": "Extra And Total",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dQijjlam6sm3GxNXfTZoyMi2yzZl41pAe96Ygvjm_vI/edit#gid=749274658"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "Other Services": "={{ $json[\"Other Services\"] }}",
-            "Amount": "={{ $json.Amount }}",
-            "Quote ID": "={{ $('Webhook Form').item.json.body.QuotationId }}"
-          },
-          "matchingColumns": [],
-          "schema": [
-            {
-              "id": "Other Services",
-              "displayName": "Other Services",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Amount",
-              "displayName": "Amount",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Quote ID",
-              "displayName": "Quote ID",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.7,
-      "position": [
-        -64,
-        896
-      ],
-      "id": "c1966c38-86c1-48d2-9677-f058c5f1cecf",
-      "name": "Extra and Total6",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "DkC9TKrRCkeso6k8",
-          "name": "Google Sheets account 3"
-        }
-      }
     },
     {
       "parameters": {
@@ -276,86 +54,11 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -288,
-        1088
+        -448,
+        704
       ],
-      "id": "e7006c5a-8315-4821-ae62-84786a000628",
+      "id": "48176323-a044-4d68-991d-6b9685ceca41",
       "name": "Code in Python (Beta)13"
-    },
-    {
-      "parameters": {
-        "operation": "append",
-        "documentId": {
-          "__rl": true,
-          "value": "1dQijjlam6sm3GxNXfTZoyMi2yzZl41pAe96Ygvjm_vI",
-          "mode": "list",
-          "cachedResultName": "Quotations",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dQijjlam6sm3GxNXfTZoyMi2yzZl41pAe96Ygvjm_vI/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": 1344407936,
-          "mode": "list",
-          "cachedResultName": "Other Info",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dQijjlam6sm3GxNXfTZoyMi2yzZl41pAe96Ygvjm_vI/edit#gid=1344407936"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "TO BE PROVIDED BY HOST": "={{ $json[\"TO BE PROVIDED BY HOST\"] }}",
-            "QUANTITY": "={{ $json[\"QUANTITY\"] }}",
-            "Quote ID": "={{ $('Webhook Form').item.json.body.QuotationId }}"
-          },
-          "matchingColumns": [],
-          "schema": [
-            {
-              "id": "TO BE PROVIDED BY HOST",
-              "displayName": "TO BE PROVIDED BY HOST",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "QUANTITY",
-              "displayName": "QUANTITY",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Quote ID",
-              "displayName": "Quote ID",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.7,
-      "position": [
-        -64,
-        1088
-      ],
-      "id": "f18c1b14-bb6e-45b5-a4b1-c6672068e414",
-      "name": "Other Info",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "DkC9TKrRCkeso6k8",
-          "name": "Google Sheets account 3"
-        }
-      }
     },
     {
       "parameters": {
@@ -461,10 +164,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -64,
-        512
+        -448,
+        128
       ],
-      "id": "2b72acb4-7267-4737-b199-ef24a6799cd7",
+      "id": "a2b0527c-185e-448e-92d8-5ef8bf4eb8a6",
       "name": "Customer Details",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -482,10 +185,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        528,
-        688
+        -96,
+        288
       ],
-      "id": "b1885819-f4da-41b8-8761-f360bf493375",
+      "id": "b4ef547f-c794-47d3-8704-3a55b819ab68",
       "name": "Sticky Note7"
     },
     {
@@ -495,24 +198,24 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        352,
-        784
+        -224,
+        384
       ],
-      "id": "4b4c5f9d-ad97-4826-8c1c-42d9ca0c9268",
+      "id": "9820ac75-8658-42ca-8e67-cd94b90716a6",
       "name": "Merge"
     },
     {
       "parameters": {
         "language": "python",
-        "pythonCode": "# Access the input data from the webhook\ninput_data = _input.all()[0].json\n\n# Get the list of menu items\nitems_list = input_data.get('body', {}).get('Items', [])\n\n# Create a list of objects that match your sheet structure\noutput = []\nfor item in items_list:\n    output.append({\n        \"Name\": item.get(\"Name\"),\n        \"Description\": item.get(\"Description\"),\n        \"Portion\": item.get(\"Portions\", \"\"),  # Get from Portions field (updated from form)\n        \"PcsDisplay\": item.get(\"PcsDisplay\", \"\"),\n        \"Rate\": item.get(\"Rate\"),\n        \"Category\": item.get(\"Category\", \"\"),\n        \"Veg/Non Veg\": item.get(\"VegNonVeg\", \"\"),\n        \"Amount\": item.get(\"Amount\"),\n        \"Unit\" : item.get(\"Unit\")\n    })\n\nreturn output"
+        "pythonCode": "# Access the input data from the webhook\ninput_data = _input.all()[0].json\n\n# Get the list of menu items\nitems_list = input_data.get('body', {}).get('Items', [])\n\n# Create a list of objects that match your sheet structure\noutput = []\nfor item in items_list:\n    output.append({\n        \"Name\": item.get(\"Name\"),\n        \"Description\": item.get(\"Description\"),\n        \"Portion\": item.get(\"Portions\", \"\"),  # Get from Portions field (updated from form)\n        \"PcsDisplay\": item.get(\"PcsDisplay\", \"\"),\n        \"Rate\": item.get(\"Rate\"),\n        \"Category\": item.get(\"Category\", \"\"),\n        \"Veg/Non Veg\": item.get(\"VegNonVeg\", \"\"),\n        \"Amount\": item.get(\"Amount\"),\n        \"Unit\" : item.get(\"Unit\"),\n        \"Setup\": item.get(\"Setup\"),\n        \"NoOfPeople\": item.get(\"NoOfPeople\")\n    })\n\nreturn output"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -240,
-        720
+        -448,
+        320
       ],
-      "id": "605396bc-9cb1-4851-b932-7a1fc17a4cfa",
+      "id": "aebc644a-5354-4c75-bfa6-9bb9befff667",
       "name": "Menu Item Transformation"
     },
     {
@@ -523,10 +226,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        576,
-        816
+        0,
+        416
       ],
-      "id": "2b334b62-2277-4138-872f-555f73867bec",
+      "id": "41ae4a83-93ad-4711-96f9-402d16dde6da",
       "name": "JSON TO HTML"
     },
     {
@@ -541,10 +244,10 @@
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        800,
-        800
+        224,
+        416
       ],
-      "id": "31534188-4ba5-4977-9c76-f1d3747c30a2",
+      "id": "99ab647f-fc18-408c-841b-91a825232cd6",
       "name": "Convert to File"
     },
     {
@@ -573,10 +276,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        1024,
-        800
+        448,
+        416
       ],
-      "id": "e85d9d99-9aab-472f-937f-bcd6ef32521c",
+      "id": "f1215c46-a05c-4353-b07f-24fb8c922b19",
       "name": "HTML TO PDF"
     },
     {
@@ -588,15 +291,15 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
       "position": [
-        1232,
-        928
+        672,
+        320
       ],
-      "id": "cee2de37-d2ea-4d67-9e57-87b94862b6d9",
+      "id": "86b8d2b4-8bd5-49d5-93c6-f3fc6a62893c",
       "name": "Respond to Webhook1"
     },
     {
       "parameters": {
-        "name": "=",
+        "name": "={{ $('Webhook Form').first().json.body.HostName }} - {{ $('Webhook Form').first().json.body.EventDate }}.pdf",
         "driveId": {
           "__rl": true,
           "mode": "list",
@@ -614,17 +317,18 @@
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
       "position": [
-        1232,
-        752
+        672,
+        512
       ],
-      "id": "c1dd625a-00bb-4d7e-bd37-c5e03856bb09",
+      "id": "f3aaf46a-111d-4f96-99f1-361b91bd6bb5",
       "name": "Upload file",
       "credentials": {
         "googleDriveOAuth2Api": {
           "id": "pc86TJhyvqWbHzZg",
           "name": "Vishwash"
         }
-      }
+      },
+      "disabled": true
     }
   ],
   "connections": {
@@ -658,28 +362,6 @@
       "main": [
         [
           {
-            "node": "Extra and Total6",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Menu": {
-      "main": [
-        [
-          {
-            "node": "Merge",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
-    "Extra and Total6": {
-      "main": [
-        [
-          {
             "node": "Merge",
             "type": "main",
             "index": 2
@@ -688,17 +370,6 @@
       ]
     },
     "Code in Python (Beta)13": {
-      "main": [
-        [
-          {
-            "node": "Other Info",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Other Info": {
       "main": [
         [
           {
@@ -735,9 +406,9 @@
       "main": [
         [
           {
-            "node": "Menu",
+            "node": "Merge",
             "type": "main",
-            "index": 0
+            "index": 1
           }
         ]
       ]
@@ -768,21 +439,16 @@
       "main": [
         [
           {
-            "node": "Upload file",
+            "node": "Respond to Webhook1",
             "type": "main",
             "index": 0
           },
           {
-            "node": "Respond to Webhook1",
+            "node": "Upload file",
             "type": "main",
             "index": 0
           }
         ]
-      ]
-    },
-    "Upload file": {
-      "main": [
-        []
       ]
     }
   },

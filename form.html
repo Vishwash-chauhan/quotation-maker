@@ -321,7 +321,7 @@
     </div>
 
     <label style="margin-top:18px"></label>
-    <input id="webhookUrl" type="hidden" value="https://n8n.vyaapaarniti.com/webhook/9b2f3be4-e30e-42e8-9ca7-afce486bf02e" />
+    <input id="webhookUrl" type="hidden" value="https://n8n.vyaapaarniti.com/webhook-test/9b2f3be4-e30e-42e8-9ca7-afce486bf02e" />
     <input type="hidden" id="quoteId" value="" />
     <input type="hidden" name="x-webhook-token" id="webhookToken" value="a-string-secret-at-least-256-bits-long" />
     <p class="muted" style="margin-top:8px;"></p>
@@ -779,17 +779,17 @@ menuItems = [
     {Name: "Smoothies", Description: "Choice of Vanilla, Chocolate, or Strawberry.", PcsDisplay: "200", Unit: "ML", Calculate: "0", Rate: 99, Category: "Drinks", VegNonVeg: "Veg"},
 
     // LIVE STATIONS
-    {Name: "Waffle Station", Description: "Freshly cooked golden waffles with a delightful array of toppings including chocolates, syrups, nuts, and ice cream.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 9999, Category: "Live Stations", VegNonVeg: "Veg"},
-    {Name: "Churros Station", Description: "Delicious churros served with a variety of dipping sauces.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 9999, Category: "Live Stations", VegNonVeg: "Veg"},
-    {Name: "Mini Pancakes", Description: "Fluffy mini pancakes served with syrup and toppings.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 9999, Category: "Live Stations", VegNonVeg: "Veg"},
-    {Name: "Popcorn Station", Description: "A guaranteed crowd-puller for movie nights, birthdays, or any fun gathering!", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 7999, Category: "Live Stations", VegNonVeg: "Veg"},
-    {Name: "Cotton Candy Station", Description: "Clouds of sugary sweetness spin right before your eyes, creating a magical treat that delights kids and adults alike.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 7999, Category: "Live Stations", VegNonVeg: "Veg"},
-    {Name: "Chocolate Fountain", Description: "Big chocolate fountain with assortments like marshmallows, brownies, strawberries on skewers.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 7999, Category: "Live Stations", VegNonVeg: "Veg"},
-    {Name: "Potato Spiral", Description: "Crispy spiraled potato on a stick, a crunchy treat perfect for snacking on the go.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 7999, Category: "Live Stations", VegNonVeg: "Veg"},
-    {Name: "Burger Station", Description: "Mini burger station with a variety of fillings and toppings to choose from.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 0, Category: "Live Stations", VegNonVeg: "Veg", CustomPrice: "₹25000 setup + ₹300/- per person"},
-    {Name: "Pizza Station", Description: "Create your own mini pizzas with a variety of toppings and sauces.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 0, Category: "Live Stations", VegNonVeg: "Veg", CustomPrice: "₹5000 setup + ₹500/- per person"},
-    {Name: "Pasta Station", Description: "Fresh, hot pasta cooked live with your choice of sauce - Pink, White or Red Sauce.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 0, Category: "Live Stations", VegNonVeg: "Veg", CustomPrice: "₹25000 setup + ₹300 per person"},
-    {Name: "Dim-Sum Station", Description: "Steamed dim-sums made live with a variety of fillings.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 0, Category: "Live Stations", VegNonVeg: "Veg", CustomPrice: "₹2000 setup + ₹200 per person"},
+    {Name: "Waffle Station", Description: "Freshly cooked golden waffles with a delightful array of toppings including chocolates, syrups, nuts, and ice cream.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 0, Category: "Live Stations", VegNonVeg: "Veg", Setup: 9999},
+    {Name: "Churros Station", Description: "Delicious churros served with a variety of dipping sauces.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 0, Category: "Live Stations", VegNonVeg: "Veg", Setup: 9999},
+    {Name: "Mini Pancakes", Description: "Fluffy mini pancakes served with syrup and toppings.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 0, Category: "Live Stations", VegNonVeg: "Veg", Setup: 9999},
+    {Name: "Popcorn Station", Description: "A guaranteed crowd-puller for movie nights, birthdays, or any fun gathering!", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 0, Category: "Live Stations", VegNonVeg: "Veg", Setup: 7999},
+    {Name: "Cotton Candy Station", Description: "Clouds of sugary sweetness spin right before your eyes, creating a magical treat that delights kids and adults alike.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 0, Category: "Live Stations", VegNonVeg: "Veg", Setup: 7999},
+    {Name: "Chocolate Fountain", Description: "Big chocolate fountain with assortments like marshmallows, brownies, strawberries on skewers.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 0, Category: "Live Stations", VegNonVeg: "Veg", Setup: 7999},
+    {Name: "Potato Spiral", Description: "Crispy spiraled potato on a stick, a crunchy treat perfect for snacking on the go.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 0, Category: "Live Stations", VegNonVeg: "Veg", Setup: 7999},
+    {Name: "Burger Station", Description: "Mini burger station with a variety of fillings and toppings to choose from.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 300, Category: "Live Stations", VegNonVeg: "Veg", Setup: 25000},
+    {Name: "Pizza Station", Description: "Create your own mini pizzas with a variety of toppings and sauces.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 500, Category: "Live Stations", VegNonVeg: "Veg", Setup: 5000},
+    {Name: "Pasta Station", Description: "Fresh, hot pasta cooked live with your choice of sauce - Pink, White or Red Sauce.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 300, Category: "Live Stations", VegNonVeg: "Veg", Setup: 25000},
+    {Name: "Dim-Sum Station", Description: "Steamed dim-sums made live with a variety of fillings.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 200, Category: "Live Stations", VegNonVeg: "Veg", Setup: 2000},
 ];
   renderMenu(menuItems);
 }
@@ -967,7 +967,7 @@ function addItemToTable(item, idx){
     tr.innerHTML = `<td colspan="2"><strong>${item['Name']}</strong>
       <div style="margin-top:6px;font-size:12px;color:#666;"><textarea class="description-input" rows="2" placeholder="Description" style="font-size:12px">${item['Description']||''}</textarea></div>
     </td>
-    <td style="text-align:center"><input class="setup" type="number" min="0" step="0.01" value="0" style="width:65px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
+    <td style="text-align:center"><input class="setup" type="number" min="0" step="0.01" value="${item['Setup'] || ''}" style="width:65px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
     <td style="text-align:center"><input class="rate" type="number" min="0" step="0.01" value="${rate}" style="width:65px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
     <td style="text-align:center"><input class="noOfPeople" type="number" min="0" value="0" style="width:65px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center" /></td>
     <td style="text-align:center" class="amount">₹0</td>
