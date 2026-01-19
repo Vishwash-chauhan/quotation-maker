@@ -964,7 +964,7 @@ function addItemToTable(item, idx){
   
   if (isLiveStation) {
     // LIVE STATIONS: Different column structure
-    tr.innerHTML = `<td colspan="2"><strong>${item['Name']}</strong>
+    tr.innerHTML = `<td colspan="2"><strong>${item['Name']}</strong> <button type="button" class="veg-toggle ${vegClass}" aria-pressed="${vegLabel.toLowerCase().includes('non')}">${vegLabel || 'Veg'}</button>
       <div style="margin-top:6px;font-size:12px;color:#666;"><textarea class="description-input" rows="2" placeholder="Description" style="font-size:12px">${item['Description']||''}</textarea></div>
     </td>
     <td style="text-align:center"><input class="setup" type="number" min="0" step="0.01" value="${item['Setup'] || ''}" style="width:65px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
@@ -1034,6 +1034,35 @@ function addItemToTable(item, idx){
   
   if (isLiveStation) {
     // Live Stations event listeners
+    const vegBtn = tr.querySelector('.veg-toggle');
+    if (vegBtn){
+      vegBtn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const cur = (tr.dataset.vegNonVeg||'').toString().trim();
+        let next = 'Veg';
+        if (cur === 'Veg') next = 'Non-Veg';
+        else if (cur === 'Non-Veg') next = 'Veg & Non-Veg';
+        else if (cur === 'Veg & Non-Veg') next = 'Veg';
+        
+        tr.dataset.vegNonVeg = next;
+        vegBtn.textContent = next;
+        vegBtn.classList.remove('non-veg', 'veg');
+        
+        if (next === 'Non-Veg' || next === 'Veg & Non-Veg') {
+          vegBtn.classList.add('non-veg');
+          vegBtn.setAttribute('aria-pressed', 'true');
+        } else {
+          vegBtn.classList.add('veg');
+          vegBtn.setAttribute('aria-pressed', 'false');
+        }
+      });
+      // ensure button reflects initial state
+      const initial = (tr.dataset.vegNonVeg||'').toString().trim();
+      if (initial === 'Non-Veg' || initial === 'Veg & Non-Veg'){ vegBtn.textContent=initial; vegBtn.classList.add('non-veg'); vegBtn.setAttribute('aria-pressed', 'true'); }
+      else { vegBtn.textContent = initial || 'Veg'; vegBtn.classList.add('veg'); vegBtn.setAttribute('aria-pressed', 'false'); }
+    }
+    
     const setupInput = tr.querySelector('.setup');
     const rateInput = tr.querySelector('.rate');
     const noOfPeopleInput = tr.querySelector('.noOfPeople');
@@ -1061,7 +1090,9 @@ function addItemToTable(item, idx){
     // Regular items event listeners
     const vegBtn = tr.querySelector('.veg-toggle');
     if (vegBtn){
-      vegBtn.addEventListener('click', ()=>{
+      vegBtn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
         const cur = (tr.dataset.vegNonVeg||'').toString().trim();
         let next = 'Veg';
         if (cur === 'Veg') next = 'Non-Veg';
