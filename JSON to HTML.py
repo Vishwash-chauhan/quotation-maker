@@ -470,12 +470,12 @@ html += "</td></tr></tbody></table>"
 html += """
     <div style="margin: 20px 0; text-align: center; page-break-inside: avoid;">
       <div style="display: inline-block; background-color: #F6B27A; padding: 10px 20px; border-radius: 8px; width: 85%;">
-        <span style="font-weight: 800; color: #2D3E50; font-size: 16px; text-transform: uppercase; vertical-align: middle;">
-            Visit Our Master Menu
+        <span style="font-weight: 900; color: #2D3E50; font-size: 16px; text-transform: uppercase; vertical-align: middle;">
+            Visit Master Menu
         </span>
         <br/>
-        <a href="https://tinyurl.com/4tzr93wn" style="color: #2D3E50; text-decoration: underline; font-weight: 800; font-size: 16px; margin-left: 8px; vertical-align: middle;">
-            tinyurl.com/4tzr93wn
+        <a href="https://littlejalebis.com/master-menu.html" style="color: #2D3E50; text-decoration: none; font-weight: 900; font-size: 16px; margin-left: 8px; vertical-align: middle;">
+            🍫 LINK 🍫
         </a>
       </div>
     </div>
