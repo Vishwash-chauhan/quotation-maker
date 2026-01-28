@@ -288,6 +288,19 @@
     <h1>Little Jalebis Quotation Maker
     </h1>
 
+  <!-- Load Existing Quotation Section -->
+  <div style="background:#f5f9ff; border:2px solid #2D3E50; border-radius:8px; padding:16px; margin-bottom:20px;">
+    <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+      <label style="margin:0; font-weight:600; white-space:nowrap;">Load Existing:</label>
+      <select id="quotationSelect" style="flex:1; min-width:200px; padding:10px; border-radius:6px; border:1px solid #ddd;">
+        <option value="">-- New Quotation --</option>
+      </select>
+      <button id="loadQuotationBtn" type="button" style="background:#F6B27A; color:#2D3E50; padding:10px 16px; white-space:nowrap;">Load</button>
+      <button id="refreshListBtn" type="button" style="background:#666; padding:10px 12px;" title="Refresh list">↻</button>
+    </div>
+    <p class="muted" style="margin:8px 0 0 0; font-size:12px;">Select a previous quotation to load and modify, or start fresh with "New Quotation".</p>
+  </div>
+
   <div>
     <div class="form-grid">
       <div>
@@ -1823,6 +1836,491 @@ window.addEventListener('click', (event) => {
     closePdfModal();
   }
 });
+
+// ==================== HELPER FUNCTION FOR ROW EVENT LISTENERS ====================
+function bindRowEventListeners(tr, isLiveStation) {
+  const descInput = tr.querySelector('.description-input');
+  if (descInput) {
+    descInput.addEventListener('input', () => { tr.dataset.description = descInput.value; });
+  }
+  
+  if (isLiveStation) {
+    const vegBtn = tr.querySelector('.veg-toggle');
+    if (vegBtn) {
+      vegBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const cur = (tr.dataset.vegNonVeg || '').toString().trim();
+        let next = 'Veg';
+        if (cur === 'Veg') next = 'Non-Veg';
+        else if (cur === 'Non-Veg') next = 'Veg & Non-Veg';
+        else if (cur === 'Veg & Non-Veg') next = 'Veg';
+        tr.dataset.vegNonVeg = next;
+        vegBtn.textContent = next;
+        vegBtn.classList.remove('non-veg', 'veg');
+        if (next === 'Non-Veg' || next === 'Veg & Non-Veg') {
+          vegBtn.classList.add('non-veg');
+          vegBtn.setAttribute('aria-pressed', 'true');
+        } else {
+          vegBtn.classList.add('veg');
+          vegBtn.setAttribute('aria-pressed', 'false');
+        }
+      });
+    }
+    
+    const setupInput = tr.querySelector('.setup');
+    const rateInput = tr.querySelector('.rate');
+    const noOfPeopleInput = tr.querySelector('.noOfPeople');
+    
+    if (setupInput) {
+      setupInput.addEventListener('input', () => {
+        tr.dataset.setup = setupInput.value;
+        updateLiveStationAmount(tr);
+      });
+    }
+    if (rateInput) {
+      rateInput.addEventListener('input', () => {
+        tr.dataset.rate = Number(rateInput.value) || 0;
+        updateLiveStationAmount(tr);
+      });
+    }
+    if (noOfPeopleInput) {
+      noOfPeopleInput.addEventListener('input', () => {
+        tr.dataset.noOfPeople = noOfPeopleInput.value;
+        updateLiveStationAmount(tr);
+      });
+    }
+    updateLiveStationAmount(tr);
+  } else {
+    const vegBtn = tr.querySelector('.veg-toggle');
+    if (vegBtn) {
+      vegBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const cur = (tr.dataset.vegNonVeg || '').toString().trim();
+        let next = 'Veg';
+        if (cur === 'Veg') next = 'Non-Veg';
+        else if (cur === 'Non-Veg') next = 'Veg & Non-Veg';
+        else if (cur === 'Veg & Non-Veg') next = 'Veg';
+        tr.dataset.vegNonVeg = next;
+        vegBtn.textContent = next;
+        vegBtn.classList.remove('non-veg', 'veg');
+        if (next === 'Non-Veg' || next === 'Veg & Non-Veg') {
+          vegBtn.classList.add('non-veg');
+          vegBtn.setAttribute('aria-pressed', 'true');
+        } else {
+          vegBtn.classList.add('veg');
+          vegBtn.setAttribute('aria-pressed', 'false');
+        }
+      });
+      const initial = (tr.dataset.vegNonVeg || '').toString().trim();
+      if (initial === 'Non-Veg' || initial === 'Veg & Non-Veg') { vegBtn.textContent = initial; vegBtn.classList.add('non-veg'); vegBtn.setAttribute('aria-pressed', 'true'); }
+      else { vegBtn.textContent = initial || 'Veg'; vegBtn.classList.add('veg'); vegBtn.setAttribute('aria-pressed', 'false'); }
+    }
+    
+    const portionsInput = tr.querySelector('.portions');
+    if (portionsInput) {
+      portionsInput.addEventListener('input', () => updateRowAmount(tr));
+    }
+    const rateInput = tr.querySelector('.rate');
+    if (rateInput) {
+      rateInput.addEventListener('input', () => { updateRowAmount(tr); });
+    }
+    const pcsQtyInput = tr.querySelector('.pcsQty');
+    if (pcsQtyInput) {
+      pcsQtyInput.addEventListener('input', () => {
+        tr.dataset.pcsDisplay = pcsQtyInput.value;
+        if (tr.dataset.calculate === '1') {
+          updateRowAmount(tr);
+        }
+      });
+    }
+    const unitSelect = tr.querySelector('.pcsUnit');
+    if (unitSelect) {
+      unitSelect.addEventListener('change', () => { tr.dataset.unit = unitSelect.value; });
+    }
+    const calculateToggle = tr.querySelector('.calculateToggle');
+    if (calculateToggle) {
+      calculateToggle.addEventListener('change', () => {
+        tr.dataset.calculate = calculateToggle.checked ? '1' : '0';
+        updateRowAmount(tr);
+      });
+    }
+    updateRowAmount(tr);
+  }
+  
+  tr.querySelector('.deleteBtn')?.addEventListener('click', () => { handleDeleteRow(tr); });
+  const upBtn = tr.querySelector('.upBtn');
+  if (upBtn) upBtn.addEventListener('click', () => moveRowUp(tr));
+  const downBtn = tr.querySelector('.downBtn');
+  if (downBtn) downBtn.addEventListener('click', () => moveRowDown(tr));
+  makeRowDraggable(tr);
+}
+
+// ==================== LOAD EXISTING QUOTATION FUNCTIONALITY ====================
+// Call Supabase directly (has proper CORS headers)
+const SUPABASE_URL = 'https://wtqtnpjliyhcwxjkincj.supabase.co/rest/v1/quotations';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind0cXRucGpsaXloY3d4amtpbmNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk0MjgyMjQsImV4cCI6MjA4NTAwNDIyNH0.AlfAv9B1Qx4fRYFio90Qa6Md4viQ2bw6F7p-DKT_aFs';
+
+// Fetch list of quotations for dropdown
+async function fetchQuotationsList() {
+  const select = document.getElementById('quotationSelect');
+  select.innerHTML = '<option value="">Loading...</option>';
+  
+  try {
+    const response = await fetch(`${SUPABASE_URL}?select=quotation_id,host_name,event_date,created_at&order=created_at.desc&limit=100`, {
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`
+      }
+    });
+    if (!response.ok) throw new Error('Failed to fetch quotations');
+    const data = await response.json();
+    
+    select.innerHTML = '<option value="">-- New Quotation --</option>';
+    
+    // data is an array of quotations
+    (Array.isArray(data) ? data : []).forEach(q => {
+      const opt = document.createElement('option');
+      opt.value = q.quotation_id || '';
+      opt.textContent = `${q.quotation_id || 'N/A'} - ${q.host_name || 'Unknown'} (${q.event_date || 'No date'})`;
+      select.appendChild(opt);
+    });
+  } catch (err) {
+    console.error('Error fetching quotations:', err);
+    select.innerHTML = '<option value="">-- New Quotation --</option>';
+  }
+}
+
+// Load a specific quotation by ID
+async function loadQuotation(quotationId) {
+  if (!quotationId) {
+    clearForm();
+    return;
+  }
+  
+  document.getElementById('statusText').textContent = 'Loading quotation...';
+  document.getElementById('spinner').classList.add('show');
+  
+  try {
+    const response = await fetch(`${SUPABASE_URL}?quotation_id=eq.${encodeURIComponent(quotationId)}&limit=1`, {
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`
+      }
+    });
+    if (!response.ok) throw new Error('Failed to fetch quotation');
+    const data = await response.json();
+    
+    // data is an array, get first item
+    const q = Array.isArray(data) ? data[0] : data;
+    if (!q) throw new Error('Quotation not found');
+    
+    populateForm(q);
+    document.getElementById('statusText').textContent = 'Quotation loaded successfully!';
+  } catch (err) {
+    console.error('Error loading quotation:', err);
+    document.getElementById('statusText').textContent = 'Failed to load quotation: ' + err.message;
+  } finally {
+    document.getElementById('spinner').classList.remove('show');
+  }
+}
+
+// Populate form with quotation data
+function populateForm(q) {
+  console.log('Populating form with data:', q);
+  console.log('Items field:', q.items, 'Type:', typeof q.items);
+  
+  // Parse items if it's a string (JSON stored as text)
+  let items = q.items;
+  if (typeof items === 'string') {
+    try {
+      items = JSON.parse(items);
+    } catch (e) {
+      console.error('Failed to parse items JSON:', e);
+      items = [];
+    }
+  }
+  q.items = items;
+  
+  // Similarly parse image_grid if it's a string
+  let imageGrid = q.image_grid;
+  if (typeof imageGrid === 'string') {
+    try {
+      imageGrid = JSON.parse(imageGrid);
+    } catch (e) {
+      console.error('Failed to parse image_grid JSON:', e);
+      imageGrid = [];
+    }
+  }
+  q.image_grid = imageGrid;
+  
+  // Helper to safely set form values
+  function setFieldValue(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.value = value;
+    else console.warn(`Element #${id} not found`);
+  }
+  
+  // Parse event_date from dd/mm/yyyy to yyyy-mm-dd for input[type=date]
+  if (q.event_date) {
+    const parts = q.event_date.split('/');
+    if (parts.length === 3) {
+      setFieldValue('eventDate', `${parts[2]}-${parts[1]}-${parts[0]}`);
+    }
+  }
+  
+  setFieldValue('hostName', q.host_name || '');
+  setFieldValue('mobile', q.mobile_no || '');
+  
+  // Parse time from "HH:MM AM/PM" to 24-hour format for input[type=time]
+  if (q.time) {
+    const timeMatch = q.time.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+    if (timeMatch) {
+      let hours = parseInt(timeMatch[1]);
+      const minutes = timeMatch[2];
+      const ampm = timeMatch[3].toUpperCase();
+      if (ampm === 'PM' && hours !== 12) hours += 12;
+      if (ampm === 'AM' && hours === 12) hours = 0;
+      setFieldValue('time', `${String(hours).padStart(2,'0')}:${minutes}`);
+    }
+  }
+  
+  setFieldValue('pax', q.pax || '');
+  setFieldValue('location', q.location || '');
+  setFieldValue('quoteId', q.quotation_id || '');
+  
+  // Service fields
+  setFieldValue('chefServers', q.chef_servers || '');
+  setFieldValue('tableDecor', q.table_decor || 'Included');
+  setFieldValue('cutlery', q.cutlery || '');
+  setFieldValue('chaffing', q.chaffing || '');
+  setFieldValue('conveyance', q.conveyance || 'As Per Actual');
+  
+  // Host requirements
+  setFieldValue('tables', q.tables || 'As Required');
+  setFieldValue('kitchenSpace', q.kitchen_space || 'As Required');
+  
+  // Load images
+  if (q.image_grid && Array.isArray(q.image_grid)) {
+    selectedImages = q.image_grid.slice(0, 9);
+    renderSelectedPreview();
+  }
+  
+  // Clear existing selected items
+  document.querySelectorAll('#selectedTable tbody').forEach(tb => {
+    if (tb.dataset.category) tb.remove();
+  });
+  
+  // Uncheck all menu checkboxes
+  document.querySelectorAll('#menuList input[type=checkbox]').forEach(cb => cb.checked = false);
+  
+  // Load menu items
+  if (q.items && Array.isArray(q.items)) {
+    q.items.forEach(item => {
+      // Find matching menu item or add as custom
+      const menuIdx = menuItems.findIndex(m => m.Name === item.Name);
+      
+      if (menuIdx !== -1) {
+        // Check the checkbox
+        const cb = document.querySelector(`#m_${menuIdx}`);
+        if (cb) cb.checked = true;
+        
+        // Add to table with saved values
+        addItemToTableWithData(menuItems[menuIdx], menuIdx, item);
+      } else {
+        // Add as custom item
+        addCustomItemFromData(item);
+      }
+    });
+  }
+  
+  updateTotal();
+  updateSummary();
+}
+
+// Add item to table with pre-filled data
+function addItemToTableWithData(menuItem, idx, savedData) {
+  const category = savedData.Category || menuItem.Category || 'Other';
+  const tbody = getCategoryBody(category);
+  const isLiveStation = category === 'Live Stations';
+  
+  const tr = document.createElement('tr');
+  tr.dataset.idx = idx;
+  tr.dataset.category = category;
+  tr.dataset.name = menuItem.Name || '';
+  tr.dataset.description = savedData.Description || menuItem.Description || '';
+  tr.dataset.rate = savedData.Rate || menuItem.Rate || 0;
+  tr.dataset.pcsDisplay = savedData.PcsDisplay || menuItem.PcsDisplay || '';
+  tr.dataset.unit = savedData.Unit || menuItem.Unit || 'PCS';
+  tr.dataset.calculate = savedData.Calculate || menuItem.Calculate || '0';
+  tr.dataset.vegNonVeg = savedData.VegNonVeg || menuItem.VegNonVeg || 'Veg';
+  
+  if (isLiveStation) {
+    tr.dataset.setup = savedData.Setup || menuItem.Setup || 0;
+    tr.dataset.noOfPeople = savedData.NoOfPeople || 0;
+    tr.innerHTML = buildLiveStationRow(menuItem, savedData);
+  } else {
+    tr.innerHTML = buildRegularRow(menuItem, savedData);
+  }
+  
+  tbody.appendChild(tr);
+  bindRowEventListeners(tr, isLiveStation);
+}
+
+// Build HTML for live station row with saved data
+function buildLiveStationRow(menuItem, savedData) {
+  const name = menuItem.Name || '';
+  const desc = savedData.Description || menuItem.Description || '';
+  const setup = savedData.Setup || menuItem.Setup || 0;
+  const rate = savedData.Rate || menuItem.Rate || 0;
+  const noOfPeople = savedData.NoOfPeople || 0;
+  const vegNonVeg = savedData.VegNonVeg || menuItem.VegNonVeg || 'Veg';
+  const amount = setup + (rate * noOfPeople);
+  
+  return `
+    <td colspan="2" style="min-width:220px">
+      <strong>${name}</strong>
+      <button type="button" class="veg-toggle ${vegNonVeg.toLowerCase().includes('non') ? 'non-veg' : 'veg'}" aria-pressed="${vegNonVeg.toLowerCase().includes('non')}">${vegNonVeg}</button>
+      <textarea class="description-input" placeholder="Description...">${desc}</textarea>
+    </td>
+    <td><input class="setup" type="number" min="0" value="${setup}" style="width:60px;text-align:center"/></td>
+    <td><input class="rate" type="number" min="0" value="${rate}" style="width:60px;text-align:center"/></td>
+    <td><input class="noOfPeople" type="number" min="0" value="${noOfPeople}" style="width:60px;text-align:center"/></td>
+    <td class="amount col-right">${formatCurrency(amount)}</td>
+    <td style="text-align:center">
+      <div style="display:flex;gap:4px;align-items:center;justify-content:center;flex-wrap:wrap">
+        <button class="icon-btn mobile-move upBtn" title="Move up" aria-label="Move up" style="padding:4px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 19V6" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 12l7-7 7 7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="icon-btn mobile-move downBtn" title="Move down" aria-label="Move down" style="padding:4px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 5v14" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 12l-7 7-7-7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="icon-btn deleteBtn" title="Delete" aria-label="Delete" style="padding:4px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 6h18" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <span class="drag-handle" title="Drag to reorder" aria-label="Drag to reorder">☰</span>
+      </div>
+    </td>`;
+}
+
+// Build HTML for regular row with saved data
+function buildRegularRow(menuItem, savedData) {
+  const name = menuItem.Name || '';
+  const desc = savedData.Description || menuItem.Description || '';
+  const portions = savedData.Portions || 1;
+  const rate = savedData.Rate || menuItem.Rate || 0;
+  const pcsDisplay = savedData.PcsDisplay || menuItem.PcsDisplay || '';
+  const unit = savedData.Unit || menuItem.Unit || 'PCS';
+  const calculate = savedData.Calculate || menuItem.Calculate || '0';
+  const vegNonVeg = savedData.VegNonVeg || menuItem.VegNonVeg || 'Veg';
+  const amount = portions * rate;
+  
+  return `
+    <td style="min-width:220px">
+      <strong>${name}</strong>
+      <button type="button" class="veg-toggle ${vegNonVeg.toLowerCase().includes('non') ? 'non-veg' : 'veg'}" aria-pressed="${vegNonVeg.toLowerCase().includes('non')}">${vegNonVeg}</button>
+      <textarea class="description-input" placeholder="Description...">${desc}</textarea>
+    </td>
+    <td><input class="portions" type="number" min="0" value="${portions}" style="width:50px;text-align:center"/></td>
+    <td><input class="rate" type="number" min="0" value="${rate}" style="width:60px;text-align:center"/></td>
+    <td class="amount col-right">${formatCurrency(amount)}</td>
+    <td class="pcsDisplay">
+      <input class="pcsQty" type="text" value="${pcsDisplay}" style="width:40px;text-align:center" placeholder="0"/>
+      <span class="pcsDisplayReview" style="font-size:11px;color:#666;"></span>
+    </td>
+    <td>
+      <select class="pcsUnit" style="width:60px;font-size:11px">
+        <option value="PCS" ${unit==='PCS'?'selected':''}>PCS</option>
+        <option value="ML" ${unit==='ML'?'selected':''}>ML</option>
+        <option value="GMS" ${unit==='GMS'?'selected':''}>GMS</option>
+        <option value="PC" ${unit==='PC'?'selected':''}>PC</option>
+      </select>
+    </td>
+    <td style="text-align:center"><input class="calculateToggle" type="checkbox" ${calculate==='1'?'checked':''} style="width:16px;height:16px;cursor:pointer" title="Auto-calculate PCS × Portions"/></td>
+    <td style="text-align:center">
+      <div style="display:flex;gap:4px;align-items:center;justify-content:center;flex-wrap:wrap">
+        <button class="icon-btn mobile-move upBtn" title="Move up" aria-label="Move up" style="padding:4px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 19V6" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 12l7-7 7 7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="icon-btn mobile-move downBtn" title="Move down" aria-label="Move down" style="padding:4px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 5v14" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 12l-7 7-7-7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="icon-btn deleteBtn" title="Delete" aria-label="Delete" style="padding:4px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 6h18" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <span class="drag-handle" title="Drag to reorder" aria-label="Drag to reorder">☰</span>
+      </div>
+    </td>`;
+}
+
+// Add custom item from loaded data
+function addCustomItemFromData(item) {
+  const category = item.Category || 'Other';
+  const tbody = getCategoryBody(category);
+  
+  const tr = document.createElement('tr');
+  tr.dataset.custom = '1';
+  tr.dataset.category = category;
+  tr.dataset.name = item.Name || '';
+  tr.dataset.description = item.Description || '';
+  tr.dataset.rate = item.Rate || 0;
+  tr.dataset.pcsDisplay = item.PcsDisplay || '';
+  tr.dataset.unit = item.Unit || 'PCS';
+  tr.dataset.calculate = item.Calculate || '0';
+  tr.dataset.vegNonVeg = item.VegNonVeg || 'Veg';
+  
+  tr.innerHTML = buildRegularRow({ Name: item.Name, Description: '', Rate: 0, PcsDisplay: '', Unit: 'PCS', Calculate: '0', VegNonVeg: 'Veg' }, item);
+  tbody.appendChild(tr);
+  bindRowEventListeners(tr, false);
+}
+
+// Clear form for new quotation
+function clearForm() {
+  document.getElementById('eventDate').value = '';
+  document.getElementById('hostName').value = '';
+  document.getElementById('mobile').value = '';
+  document.getElementById('time').value = '';
+  document.getElementById('pax').value = '';
+  document.getElementById('location').value = '';
+  document.getElementById('quoteId').value = '';
+  document.getElementById('chefServers').value = '';
+  document.getElementById('tableDecor').value = 'Included';
+  document.getElementById('cutlery').value = '';
+  document.getElementById('chaffing').value = '';
+  document.getElementById('conveyance').value = 'As Per Actual';
+  document.getElementById('tables').value = 'As Required';
+  document.getElementById('kitchenSpace').value = 'As Required';
+  
+  // Clear images
+  selectedImages = [];
+  renderSelectedPreview();
+  
+  // Clear selected items
+  document.querySelectorAll('#selectedTable tbody').forEach(tb => {
+    if (tb.dataset.category) tb.remove();
+  });
+  
+  // Uncheck all menu checkboxes
+  document.querySelectorAll('#menuList input[type=checkbox]').forEach(cb => cb.checked = false);
+  
+  updateTotal();
+  updateSummary();
+  document.getElementById('statusText').textContent = '';
+}
+
+// Event listeners for load functionality
+document.getElementById('loadQuotationBtn').addEventListener('click', () => {
+  const selectedId = document.getElementById('quotationSelect').value;
+  loadQuotation(selectedId);
+});
+
+document.getElementById('refreshListBtn').addEventListener('click', () => {
+  fetchQuotationsList();
+});
+
+// Load quotations list on page load
+fetchQuotationsList();
 </script>
 </body>
 </html>
