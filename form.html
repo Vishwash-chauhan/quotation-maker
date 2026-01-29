@@ -217,7 +217,6 @@
         font-size: 14px;
       }
     }
-    }
     .modal-buttons button.primary {
       background: #2D3E50;
     }
@@ -334,7 +333,7 @@
     </div>
 
     <label style="margin-top:18px"></label>
-    <input id="webhookUrl" type="hidden" value="https://n8n.vyaapaarniti.com/webhook/9b2f3be4-e30e-42e8-9ca7-afce486bf02e" />
+    <input id="webhookUrl" type="hidden" value="https://n8n.vyaapaarniti.com/webhook-test/9b2f3be4-e30e-42e8-9ca7-afce486bf02e" />
     <input type="hidden" id="quoteId" value="" />
     <input type="hidden" name="x-webhook-token" id="webhookToken" value="a-string-secret-at-least-256-bits-long" />
     <p class="muted" style="margin-top:8px;"></p>
@@ -403,16 +402,24 @@
             <option value="Veg & Non-Veg">Veg & Non-Veg</option>
           </select>
         </div>
-        <div>
-          <label>Pcs.</label> 
+        <div id="customPcsDiv">
+          <label>Pcs.</label>
           <input id="customPcs" type="text" placeholder="e.g., 1 KG, 6 PCS" />
         </div>
-        <div>
+        <div id="customPortionsDiv">
           <label>Portions</label>
-          <input id="customPortions" type="number" min="0" value="0" />
+          <input id="customPortions" type="number" min="0" value="1" />
+        </div>
+        <div id="customSetupDiv" style="display:none">
+          <label>Setup (₹)</label>
+          <input id="customSetup" type="number" min="0" value="0" />
+        </div>
+        <div id="customNoPeopleDiv" style="display:none">
+          <label>No. People</label>
+          <input id="customNoPeople" type="number" min="0" value="0" />
         </div>
         <div>
-          <label>Rate per Portion</label>
+          <label>Rate</label>
           <input id="customRate" type="number" min="0" step="0.01" placeholder="₹0" />
         </div>
         <div style="display: flex; align-items: flex-end;">
@@ -549,7 +556,12 @@ let galleryImages = [
   { url: 'https://res.cloudinary.com/dwffrfajl/image/upload/v1768137608/tn7rcoy1w0g5sw0clnvx.jpg' },
   { url: 'https://res.cloudinary.com/dwffrfajl/image/upload/v1768137607/xftinqmucmx8bj6xrfjs.jpg' }
 ]; // { url }
-let selectedImages = []; // array of urls (max 9)
+let selectedImages = galleryImages.map(g => g.url); // array of urls (max 9) - preselect all original images
+// Ensure preview and counts reflect the preselected images on page load
+document.addEventListener('DOMContentLoaded', () => {
+  renderSelectedPreview();
+  galleryCount && (galleryCount.textContent = selectedImages.length);
+});
 
 // Elements
 const manageImagesBtn = document.getElementById('manageImagesBtn');
@@ -1365,13 +1377,33 @@ function addCustomItem(){
   const unit = 'PCS'; // default unit for custom items
   const portions = Number(document.getElementById('customPortions').value) || 0;
   const rate = Number(document.getElementById('customRate').value) || 0;
+  const setup = Number(document.getElementById('customSetup')?.value) || 0;
+  const noPeople = Number(document.getElementById('customNoPeople')?.value) || 0;
 
   // Allow adding items even with empty/default values - all fields are optional
 
-  // Create table row with delete button
+  // Create table row
   const tr = document.createElement('tr');
   tr.dataset.isCustom = 'true';
-  tr.innerHTML = `<td><strong>${name}</strong> <button type="button" class="veg-toggle ${vegNonVeg && vegNonVeg.toLowerCase().includes('non') ? 'non-veg' : (vegNonVeg ? 'veg' : 'veg') }" aria-pressed="${(vegNonVeg||'').toLowerCase().includes('non')}">${vegNonVeg || 'Veg'}</button>
+  tr.dataset.description = desc;
+  tr.dataset.rate = rate;
+  tr.dataset.pcsDisplay = pcsDisplay;
+  tr.dataset.unit = unit;
+  tr.dataset.category = category || '';
+  tr.dataset.vegNonVeg = vegNonVeg || '';
+
+  const catBody = getCategoryBody(category || 'Other');
+
+  if (category === 'Live Stations'){
+    // Live station specific row
+    tr.dataset.setup = setup;
+    tr.dataset.noOfPeople = noPeople;
+    tr.innerHTML = buildLiveStationRow({ Name: name, Description: desc, Setup: setup, Rate: rate, NoOfPeople: noPeople, VegNonVeg: vegNonVeg });
+    catBody.appendChild(tr);
+    bindRowEventListeners(tr, true);
+  } else {
+    // Regular custom item
+    tr.innerHTML = `<td><strong>${name}</strong> <button type="button" class="veg-toggle ${vegNonVeg && vegNonVeg.toLowerCase().includes('non') ? 'non-veg' : (vegNonVeg ? 'veg' : 'veg') }" aria-pressed="${(vegNonVeg||'').toLowerCase().includes('non')}">${vegNonVeg || 'Veg'}</button>
       <div style="margin-top:6px;font-size:12px;color:#666;"><textarea class="description-input" rows="2" placeholder="Description" style="font-size:12px">${desc}</textarea></div>
     </td>
     <td style="text-align:center"><input class="portions" type="number" min="0" value="${portions}" style="width:55px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center" /></td>
@@ -1394,21 +1426,33 @@ function addCustomItem(){
         <span class="drag-handle" title="Drag to reorder" aria-label="Drag to reorder">☰</span>
       </div>
     </td>`;
-  
-  tr.dataset.description = desc;
-  tr.dataset.rate = rate;
-  tr.dataset.pcsDisplay = pcsDisplay;
-  tr.dataset.unit = unit;
-  tr.dataset.category = category || '';
-  tr.dataset.vegNonVeg = vegNonVeg || '';
-  tr.dataset.calculate = '0'; // default: no auto-calculation
-  // Append to category tbody
-  const cat = tr.dataset.category || 'Other';
-  const catBody = getCategoryBody(cat);
-  catBody.appendChild(tr);
 
-  // Add event listeners
-  tr.querySelector('.portions').addEventListener('input', ()=>updateCustomRowAmount(tr));
+    catBody.appendChild(tr);
+    // Use central binder for regular rows
+    bindRowEventListeners(tr, false);
+  }
+
+  // Append to category tbody
+  // const cat = tr.dataset.category || 'Other';
+  // const catBody = getCategoryBody(cat);
+  // catBody.appendChild(tr);
+
+  // Clear form
+  document.getElementById('customName').value = '';
+  document.getElementById('customDesc').value = '';
+  document.getElementById('customCategory').value = '';
+  document.getElementById('customVegNonVeg').value = '';
+  document.getElementById('customPcs').value = '';
+  document.getElementById('customPortions').value = '1';
+  document.getElementById('customRate').value = '';
+  document.getElementById('customSetup').value = '0';
+  document.getElementById('customNoPeople').value = '0';
+
+  updateTotal();
+
+  // Add event listeners (guard elements; Live Stations won't have all fields)
+  const portionsEl = tr.querySelector('.portions');
+  if (portionsEl) portionsEl.addEventListener('input', ()=>updateCustomRowAmount(tr));
   const rateInputC = tr.querySelector('.rate');
   if (rateInputC){ rateInputC.addEventListener('input', ()=>updateCustomRowAmount(tr)); }
   const pcsQtyInputC = tr.querySelector('.pcsQty');
@@ -1794,6 +1838,20 @@ document.getElementById('downloadBtn').addEventListener('click', (e)=>{
 
 // Initialize
 document.getElementById('addCustomItemBtn').addEventListener('click', addCustomItem);
+
+// Category-aware custom form: show/hide fields for Live Stations
+const customCategoryEl = document.getElementById('customCategory');
+function toggleCustomFieldsForCategory(){
+  const isLive = customCategoryEl && customCategoryEl.value === 'Live Stations';
+  document.getElementById('customPortionsDiv').style.display = isLive ? 'none' : '';
+  document.getElementById('customPcsDiv').style.display = isLive ? 'none' : '';
+  document.getElementById('customSetupDiv').style.display = isLive ? '' : 'none';
+  document.getElementById('customNoPeopleDiv').style.display = isLive ? '' : 'none';
+}
+customCategoryEl && customCategoryEl.addEventListener('change', toggleCustomFieldsForCategory);
+// Ensure correct initial state
+document.addEventListener('DOMContentLoaded', toggleCustomFieldsForCategory);
+
 fetchSheet();
 // Add listeners to service fields for real-time summary update
 document.getElementById('chefServers').addEventListener('input', updateSummary);
@@ -2168,16 +2226,19 @@ function addItemToTableWithData(menuItem, idx, savedData) {
   bindRowEventListeners(tr, isLiveStation);
 }
 
-// Build HTML for live station row with saved data
+// Build HTML for live station row with saved data (supports being called with either (menuItem, savedData) or (item))
 function buildLiveStationRow(menuItem, savedData) {
-  const name = menuItem.Name || '';
-  const desc = savedData.Description || menuItem.Description || '';
-  const setup = savedData.Setup || menuItem.Setup || 0;
-  const rate = savedData.Rate || menuItem.Rate || 0;
-  const noOfPeople = savedData.NoOfPeople || 0;
-  const vegNonVeg = savedData.VegNonVeg || menuItem.VegNonVeg || 'Veg';
+  const saved = savedData || {};
+  const item = menuItem || {};
+
+  const name = (saved.Name !== undefined ? saved.Name : item.Name) || '';
+  const desc = (saved.Description !== undefined ? saved.Description : item.Description) || '';
+  const setup = Number((saved.Setup !== undefined ? saved.Setup : item.Setup) || 0) || 0;
+  const rate = Number((saved.Rate !== undefined ? saved.Rate : item.Rate) || 0) || 0;
+  const noOfPeople = Number((saved.NoOfPeople !== undefined ? saved.NoOfPeople : (item.NoOfPeople || item.NoOfPeople)) || 0) || 0;
+  const vegNonVeg = (saved.VegNonVeg !== undefined ? saved.VegNonVeg : item.VegNonVeg) || 'Veg';
   const amount = setup + (rate * noOfPeople);
-  
+
   return `
     <td colspan="2" style="min-width:220px">
       <strong>${name}</strong>
@@ -2201,8 +2262,7 @@ function buildLiveStationRow(menuItem, savedData) {
         </button>
         <span class="drag-handle" title="Drag to reorder" aria-label="Drag to reorder">☰</span>
       </div>
-    </td>`;
-}
+    </td>`;}
 
 // Build HTML for regular row with saved data
 function buildRegularRow(menuItem, savedData) {
@@ -2252,6 +2312,8 @@ function buildRegularRow(menuItem, savedData) {
         <span class="drag-handle" title="Drag to reorder" aria-label="Drag to reorder">☰</span>
       </div>
     </td>`;
+
+
 }
 
 // Add custom item from loaded data
@@ -2270,9 +2332,15 @@ function addCustomItemFromData(item) {
   tr.dataset.calculate = item.Calculate || '0';
   tr.dataset.vegNonVeg = item.VegNonVeg || 'Veg';
   
-  tr.innerHTML = buildRegularRow({ Name: item.Name, Description: '', Rate: 0, PcsDisplay: '', Unit: 'PCS', Calculate: '0', VegNonVeg: 'Veg' }, item);
-  tbody.appendChild(tr);
-  bindRowEventListeners(tr, false);
+  if (category === 'Live Stations') {
+    tr.innerHTML = buildLiveStationRow(item);
+    tbody.appendChild(tr);
+    bindRowEventListeners(tr, true);
+  } else {
+    tr.innerHTML = buildRegularRow({ Name: item.Name, Description: '', Rate: 0, PcsDisplay: '', Unit: 'PCS', Calculate: '0', VegNonVeg: 'Veg' }, item);
+    tbody.appendChild(tr);
+    bindRowEventListeners(tr, false);
+  }
 }
 
 // Clear form for new quotation
