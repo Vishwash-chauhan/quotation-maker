@@ -188,7 +188,7 @@
     {
       "parameters": {
         "language": "python",
-        "pythonCode": "import json\n\n# Access the body from the first input item\nbody = _input.all()[0].json.get('body', {})\n\n# Helper function to extract numeric values\ndef extract_number(val):\n    if not val or isinstance(val, (int, float)):\n        return val or 0\n    str_val = str(val).strip()\n    import re\n    match = re.search(r'[\\d.]+', str_val)\n    if not match:\n        return 0\n    try:\n        return float(match.group())\n    except:\n        return 0\n\n# Prepare data for Supabase\nsupabase_data = {\n    \"quotation_id\": body.get(\"QuotationId\", \"\"),\n    \"host_name\": body.get(\"HostName\", \"\"),\n    \"mobile_no\": body.get(\"MobileNo\", \"\"),\n    \"event_date\": body.get(\"EventDate\", \"\"),\n    \"time\": body.get(\"Time\", \"\"),\n    \"pax\": body.get(\"Pax\", \"\"),\n    \"location\": body.get(\"Location\", \"\"),\n    \"image_grid\": body.get(\"ImageGrid\", []),\n    \"items\": body.get(\"Items\", []),\n    \"total\": extract_number(body.get(\"Total\", 0)),\n    \"chef_servers\": extract_number(body.get(\"ChefServers\", 0)),\n    \"table_decor\": extract_number(body.get(\"TableDecor\", 0)),\n    \"cutlery\": extract_number(body.get(\"Cutlery\", 0)),\n    \"chaffing\": extract_number(body.get(\"Chaffing\", 0)),\n    \"conveyance\": extract_number(body.get(\"Conveyance\", 0)),\n    \"tables\": body.get(\"Tables\", \"\"),\n    \"kitchen_space\": body.get(\"KitchenSpace\", \"\")\n}\n\nreturn [supabase_data]"
+        "pythonCode": "import json\n\n# Access the body from the first input item\nbody = _input.all()[0].json.get('body', {})\n\n# Helper function to extract numeric values\ndef extract_number(val):\n    if not val or isinstance(val, (int, float)):\n        return val or 0\n    str_val = str(val).strip()\n    import re\n    match = re.search(r'[\\d.]+', str_val)\n    if not match:\n        return 0\n    try:\n        return float(match.group())\n    except:\n        return 0\n\n# Prepare data for Supabase\nsupabase_data = {\n    \"quotation_id\": body.get(\"QuotationId\", \"\"),\n    \"host_name\": body.get(\"HostName\", \"\"),\n    \"mobile_no\": body.get(\"MobileNo\", \"\"),\n    \"event_date\": body.get(\"EventDate\", \"\"),\n    \"time\": body.get(\"Time\", \"\"),\n    \"pax\": body.get(\"Pax\", \"\"),\n    \"location\": body.get(\"Location\", \"\"),\n    \"image_grid\": body.get(\"ImageGrid\", []),\n    \"items\": body.get(\"Items\", []),\n    \"total\": extract_number(body.get(\"Total\", 0)),\n    \"chef_servers\": extract_number(body.get(\"ChefServers\", 0)),\n    \"table_decor\": extract_number(body.get(\"TableDecor\", 0)),\n    \"cutlery\": extract_number(body.get(\"Cutlery\", 0)),\n    \"chaffing\": extract_number(body.get(\"Chaffing\", 0)),\n    \"conveyance\": extract_number(body.get(\"Conveyance\", 0)),\n    \"venue_charges\": extract_number(body.get(\"VenueCharges\", 0)),\n    \"tables\": body.get(\"Tables\", \"\"),\n    \"kitchen_space\": body.get(\"KitchenSpace\", \"\")\n}\n\nreturn [supabase_data]"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -236,8 +236,7 @@
         -224
       ],
       "id": "cae2d749-f860-4e8e-a13c-14227f3eb04e",
-      "name": "Save to Supabase",
-      "disabled": true
+      "name": "Save to Supabase"
     },
     {
       "parameters": {
@@ -398,8 +397,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        160,
-        -1168
+        64,
+        -1184
       ],
       "id": "583d0a22-a40c-49ff-bcce-1193b45b51d4",
       "name": "Sticky Note"
