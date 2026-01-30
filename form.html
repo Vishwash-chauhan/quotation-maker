@@ -450,6 +450,10 @@
         <label>Conveyance</label>
         <input id="conveyance" type="text" value="As Per Actual" />
       </div>
+      <div>
+        <label>Venue Charges</label>
+        <input id="venueCharges" type="text" placeholder="₹0" />
+      </div>
     </div>
 
     <h3 style="margin-top:24px">Summary & Total</h3>
@@ -461,6 +465,7 @@
         <tr><td colspan="2">Cutlery & Crockery</td><td class="col-right" id="summaryCutlery">—</td></tr>
         <tr><td colspan="2">Chaffing Dishes & Snack Warmers</td><td class="col-right" id="summaryChaffing">—</td></tr>
         <tr><td colspan="2">Conveyance</td><td class="col-right" id="summaryConveyance">—</td></tr>
+        <tr><td colspan="2">Venue Charges</td><td class="col-right" id="summaryVenue">—</td></tr>
         <tr class="total-row"><td colspan="2">Subtotal (With Services)</td><td class="col-right" id="subtotalWithServices">₹0</td></tr>
         <tr class="total-row"><td colspan="2">GST 5%</td><td class="col-right" id="gstAmount">₹0</td></tr>
         <tr class="total-row"><td colspan="2">TOTAL AMOUNT</td><td class="col-right" id="finalTotal">₹0</td></tr>
@@ -1596,6 +1601,7 @@ function updateSummary() {
   const cutleryVal = extractNumber(document.getElementById('cutlery').value);
   const chaffingVal = extractNumber(document.getElementById('chaffing').value);
   const conveyanceVal = extractNumber(document.getElementById('conveyance').value);
+  const venueVal = extractNumber(document.getElementById('venueCharges').value);
 
   // Update display values
   document.getElementById('subtotalItems').textContent = formatCurrency(itemsSubtotal);
@@ -1604,9 +1610,10 @@ function updateSummary() {
   document.getElementById('summaryCutlery').textContent = cutleryVal > 0 ? formatCurrency(cutleryVal) : (document.getElementById('cutlery').value || '—');
   document.getElementById('summaryChaffing').textContent = chaffingVal > 0 ? formatCurrency(chaffingVal) : (document.getElementById('chaffing').value || '—');
   document.getElementById('summaryConveyance').textContent = conveyanceVal > 0 ? formatCurrency(conveyanceVal) : (document.getElementById('conveyance').value || '—');
+  document.getElementById('summaryVenue').textContent = venueVal > 0 ? formatCurrency(venueVal) : (document.getElementById('venueCharges').value || '—');
 
   // Calculate subtotal with services
-  const subtotalWithServices = itemsSubtotal + chefVal + decorVal + cutleryVal + chaffingVal + conveyanceVal;
+  const subtotalWithServices = itemsSubtotal + chefVal + decorVal + cutleryVal + chaffingVal + conveyanceVal + venueVal;
   document.getElementById('subtotalWithServices').textContent = formatCurrency(subtotalWithServices);
 
   // Calculate GST 5%
@@ -1700,6 +1707,16 @@ function collectPayload(){
     timeFormatted = `${String(h12).padStart(2, '0')}:${String(m).padStart(2, '0')} ${ampm}`;
   }
 
+  // Compute totals including service charges
+  const itemsTotal = items.reduce((s,i)=>s+i.Amount,0);
+  const chefVal = extractNumber(document.getElementById('chefServers').value);
+  const decorVal = extractNumber(document.getElementById('tableDecor').value);
+  const cutleryVal = extractNumber(document.getElementById('cutlery').value);
+  const chaffingVal = extractNumber(document.getElementById('chaffing').value);
+  const conveyanceVal = extractNumber(document.getElementById('conveyance').value);
+  const venueVal = extractNumber(document.getElementById('venueCharges').value);
+  const grandTotal = itemsTotal + chefVal + decorVal + cutleryVal + chaffingVal + conveyanceVal + venueVal;
+
   const payload = {
     EventDate: dateFormatted,
     HostName: document.getElementById('hostName').value,
@@ -1709,12 +1726,16 @@ function collectPayload(){
     Pax: document.getElementById('pax').value,
     Location: document.getElementById('location').value,
     Items: items,
-    Total: items.reduce((s,i)=>s+i.Amount,0),
+    // Keep `Total` as items subtotal only (per requirement)
+    Total: itemsTotal,
+    // Also include computed grand total (items + services) for clarity if needed
+    GrandTotal: grandTotal,
     ChefServers: document.getElementById('chefServers').value,
     TableDecor: document.getElementById('tableDecor').value,
     Cutlery: document.getElementById('cutlery').value,
     Chaffing: document.getElementById('chaffing').value,
     Conveyance: document.getElementById('conveyance').value,
+    VenueCharges: document.getElementById('venueCharges').value,
     Tables: document.getElementById('tables').value,
     KitchenSpace: document.getElementById('kitchenSpace').value,
     ImageGrid: selectedImages.slice(0,9) // array of image URLs (max 9)
@@ -1859,6 +1880,8 @@ document.getElementById('tableDecor').addEventListener('input', updateSummary);
 document.getElementById('cutlery').addEventListener('input', updateSummary);
 document.getElementById('chaffing').addEventListener('input', updateSummary);
 document.getElementById('conveyance').addEventListener('input', updateSummary);
+document.getElementById('venueCharges')?.addEventListener('input', updateSummary);
+document.getElementById('venueCharges')?.addEventListener('input', updateSummary);
 // Initial summary calculation
 updateSummary();
 
@@ -2357,6 +2380,8 @@ function clearForm() {
   document.getElementById('cutlery').value = '';
   document.getElementById('chaffing').value = '';
   document.getElementById('conveyance').value = 'As Per Actual';
+  document.getElementById('venueCharges').value = '';
+  document.getElementById('venueCharges').value = '';
   document.getElementById('tables').value = 'As Required';
   document.getElementById('kitchenSpace').value = 'As Required';
   

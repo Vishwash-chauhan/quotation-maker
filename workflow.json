@@ -2,63 +2,20 @@
   "nodes": [
     {
       "parameters": {
-        "content": "python -m http.server 8000\n\na-string-secret-at-least-256-bits-long\n\nhttps://n8n.vyaapaarniti.com/webhook-test/quotation-form",
-        "height": 80,
-        "width": 464
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        112,
-        160
-      ],
-      "id": "5f5ed6cc-a3e7-43b8-8189-570f2846639d",
-      "name": "Sticky Note2"
-    },
-    {
-      "parameters": {
         "httpMethod": "POST",
         "path": "9b2f3be4-e30e-42e8-9ca7-afce486bf02e",
         "responseMode": "responseNode",
         "options": {}
       },
-      "id": "dd5c75fa-3de5-433b-a504-420b88dd8697",
+      "id": "dcd15b3e-77d2-457b-b0a0-798064b78a12",
       "name": "Webhook Form",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
       "position": [
-        -416,
-        1072
+        -352,
+        -704
       ],
       "webhookId": "9b2f3be4-e30e-42e8-9ca7-afce486bf02e"
-    },
-    {
-      "parameters": {
-        "language": "python",
-        "pythonCode": "# Access the body from the first input item\nbody = _input.all()[0].json.get('body', {})\n\n# Helper to get the raw display value\ndef get_display_val(key):\n    return body.get(key, 0)\n\n# Helper function to extract numeric values for MATH only\ndef extract_number(val):\n    if not val or isinstance(val, (int, float)):\n        return val or 0\n    str_val = str(val).strip()\n    import re\n    match = re.search(r'[\\d.]+', str_val) # Removed comma to avoid float issues\n    if not match:\n        return 0\n    try:\n        return float(match.group())\n    except:\n        return 0\n\n# 1. Get Values for Calculations\nsub_val = extract_number(body.get('Total', 0))\nchef_val = extract_number(body.get('ChefServers', 0))\ndecor_val = extract_number(body.get('TableDecor', 0))\ncutlery_val = extract_number(body.get('Cutlery', 0))\nchaffing_val = extract_number(body.get('Chaffing', 0))\nconv_val = extract_number(body.get('Conveyance', 0))\n\n# 2. Perform Calculations\nsubtotal_with_services = sub_val + chef_val + decor_val + cutlery_val + chaffing_val + conv_val\ngst_amount = subtotal_with_services * 0.05\ntotal_amount = subtotal_with_services + gst_amount\n\n# 3. Create results using RAW values for display, but calculated values for totals\nresults = [\n    {\"Other Services\": \"Subtotal (Items)\", \"Amount\": body.get('Total', 0)},\n    {\"Other Services\": \"Chef + Servers + Helper\", \"Amount\": body.get('ChefServers', 0)},\n    {\"Other Services\": \"Table Décor (As Per Theme)\", \"Amount\": body.get('TableDecor', 0)},\n    {\"Other Services\": \"Cutlery & Crockery\", \"Amount\": body.get('Cutlery', 0)},\n    {\"Other Services\": \"Chaffing Dishes & Snack Warmers\", \"Amount\": body.get('Chaffing', 0)},\n    {\"Other Services\": \"Conveyance\", \"Amount\": body.get('Conveyance', 0)},\n    {\"Other Services\": \"Subtotal (With Services)\", \"Amount\": subtotal_with_services},\n    {\"Other Services\": \"GST 5%\", \"Amount\": round(gst_amount, 2)},\n    {\"Other Services\": \"TOTAL AMOUNT\", \"Amount\": round(total_amount, 2)}\n]\n\nreturn results"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -192,
-        1168
-      ],
-      "id": "7afcff53-f948-4c41-9e51-3ad09b799edb",
-      "name": "Code in Python (Beta)"
-    },
-    {
-      "parameters": {
-        "language": "python",
-        "pythonCode": "# Access the body from the first input item\nbody = _input.all()[0].json.get('body', {})\n\n# We create a list of dictionaries. \n# Each dictionary in this list represents one row in Google Sheets.\nresults = [\n    {\n        \"TO BE PROVIDED BY HOST\": \"Tables with covers for the food display\",\n        \"QUANTITY\": body.get(\"Tables\")\n    },\n    {\n        \"TO BE PROVIDED BY HOST\": \"Kitchen Space & Table to be provided\",\n        \"QUANTITY\": body.get(\"KitchenSpace\")\n    }\n]\n\nreturn results"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -192,
-        1360
-      ],
-      "id": "742cc8ec-be16-4ddb-83b2-95a39a13a1ac",
-      "name": "Code in Python (Beta)13"
     },
     {
       "parameters": {
@@ -68,10 +25,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -192,
-        784
+        -128,
+        -992
       ],
-      "id": "6942c6e8-27be-452e-b5fe-4f91990a83e5",
+      "id": "54eafeb6-ac95-405f-8a36-cfed91ef9bb5",
       "name": "Customer Details"
     },
     {
@@ -83,10 +40,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        160,
-        944
+        240,
+        -832
       ],
-      "id": "acd7acf1-b0a8-4881-8dc1-03b42a6dfdb2",
+      "id": "83bd92d2-faac-4ba1-bd88-ac1ee245c2ba",
       "name": "Sticky Note7"
     },
     {
@@ -96,10 +53,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        32,
-        1040
+        112,
+        -736
       ],
-      "id": "a3bb1498-71b7-4ed4-85af-a2d5897bdf91",
+      "id": "254bec60-1fc4-4ede-941a-67fe388567e4",
       "name": "Merge"
     },
     {
@@ -110,10 +67,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -192,
-        976
+        -128,
+        -800
       ],
-      "id": "68e393d9-0bbb-46f0-9a7a-bb80c5dd769a",
+      "id": "35eaec3b-d01d-4b44-bc79-bc483ccc9e63",
       "name": "Menu Item Transformation"
     },
     {
@@ -124,10 +81,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        256,
-        1072
+        336,
+        -704
       ],
-      "id": "3f5899f4-112e-4cf8-9d0d-44b9948dacb8",
+      "id": "1662758d-2e75-4b6a-8343-0de3b21c1875",
       "name": "JSON TO HTML"
     },
     {
@@ -142,10 +99,10 @@
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        480,
-        1072
+        560,
+        -704
       ],
-      "id": "4636d647-373e-4494-9bd9-e14bfa4536b0",
+      "id": "84860ad0-89f4-49a6-a10f-91c61837fb07",
       "name": "Convert to File"
     },
     {
@@ -174,10 +131,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        704,
-        1072
+        784,
+        -704
       ],
-      "id": "81cce004-4dad-4fa4-b8f1-5dae96d24e43",
+      "id": "74fdb979-ccc4-4781-a552-8445cfe3a2ce",
       "name": "HTML TO PDF"
     },
     {
@@ -189,10 +146,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
       "position": [
-        928,
-        976
+        1008,
+        -800
       ],
-      "id": "e20241d8-c745-4fc4-b4cb-e2943d78f65b",
+      "id": "fc7e2f9c-3fcc-4526-b8ad-ba027a455085",
       "name": "Respond to Webhook1"
     },
     {
@@ -215,10 +172,10 @@
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
       "position": [
-        928,
-        1168
+        1008,
+        -608
       ],
-      "id": "98f2935c-766c-47f2-ae05-8f8d8f6fa1ca",
+      "id": "3916563d-2859-483c-88be-d71f509c5b79",
       "name": "Upload file",
       "credentials": {
         "googleDriveOAuth2Api": {
@@ -236,10 +193,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -192,
-        1552
+        -128,
+        -224
       ],
-      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "id": "1872d7c0-af39-45cb-b3c5-2bbfe12d0b53",
       "name": "Prepare Supabase Data"
     },
     {
@@ -275,15 +232,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        32,
-        1552
+        112,
+        -224
       ],
-      "id": "b2c3d4e5-f6a7-8901-bcde-f23456789012",
-      "name": "Save to Supabase"
+      "id": "cae2d749-f860-4e8e-a13c-14227f3eb04e",
+      "name": "Save to Supabase",
+      "disabled": true
     },
     {
       "parameters": {
-        "httpMethod": "GET",
         "path": "quotations-list",
         "responseMode": "responseNode",
         "options": {
@@ -300,16 +257,15 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
       "position": [
-        -416,
-        1600
+        384,
+        -64
       ],
-      "id": "c3d4e5f6-a7b8-9012-cdef-345678901234",
+      "id": "151b4b83-7afa-4a48-94e2-480351f9fc89",
       "name": "Get Quotations List",
       "webhookId": "quotations-list"
     },
     {
       "parameters": {
-        "method": "GET",
         "url": "https://wtqtnpjliyhcwxjkincj.supabase.co/rest/v1/quotations?select=quotation_id,host_name,event_date,created_at&order=created_at.desc&limit=100",
         "sendHeaders": true,
         "headerParameters": {
@@ -329,10 +285,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -192,
-        1600
+        624,
+        -32
       ],
-      "id": "d4e5f6a7-b8c9-0123-def4-567890123456",
+      "id": "eeb455ce-5dcc-4182-a673-ee87e1a025d7",
       "name": "Fetch Quotations List"
     },
     {
@@ -352,15 +308,14 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
       "position": [
-        32,
-        1600
+        928,
+        -32
       ],
-      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "id": "774204e2-da42-4bf9-9e00-e574838f99af",
       "name": "Respond Quotations List"
     },
     {
       "parameters": {
-        "httpMethod": "GET",
         "path": "quotation-by-id",
         "responseMode": "responseNode",
         "options": {
@@ -377,16 +332,15 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
       "position": [
-        -416,
-        1800
+        352,
+        176
       ],
-      "id": "e5f6a7b8-c9d0-1234-ef56-789012345678",
+      "id": "9af500e2-4f05-4422-98dc-7b280f4f8239",
       "name": "Get Quotation By ID",
       "webhookId": "quotation-by-id"
     },
     {
       "parameters": {
-        "method": "GET",
         "url": "=https://wtqtnpjliyhcwxjkincj.supabase.co/rest/v1/quotations?quotation_id=eq.{{ $json.query.id }}&limit=1",
         "sendHeaders": true,
         "headerParameters": {
@@ -406,10 +360,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -192,
-        1800
+        656,
+        208
       ],
-      "id": "f6a7b8c9-d0e1-2345-f678-901234567890",
+      "id": "f4e5d4c2-cb12-4034-8b15-3c3d39e2600a",
       "name": "Fetch Quotation By ID"
     },
     {
@@ -429,63 +383,86 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
       "position": [
-        32,
-        1800
+        944,
+        224
       ],
-      "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+      "id": "37447600-dca7-4c2a-b95d-47d8a536f798",
       "name": "Respond Quotation By ID"
+    },
+    {
+      "parameters": {
+        "content": "python -m http.server 8000\n\na-string-secret-at-least-256-bits-long\n\nhttps://n8n.vyaapaarniti.com/webhook-test/quotation-form",
+        "height": 80,
+        "width": 464
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        160,
+        -1168
+      ],
+      "id": "583d0a22-a40c-49ff-bcce-1193b45b51d4",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "sendTo": "vishwashchauhan77@gmail.com",
+        "subject": "hello",
+        "message": "={{ $('Webhook Form').first().json.body.HostName }} - {{ $('Webhook Form').first().json.body.EventDate }}.pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1088,
+        -368
+      ],
+      "id": "d545877d-88cd-477f-83e6-a3edf078f54e",
+      "name": "Send a message",
+      "webhookId": "ebc0a6a5-7f8b-40a5-9b9c-795f64871fb5",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "9YhI3zWkjKQLFSPV",
+          "name": "Gmail Vishu"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "# Access the body from the first input item\nbody = _input.all()[0].json.get('body', {})\n\n# We create a list of dictionaries. \n# Each dictionary in this list represents one row in Google Sheets.\nresults = [\n    {\n        \"TO BE PROVIDED BY HOST\": \"Tables with covers for the food display\",\n        \"QUANTITY\": body.get(\"Tables\")\n    },\n    {\n        \"TO BE PROVIDED BY HOST\": \"Kitchen Space & Table to be provided\",\n        \"QUANTITY\": body.get(\"KitchenSpace\")\n    }\n]\n\nreturn results"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -128,
+        -416
+      ],
+      "id": "b6bfa5b7-47eb-4111-b8ee-c9312a13ca06",
+      "name": "Other Services"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "# Access the body from the first input item\nbody = _input.all()[0].json.get('body', {})\n\n# Helper to get the raw display value\ndef get_display_val(key):\n    return body.get(key, 0)\n\n# Helper function to extract numeric values for MATH only\ndef extract_number(val):\n    if not val or isinstance(val, (int, float)):\n        return val or 0\n    str_val = str(val).strip()\n    import re\n    match = re.search(r'[\\d.]+', str_val) # Removed comma to avoid float issues\n    if not match:\n        return 0\n    try:\n        return float(match.group())\n    except:\n        return 0\n\n# 1. Get Values for Calculations\n# Prefer computing items subtotal from Items array (new payload) else fall back to body['Total'] (legacy)\nitems = body.get('Items', [])\nif items and isinstance(items, list):\n    sub_val = sum(extract_number(it.get('Amount', 0)) for it in items)\nelse:\n    sub_val = extract_number(body.get('Total', 0))\n\nchef_val = extract_number(body.get('ChefServers', 0))\ndecor_val = extract_number(body.get('TableDecor', 0))\ncutlery_val = extract_number(body.get('Cutlery', 0))\nchaffing_val = extract_number(body.get('Chaffing', 0))\nconv_val = extract_number(body.get('Conveyance', 0))\nvenue_val = extract_number(body.get('VenueCharges', 0))\n\n# 2. Perform Calculations\nsubtotal_with_services = sub_val + chef_val + decor_val + cutlery_val + chaffing_val + conv_val + venue_val\ngst_amount = subtotal_with_services * 0.05\ntotal_amount = subtotal_with_services + gst_amount\n\n# 3. Create results using RAW values for display, but calculated values for totals\nresults = [\n    {\"Other Services\": \"Subtotal (Items)\", \"Amount\": (body.get('Total', sub_val) if body.get('Total') is not None else sub_val)},\n    {\"Other Services\": \"Chef + Servers + Helper\", \"Amount\": body.get('ChefServers', 0)},\n    {\"Other Services\": \"Table Décor (As Per Theme)\", \"Amount\": body.get('TableDecor', 0)},\n    {\"Other Services\": \"Cutlery & Crockery\", \"Amount\": body.get('Cutlery', 0)},\n    {\"Other Services\": \"Chaffing Dishes & Snack Warmers\", \"Amount\": body.get('Chaffing', 0)},\n    {\"Other Services\": \"Conveyance\", \"Amount\": body.get('Conveyance', 0)},\n    {\"Other Services\": \"Venue Charges\", \"Amount\": body.get('VenueCharges', 0)},\n    {\"Other Services\": \"Subtotal (With Services)\", \"Amount\": subtotal_with_services},\n    {\"Other Services\": \"GST 5%\", \"Amount\": round(gst_amount, 2)},\n    {\"Other Services\": \"TOTAL AMOUNT\", \"Amount\": round(total_amount, 2)}\n]\n\nreturn results"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -128,
+        -608
+      ],
+      "id": "d2368e20-45b4-44c7-bd96-d7e10d5764ec",
+      "name": "Summery Table"
     }
   ],
   "connections": {
-    "Get Quotations List": {
-      "main": [
-        [
-          {
-            "node": "Fetch Quotations List",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Fetch Quotations List": {
-      "main": [
-        [
-          {
-            "node": "Respond Quotations List",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Get Quotation By ID": {
-      "main": [
-        [
-          {
-            "node": "Fetch Quotation By ID",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Fetch Quotation By ID": {
-      "main": [
-        [
-          {
-            "node": "Respond Quotation By ID",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Webhook Form": {
       "main": [
         [
           {
-            "node": "Code in Python (Beta)",
+            "node": "Summery Table",
             "type": "main",
             "index": 0
           },
@@ -495,7 +472,7 @@
             "index": 0
           },
           {
-            "node": "Code in Python (Beta)13",
+            "node": "Other Services",
             "type": "main",
             "index": 0
           },
@@ -508,39 +485,6 @@
             "node": "Prepare Supabase Data",
             "type": "main",
             "index": 0
-          }
-        ]
-      ]
-    },
-    "Prepare Supabase Data": {
-      "main": [
-        [
-          {
-            "node": "Save to Supabase",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Code in Python (Beta)": {
-      "main": [
-        [
-          {
-            "node": "Merge",
-            "type": "main",
-            "index": 2
-          }
-        ]
-      ]
-    },
-    "Code in Python (Beta)13": {
-      "main": [
-        [
-          {
-            "node": "Merge",
-            "type": "main",
-            "index": 3
           }
         ]
       ]
@@ -612,6 +556,22 @@
             "node": "Upload file",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Supabase Data": {
+      "main": [
+        [
+          {
+            "node": "Save to Supabase",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -627,6 +587,17 @@
         ]
       ]
     },
+    "Fetch Quotations List": {
+      "main": [
+        [
+          {
+            "node": "Respond Quotations List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Get Quotation By ID": {
       "main": [
         [
@@ -634,6 +605,39 @@
             "node": "Fetch Quotation By ID",
             "type": "main",
             "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Quotation By ID": {
+      "main": [
+        [
+          {
+            "node": "Respond Quotation By ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Other Services": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Summery Table": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
           }
         ]
       ]
