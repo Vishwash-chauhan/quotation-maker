@@ -211,9 +211,11 @@ html = f"""
 <body>
 
 <div class="footer">
-    <strong>Little Jalebis – Kids Catering & Delivery Co. (Unit of NC Hospitality Pvt Ltd)</strong><br>
-    CIN : U55101DL2009PTC188581 | E 5 Kalindi Colony, New Delhi 110065<br>
-    Website : www.littlejalebis.com | Email : sales@littlejalebis.com
+    <strong>Little Jalebis – Kids Party House & Delivery Co.</strong><br>
+    (Unit of NC Hospitality Pvt Ltd) CIN : U55101DL2009PTC188581<br>
+    Regd. Address : E 5 Kalindi Colony, Near New Friends Colony, New Delhi 110065<br>
+    Party Venue : 17, Arjun Marg, DLF Phase-1, Gurgaon 122002<br>
+    Website : www.littlejalebis.com Email : sales@littlejalebis.com
 </div>
 
 <div class="full-page-section">
@@ -475,7 +477,7 @@ html += """
         </span>
         <br/>
         <a href="https://littlejalebis.com/master-menu.html" style="color: #2D3E50; text-decoration: none; font-weight: 900; font-size: 16px; margin-left: 8px; vertical-align: middle;">
-            🍫 LINK 🍫
+            🍫 www.littlejalebis.com/master-menu 🍫
         </a>
       </div>
     </div>
