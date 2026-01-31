@@ -89,18 +89,35 @@ html = f"""
 
   .full-page-section {{
     page-break-after: always;
-    text-align: center;
-    padding: 5mm;
+    text-align: left;
+    padding: 6mm 10mm;
+  }}
+
+  .full-page-section .main-logo {{
+    max-width: 160px;
+    height: auto;
   }}
 
   .intro-text {{
-    font-size: 23px;
+    font-size: 16px;
     text-align: left;
     margin: 0 auto;
+    font-weight: 500;
+    max-width: 100%;
+    line-height: 1.6;
+    letter-spacing: 0.3px;
+    color: #333;
+  }}
+
+  .intro-text strong {{
     font-weight: 800;
-    max-width: 90%;
-    line-height: 2.5;
-    letter-spacing: 1.2px;
+    color: #2D3E50;
+  }}
+
+  .intro-signoff {{
+    margin-top: 12px;
+    font-weight: 800;
+    text-align: left;
   }}
 
   .header-banner {{ 
@@ -223,14 +240,19 @@ html = f"""
     <img src="{logo_url}" class="main-logo" alt="Little Jalebis Logo">
   </div>
   <div class="intro-text">
-    <p>Welcome to Little Jalebis – Kids Party House & Catering Co.</p>
-    <p>Thank you for considering Little Jalebis for your child's celebration.</p>
-    <p>This quote outlines our food and catering offerings, thoughtfully curated for kids' parties and family gatherings — whether hosted at your home, a venue of your choice, or at our kids' party house in DLF Phase 1, Gurgaon.</p>
-    <p>At Little Jalebis, food is at the heart of every celebration. Our menus are designed keeping children in mind — kid-friendly, hygienic, and flavour-balanced — while being equally enjoyed by adults. With over 40 years of hospitality expertise, we focus on consistent quality, generous portions, and smooth service, so hosting stays simple and stress-free for parents.</p>
-    <p>All menus can be customised based on the age of the children, duration of the event, and your preferences. If you have any specific ideas or requests, we're always happy to tailor the food accordingly.</p>
+    <p><strong>Welcome to Little Jalebis – Kids Party House & Catering Co.</strong></p>
+    <p>Thank you for considering <strong>Little Jalebis</strong> for your child's celebration.</p>
+    <p>This quote outlines our <strong>food and catering offerings</strong>, thoughtfully curated for kids' parties and family gatherings — whether hosted at your home, a venue of your choice, or at our kids' party house in DLF Phase 1, Gurgaon.</p>
+    <p>At <strong>Little Jalebis</strong>, food is at the heart of every celebration. Our menus are designed keeping children in mind — kid-friendly, hygienic, and flavour-balanced — while being equally enjoyed by adults. With over <strong>40 years of hospitality expertise</strong>, we focus on consistent quality, generous portions, and smooth service, so hosting stays simple and stress-free for parents.</p>
+    <p>All menus can be <strong>customised</strong> based on the age of the children, duration of the event, and your preferences. If you have any specific ideas or requests, we're always happy to tailor the food accordingly.</p>
     <p>We look forward to being a part of your celebration and creating a delightful food experience that both children and adults enjoy.</p>
-    <div style="margin-top: 40px;">
-      <p>Warm regards,<br>
+    <div style="margin-top: 24px;">
+      <p class="intro-signoff"><strong>Warm regards,<br>
+      Team Little Jalebis<br>
+      +91 8130964374</strong></p>
+    </div>
+  </div>
+</div>
 
 """  # 2.5 PHOTO GALLERY (PAGE 2)
 images = cust.get('ImageGrid') or []
