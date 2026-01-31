@@ -223,17 +223,14 @@ html = f"""
     <img src="{logo_url}" class="main-logo" alt="Little Jalebis Logo">
   </div>
   <div class="intro-text">
-    <p>Hello from Little Jalebis - Kids Catering & Delivery Co., India's first catering company designed exclusively for kids, serving all of Delhi NCR.</p>
-    <p>With over 40 years of hospitality expertise, we're here to make your celebration stress-free and memorable, whether it's a cozy gathering of 10 kids or a lively bash with 200 guests!</p>
-    <p>Our specially curated menu is ready for you to explore.</p>
-    <p>Looking forward to helping make your little one's celebration extra special!</p>
+    <p>Welcome to Little Jalebis – Kids Party House & Catering Co.</p>
+    <p>Thank you for considering Little Jalebis for your child's celebration.</p>
+    <p>This quote outlines our food and catering offerings, thoughtfully curated for kids' parties and family gatherings — whether hosted at your home, a venue of your choice, or at our kids' party house in DLF Phase 1, Gurgaon.</p>
+    <p>At Little Jalebis, food is at the heart of every celebration. Our menus are designed keeping children in mind — kid-friendly, hygienic, and flavour-balanced — while being equally enjoyed by adults. With over 40 years of hospitality expertise, we focus on consistent quality, generous portions, and smooth service, so hosting stays simple and stress-free for parents.</p>
+    <p>All menus can be customised based on the age of the children, duration of the event, and your preferences. If you have any specific ideas or requests, we're always happy to tailor the food accordingly.</p>
+    <p>We look forward to being a part of your celebration and creating a delightful food experience that both children and adults enjoy.</p>
     <div style="margin-top: 40px;">
-      <p>Warm Regards,<br>
-      Team Little Jalebis<br>
-      +91 8130964374</p>
-    </div>
-  </div>
-</div>
+      <p>Warm regards,<br>
 
 """  # 2.5 PHOTO GALLERY (PAGE 2)
 images = cust.get('ImageGrid') or []
