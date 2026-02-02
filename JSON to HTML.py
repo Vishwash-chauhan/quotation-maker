@@ -10,7 +10,7 @@ services = _input.all("Other Services")
 host_reqs = _input.all("Other Info")
 
 # Logo URL
-logo_url = "https://littlejalebis.com/wp-content/uploads/2025/04/LJ_Logo_M-2.svg"
+logo_url = "https://res.cloudinary.com/dwffrfajl/image/upload/v1770034621/Little_Jalebis_Logo_lmpaxo.svg"
 
 # 2. HTML Construction
 html = f"""
@@ -32,12 +32,13 @@ html = f"""
     letter-spacing: 0.4px;
     margin: 0;
     background: white;
+    padding-bottom: 30mm; /* reserve space for fixed footer to avoid content overlap */
   }} 
 
   /* FIXED FOOTER STYLING */
   .footer {{
     position: fixed;
-    bottom: -10mm; /* Adjusted to sit tightly at the bottom within 15mm margin */
+    bottom: 0; /* sit at the bottom of page box; body reserves space so content won't overlap */
     left: 0;
     right: 0;
     text-align: center;
@@ -46,12 +47,21 @@ html = f"""
     border-top: 1px solid #eee;
     padding-top: 8px;
     line-height: 1.4;
-  }}
+  }} 
 
-  /* TABLE SPACER: Reduced to 10mm to minimize gap between table and footer */
+  /* TABLE SPACER: Increased to reserve footer area and prevent overlap */
   .table-spacer {{
-    height: 5mm;
+    height: 12mm;
     border: none !important;
+  }}
+  /* Prevent table rows and cells from breaking into footer area on PDF print */
+  tr, td {{
+    page-break-inside: avoid;
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+  }}
+  table {{
+    page-break-inside: auto;
   }}
 
   @media print {{
@@ -99,24 +109,24 @@ html = f"""
   }}
 
   .intro-text {{
-    font-size: 16px;
+    font-size: 18px;
     text-align: left;
     margin: 0 auto;
-    font-weight: 500;
+    font-weight: 800;
     max-width: 100%;
-    line-height: 1.6;
-    letter-spacing: 0.3px;
+    line-height: 2;
+    letter-spacing: 1.8px;
     color: #333;
   }}
 
   .intro-text strong {{
-    font-weight: 800;
-    color: #2D3E50;
+    font-weight: 900;
+    color: #F08C00;
   }}
 
   .intro-signoff {{
     margin-top: 12px;
-    font-weight: 800;
+    font-weight: 900;
     text-align: left;
   }}
 
@@ -228,7 +238,7 @@ html = f"""
 <body>
 
 <div class="footer">
-    <strong>Little Jalebis – Kids Party House & Delivery Co.</strong><br>
+    <strong>Little Jalebis - Kids Party House & Catering Co.</strong><br>
     (Unit of NC Hospitality Pvt Ltd) CIN : U55101DL2009PTC188581<br>
     Regd. Address : E 5 Kalindi Colony, Near New Friends Colony, New Delhi 110065<br>
     Party Venue : 17, Arjun Marg, DLF Phase-1, Gurgaon 122002<br>
