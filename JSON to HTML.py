@@ -27,7 +27,7 @@ html = f"""
   
   body {{ 
     font-family: 'Quicksand', sans-serif; 
-    color: #333; 
+    color: #000000; 
     line-height: 1.65;
     letter-spacing: 0.4px;
     margin: 0;
@@ -43,7 +43,7 @@ html = f"""
     right: 0;
     text-align: center;
     font-size: 10px;
-    color: #666;
+    color: #000000;
     border-top: 1px solid #eee;
     padding-top: 8px;
     line-height: 1.4;
@@ -173,7 +173,7 @@ html = f"""
   
   .col-right {{ text-align: right; }}
   .total-row {{ font-weight: bold; background-color: #f8f9fa; color: #2D3E50; }}
-  .description {{ font-size: 11px; color: #666; font-style: italic; display: block; }}
+  .description {{ font-size: 11px; color: #000000; font-style: italic; display: block; }}
   .badge {{ font-size: 9px; padding: 2px 6px; border-radius: 3px; background: #D3D3D3; color: #333; font-weight: bold; display: inline-block; margin-left: 8px; border: 1px solid #CCCCCC; white-space: nowrap; }}
   .badge:empty {{ display: none; }}
 
