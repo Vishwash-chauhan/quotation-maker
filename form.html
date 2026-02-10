@@ -138,7 +138,7 @@
     .gallery-actions { display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:12px; }
     .gallery-upload-note { font-size:12px; color:#666; }
 
-    .selected-preview { display:flex; gap:8px; align-items:center; margin-left:12px; }
+    .selected-preview { display:flex; gap:8px; align-items:center; margin-left:12px; flex-wrap:wrap; }
     .selected-preview img{ height:36px; width:36px; object-fit:cover; border-radius:4px; border:1px solid #eee }
     .upload-progress{ font-size:12px; color:#666; margin-left:8px }
     .upload-err{ color: #d32f2f; font-size:12px; margin-top:8px }
@@ -254,6 +254,11 @@
       input,select{padding:4px;font-size:10px}
       .description-input{font-size:10px;min-height:32px;padding:3px}
       button{padding:6px 10px;font-size:11px}
+      /* Make form-grid single column on mobile */
+      .form-grid{grid-template-columns:1fr}
+      /* Images section responsive */
+      #manageImagesBtn{width:100%;margin-bottom:4px}
+      .selected-preview{margin-left:0}
     }
     @media(max-width:480px){
       body{padding:8px}
@@ -266,7 +271,7 @@
       th{white-space:nowrap}
       button{padding:6px 8px;font-size:11px}
       input,select{padding:4px;font-size:9px;width:100%}
-      .form-grid{gap:8px}
+      .form-grid{gap:8px;grid-template-columns:1fr}
       .col-right{font-size:10px}
       .menu-item .right{width:70px;font-size:10px}
       .menu-item{gap:6px}
@@ -279,6 +284,10 @@
       .icon-btn svg{width:10px;height:10px}
       /* Hide calc column on very small screens */
       th:nth-child(7), td:nth-child(7){display:none}
+      /* Images button and preview responsive */
+      #manageImagesBtn{width:100%;margin-bottom:8px}
+      .selected-preview{margin-left:0;margin-top:8px;justify-content:flex-start}
+      .selected-preview img{height:32px;width:32px}
     }
   </style>
 </head>
@@ -327,7 +336,7 @@
         <label>Location</label>
         <input id="location" type="text"/>
       </div>
-      <div style="margin-top:8px; display:flex; align-items:center; gap:12px;">
+      <div style="margin-top:8px; display:flex; align-items:flex-start; gap:12px; flex-wrap:wrap;">
         <button id="manageImagesBtn" type="button" style="background:#F6B27A;color:#2D3E50;border-radius:6px;padding:8px 12px;border:none;font-weight:600">Manage Images</button>
         <div id="selectedImagesPreview" class="selected-preview" aria-live="polite"></div>
       </div>
