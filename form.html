@@ -1017,8 +1017,8 @@ function addItemToTable(item, idx){
   const isLiveStation = (item.Category || '') === 'Live Stations';
   
   if (isLiveStation) {
-    // LIVE STATIONS: Different column structure
-    tr.innerHTML = `<td colspan="2"><strong>${item['Name']}</strong> <button type="button" class="veg-toggle ${vegClass}" aria-pressed="${vegLabel.toLowerCase().includes('non')}">${vegLabel || 'Veg'}</button>
+    // LIVE STATIONS: Different column structure with editable name
+    tr.innerHTML = `<td colspan="2"><input class="itemName" type="text" value="${item['Name']||''}" style="font-weight:700;border:none;background:transparent;width:100%;" /> <button type="button" class="veg-toggle ${vegClass}" aria-pressed="${vegLabel.toLowerCase().includes('non')}">${vegLabel || 'Veg'}</button>
       <div style="margin-top:6px;font-size:12px;color:#666;"><textarea class="description-input" rows="2" placeholder="Description" style="font-size:12px">${item['Description']||''}</textarea></div>
     </td>
     <td style="text-align:center"><input class="setup" type="number" min="0" step="0.01" value="${item['Setup'] || ''}" style="width:65px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
@@ -1042,8 +1042,8 @@ function addItemToTable(item, idx){
     tr.dataset.setup = '0';
     tr.dataset.noOfPeople = '0';
   } else {
-    // REGULAR ITEMS: Original column structure
-    tr.innerHTML = `<td><strong>${item['Name']}</strong> <button type="button" class="veg-toggle ${vegClass}" aria-pressed="${vegLabel.toLowerCase().includes('non')}">${vegLabel || 'Veg'}</button>
+    // REGULAR ITEMS: Editable name field in row
+    tr.innerHTML = `<td><input class="itemName" type="text" value="${item['Name']||''}" style="font-weight:700;border:none;background:transparent;width:100%;" /> <button type="button" class="veg-toggle ${vegClass}" aria-pressed="${vegLabel.toLowerCase().includes('non')}">${vegLabel || 'Veg'}</button>
       <div style="margin-top:6px;font-size:12px;color:#666;"><textarea class="description-input" rows="2" placeholder="Description" style="font-size:12px">${item['Description']||''}</textarea></div>
     </td>
     <td style="text-align:center"><input class="portions" type="number" min="0" value="1" style="width:55px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center" /></td>
@@ -1068,6 +1068,7 @@ function addItemToTable(item, idx){
     </td>`;
   }
   
+  tr.dataset.name = item['Name'] || '';
   tr.dataset.rate = rate;
   tr.dataset.pcsDisplay = pcsDisplay;
   tr.dataset.unit = unit;
@@ -1081,6 +1082,10 @@ function addItemToTable(item, idx){
   const catBody = getCategoryBody(cat);
   catBody.appendChild(tr);
   
+  const nameInput = tr.querySelector('.itemName');
+  if (nameInput){
+    nameInput.addEventListener('input', ()=>{ tr.dataset.name = nameInput.value; });
+  }
   const descInput = tr.querySelector('.description-input');
   if (descInput){
     descInput.addEventListener('input', ()=>{ tr.dataset.description = descInput.value; });
@@ -1409,6 +1414,7 @@ function addCustomItem(){
   // Create table row
   const tr = document.createElement('tr');
   tr.dataset.isCustom = 'true';
+  tr.dataset.name = name;
   tr.dataset.description = desc;
   tr.dataset.rate = rate;
   tr.dataset.pcsDisplay = pcsDisplay;
@@ -1427,7 +1433,7 @@ function addCustomItem(){
     bindRowEventListeners(tr, true);
   } else {
     // Regular custom item
-    tr.innerHTML = `<td><strong>${name}</strong> <button type="button" class="veg-toggle ${vegNonVeg && vegNonVeg.toLowerCase().includes('non') ? 'non-veg' : (vegNonVeg ? 'veg' : 'veg') }" aria-pressed="${(vegNonVeg||'').toLowerCase().includes('non')}">${vegNonVeg || 'Veg'}</button>
+    tr.innerHTML = `<td><input class="itemName" type="text" value="${name||''}" style="font-weight:700;border:none;background:transparent;width:100%;" /> <button type="button" class="veg-toggle ${vegNonVeg && vegNonVeg.toLowerCase().includes('non') ? 'non-veg' : (vegNonVeg ? 'veg' : 'veg') }" aria-pressed="${(vegNonVeg||'').toLowerCase().includes('non')}">${vegNonVeg || 'Veg'}</button>
       <div style="margin-top:6px;font-size:12px;color:#666;"><textarea class="description-input" rows="2" placeholder="Description" style="font-size:12px">${desc}</textarea></div>
     </td>
     <td style="text-align:center"><input class="portions" type="number" min="0" value="${portions}" style="width:55px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center" /></td>
@@ -1517,6 +1523,8 @@ function addCustomItem(){
     if (initialC.toLowerCase().includes('non')){ vegBtnC.textContent='Non-Veg'; vegBtnC.classList.add('non-veg'); vegBtnC.setAttribute('aria-pressed', 'true'); }
     else { vegBtnC.textContent = tr.dataset.vegNonVeg || 'Veg'; vegBtnC.classList.add('veg'); vegBtnC.setAttribute('aria-pressed', 'false'); }
   }
+  const nameInputC = tr.querySelector('.itemName');
+  if (nameInputC){ nameInputC.addEventListener('input', ()=>{ tr.dataset.name = nameInputC.value; }); }
   const descInputC = tr.querySelector('.description-input');
   if (descInputC){ descInputC.addEventListener('input', ()=>{ tr.dataset.description = descInputC.value; }); }
 
@@ -1659,7 +1667,9 @@ function updateTotal(){
 function collectPayload(){
   const items = [];
   document.querySelectorAll('#selectedTable tbody tr:not(.category-row)').forEach(tr=>{
-    const name = tr.querySelector('td strong') ? tr.querySelector('td strong').textContent : '';
+    let name = tr.dataset.name || '';
+  const nameEl = tr.querySelector('.itemName');
+  if (nameEl) name = nameEl.value.trim();
     let desc = tr.dataset.description || '';
     const descEl = tr.querySelector('.description-input');
     if (descEl) desc = descEl.value.trim();
@@ -2319,7 +2329,7 @@ function buildLiveStationRow(menuItem, savedData) {
 
   return `
     <td colspan="2" style="min-width:220px">
-      <strong>${name}</strong>
+      <input class="itemName" type="text" value="${name}" style="font-weight:700;border:none;background:transparent;width:100%;" />
       <button type="button" class="veg-toggle ${vegNonVeg.toLowerCase().includes('non') ? 'non-veg' : 'veg'}" aria-pressed="${vegNonVeg.toLowerCase().includes('non')}">${vegNonVeg}</button>
       <textarea class="description-input" placeholder="Description...">${desc}</textarea>
     </td>
@@ -2356,7 +2366,7 @@ function buildRegularRow(menuItem, savedData) {
   
   return `
     <td style="min-width:220px">
-      <strong>${name}</strong>
+      <input class="itemName" type="text" value="${name}" style="font-weight:700;border:none;background:transparent;width:100%;" />
       <button type="button" class="veg-toggle ${vegNonVeg.toLowerCase().includes('non') ? 'non-veg' : 'veg'}" aria-pressed="${vegNonVeg.toLowerCase().includes('non')}">${vegNonVeg}</button>
       <textarea class="description-input" placeholder="Description...">${desc}</textarea>
     </td>
