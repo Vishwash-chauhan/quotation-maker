@@ -2297,9 +2297,17 @@ function addItemToTableWithData(menuItem, idx, savedData) {
   tr.dataset.name = menuItem.Name || '';
   tr.dataset.description = savedData.Description || menuItem.Description || '';
   tr.dataset.rate = savedData.Rate || menuItem.Rate || 0;
-  tr.dataset.pcsDisplay = savedData.PcsDisplay || menuItem.PcsDisplay || '';
+  // convert stored pcs value back to per‑portion when calculate flag is on
+  let basePcs = savedData.PcsDisplay || menuItem.PcsDisplay || '';
+  const portions = savedData.Portions || menuItem.Portions || 1;
+  const calcFlag = savedData.Calculate || menuItem.Calculate || '0';
+  if (calcFlag === '1' && portions && basePcs) {
+    const num = extractNumber(basePcs);
+    if (num) basePcs = String(num / portions);
+  }
+  tr.dataset.pcsDisplay = basePcs;
   tr.dataset.unit = savedData.Unit || menuItem.Unit || 'PCS';
-  tr.dataset.calculate = savedData.Calculate || menuItem.Calculate || '0';
+  tr.dataset.calculate = calcFlag;
   tr.dataset.vegNonVeg = savedData.VegNonVeg || menuItem.VegNonVeg || 'Veg';
   
   if (isLiveStation) {
@@ -2358,9 +2366,17 @@ function buildRegularRow(menuItem, savedData) {
   const desc = savedData.Description || menuItem.Description || '';
   const portions = savedData.Portions || 1;
   const rate = savedData.Rate || menuItem.Rate || 0;
-  const pcsDisplay = savedData.PcsDisplay || menuItem.PcsDisplay || '';
-  const unit = savedData.Unit || menuItem.Unit || 'PCS';
+  // when Calculate is enabled the stored PcsDisplay is the *final* value (portions × per‑portion qty),
+  // so we need to convert back to a base qty so the input doesn't get multiplied again on load.
+  let pcsDisplay = savedData.PcsDisplay || menuItem.PcsDisplay || '';
   const calculate = savedData.Calculate || menuItem.Calculate || '0';
+  if (calculate === '1' && portions && pcsDisplay) {
+    const num = extractNumber(pcsDisplay);
+    if (num) {
+      pcsDisplay = String(num / portions);
+    }
+  }
+  const unit = savedData.Unit || menuItem.Unit || 'PCS';
   const vegNonVeg = savedData.VegNonVeg || menuItem.VegNonVeg || 'Veg';
   const amount = portions * rate;
   
