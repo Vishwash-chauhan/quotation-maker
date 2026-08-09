@@ -2917,9 +2917,10 @@
     }
 
     // Populate form with quotation data
-    function populateForm(q) {
-      console.log('Populating form with data:', q);
-      console.log('Items field:', q.items, 'Type:', typeof q.items);
+    // Populate form with quotation data
+    function populateForm(q, options = {}) {
+      const skipCustomerDetails = options.skipCustomerDetails || false;
+      console.log('Populating form with data:', q, 'skipCustomerDetails:', skipCustomerDetails);
 
       // Parse items if it's a string (JSON stored as text)
       let items = q.items;
@@ -2952,33 +2953,41 @@
         else console.warn(`Element #${id} not found`);
       }
 
-      // Parse event_date from dd/mm/yyyy to yyyy-mm-dd for input[type=date]
-      if (q.event_date) {
-        const parts = q.event_date.split('/');
-        if (parts.length === 3) {
-          setFieldValue('eventDate', `${parts[2]}-${parts[1]}-${parts[0]}`);
+      if (!skipCustomerDetails) {
+        // Parse event_date from dd/mm/yyyy to yyyy-mm-dd for input[type=date]
+        if (q.event_date) {
+          const parts = q.event_date.split('/');
+          if (parts.length === 3) {
+            setFieldValue('eventDate', `${parts[2]}-${parts[1]}-${parts[0]}`);
+          }
+        }
+
+        setFieldValue('hostName', q.host_name || '');
+        setFieldValue('mobile', q.mobile_no || '');
+
+        // Parse time from "HH:MM AM/PM" to 24-hour format for input[type=time]
+        if (q.time) {
+          const timeMatch = q.time.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+          if (timeMatch) {
+            let hours = parseInt(timeMatch[1]);
+            const minutes = timeMatch[2];
+            const ampm = timeMatch[3].toUpperCase();
+            if (ampm === 'PM' && hours !== 12) hours += 12;
+            if (ampm === 'AM' && hours === 12) hours = 0;
+            setFieldValue('time', `${String(hours).padStart(2, '0')}:${minutes}`);
+          }
+        }
+
+        setFieldValue('pax', q.pax || '');
+        setFieldValue('location', q.location || '');
+        setFieldValue('quoteId', q.quotation_id || '');
+
+        // Load images
+        if (q.image_grid && Array.isArray(q.image_grid)) {
+          selectedImages = q.image_grid.slice(0, 9);
+          renderSelectedPreview();
         }
       }
-
-      setFieldValue('hostName', q.host_name || '');
-      setFieldValue('mobile', q.mobile_no || '');
-
-      // Parse time from "HH:MM AM/PM" to 24-hour format for input[type=time]
-      if (q.time) {
-        const timeMatch = q.time.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
-        if (timeMatch) {
-          let hours = parseInt(timeMatch[1]);
-          const minutes = timeMatch[2];
-          const ampm = timeMatch[3].toUpperCase();
-          if (ampm === 'PM' && hours !== 12) hours += 12;
-          if (ampm === 'AM' && hours === 12) hours = 0;
-          setFieldValue('time', `${String(hours).padStart(2, '0')}:${minutes}`);
-        }
-      }
-
-      setFieldValue('pax', q.pax || '');
-      setFieldValue('location', q.location || '');
-      setFieldValue('quoteId', q.quotation_id || '');
 
       // Service fields (support both snake_case and PascalCase property names)
       setFieldValue('chefServers', q.chef_servers !== undefined ? q.chef_servers : (q.ChefServers !== undefined ? q.ChefServers : ''));
@@ -3346,7 +3355,7 @@
       const bestMatch = findBestMatchingQuotation(paxVal);
       if (bestMatch) {
         const userEnteredPax = paxVal;
-        populateForm(bestMatch);
+        populateForm(bestMatch, { skipCustomerDetails: true });
         document.getElementById('pax').value = userEnteredPax;
 
         if (paxStatusEl) {
