@@ -994,8 +994,16 @@
           <input id="time" type="time" />
         </div>
         <div>
-          <label>Pax</label>
-          <input id="pax" type="text" placeholder="10 Kids 5 Adults" />
+          <label style="display:flex; justify-content:space-between; align-items:center;">
+            <span>Pax</span>
+            <span id="paxAutoStatus" style="font-size:11px; color:#5cb85c; font-weight:600;"></span>
+          </label>
+          <div style="display:flex; gap:6px;">
+            <input id="pax" type="text" placeholder="10 Kids 5 Adults" style="flex:1;" />
+            <button id="autoLoadPaxBtn" type="button" style="background:#F6B27A; color:#2D3E50; border:none; padding:8px 14px; border-radius:6px; font-weight:700; cursor:pointer; font-size:13px; white-space:nowrap;" title="Auto-Load Menu by PAX">
+              Auto Load
+            </button>
+          </div>
         </div>
         <div>
           <label>Location</label>
@@ -2972,17 +2980,17 @@
       setFieldValue('location', q.location || '');
       setFieldValue('quoteId', q.quotation_id || '');
 
-      // Service fields
-      setFieldValue('chefServers', q.chef_servers || '');
-      setFieldValue('tableDecor', q.table_decor || 'Included');
-      setFieldValue('cutlery', q.cutlery || '');
-      setFieldValue('chaffing', q.chaffing || '');
-      setFieldValue('conveyance', q.conveyance || 'As Per Actual');
-      setFieldValue('venueCharges', q.venue_charges || '');
+      // Service fields (support both snake_case and PascalCase property names)
+      setFieldValue('chefServers', q.chef_servers !== undefined ? q.chef_servers : (q.ChefServers !== undefined ? q.ChefServers : ''));
+      setFieldValue('tableDecor', q.table_decor !== undefined ? q.table_decor : (q.TableDecor !== undefined ? q.TableDecor : 'Included'));
+      setFieldValue('cutlery', q.cutlery !== undefined ? q.cutlery : (q.Cutlery !== undefined ? q.Cutlery : ''));
+      setFieldValue('chaffing', q.chaffing !== undefined ? q.chaffing : (q.Chaffing !== undefined ? q.Chaffing : ''));
+      setFieldValue('conveyance', q.conveyance !== undefined ? q.conveyance : (q.Conveyance !== undefined ? q.Conveyance : 'As Per Actual'));
+      setFieldValue('venueCharges', q.venue_charges !== undefined ? q.venue_charges : (q.VenueCharges !== undefined ? q.VenueCharges : ''));
 
       // Host requirements
-      setFieldValue('tables', q.tables || 'As Required');
-      setFieldValue('kitchenSpace', q.kitchen_space || 'As Required');
+      setFieldValue('tables', q.tables !== undefined ? q.tables : (q.Tables !== undefined ? q.Tables : 'As Required'));
+      setFieldValue('kitchenSpace', q.kitchen_space !== undefined ? q.kitchen_space : (q.KitchenSpace !== undefined ? q.KitchenSpace : 'As Required'));
 
       // Load images
       if (q.image_grid && Array.isArray(q.image_grid)) {
@@ -3253,6 +3261,105 @@
 
     // Load quotations list on page load
     fetchQuotationsList();
+  </script>
+
+  <script>
+    // ==========================================
+    // ZERO-CLICK PAX INSTANT AUTO-LOAD ENGINE
+    // ==========================================
+    let quotationSamples = [];
+    let paxDebounceTimer = null;
+    let lastAutoLoadedPax = '';
+
+    async function loadQuotationSamples() {
+      try {
+        const res = await fetch('quotations_samples.json');
+        if (res.ok) {
+          quotationSamples = await res.json();
+          console.log(`Loaded ${quotationSamples.length} quotation samples for instant PAX auto-fill.`);
+        }
+      } catch (err) {
+        console.warn('Could not load quotations_samples.json locally:', err);
+      }
+    }
+
+    // Helper: Parse PAX string
+    function parsePaxNumbers(paxStr) {
+      if (!paxStr) return { kids: 0, adults: 0, total: 0 };
+      const s = String(paxStr).toLowerCase();
+      let kids = 0, adults = 0;
+      const kMatch = s.match(/(\d+)(?:\s*-\s*\d+)?\s*kids?/);
+      if (kMatch) kids = parseInt(kMatch[1]);
+      const aMatch = s.match(/(\d+)(?:\s*-\s*\d+)?\s*adults?/);
+      if (aMatch) adults = parseInt(aMatch[1]);
+      const paxMatch = s.match(/(\d+)(?:\s*-\s*\d+)?\s*pax/);
+      let total = kids + adults;
+      if (total === 0) {
+        if (paxMatch) {
+          total = parseInt(paxMatch[1]);
+        } else {
+          const nums = (s.match(/\d+/g) || []).map(n => parseInt(n));
+          if (nums.length) total = nums.reduce((a, b) => a + b, 0);
+        }
+      }
+      return { kids, adults, total };
+    }
+
+    // Helper: Find top single matching quotation
+    function findBestMatchingQuotation(targetPaxStr) {
+      if (!quotationSamples || !quotationSamples.length) return null;
+      const target = parsePaxNumbers(targetPaxStr);
+      if (target.total === 0) return null;
+
+      const scored = [];
+      quotationSamples.forEach(s => {
+        const sp = parsePaxNumbers(s.pax);
+        let dist = 0;
+        if (target.kids > 0 && target.adults > 0 && sp.kids > 0 && sp.adults > 0) {
+          dist = Math.abs(target.kids - sp.kids) * 1.5 + Math.abs(target.adults - sp.adults) + Math.abs(target.total - sp.total) * 0.5;
+        } else {
+          dist = Math.abs(target.total - sp.total);
+        }
+
+        let items = s.items || [];
+        if (typeof items === 'string') {
+          try { items = JSON.parse(items); } catch(e) { items = []; }
+        }
+        scored.push({ dist, itemCount: items.length, data: { ...s, items } });
+      });
+
+      scored.sort((a, b) => a.dist !== b.dist ? a.dist - b.dist : b.itemCount - a.itemCount);
+      return scored.length ? scored[0].data : null;
+    }
+
+    // Auto Load button click handler
+    document.getElementById('autoLoadPaxBtn').addEventListener('click', () => {
+      const paxVal = (document.getElementById('pax').value || '').trim();
+      const paxStatusEl = document.getElementById('paxAutoStatus');
+
+      if (!paxVal) {
+        alert('Please enter a PAX value first (e.g. "10 Kids 5 Adults").');
+        document.getElementById('pax').focus();
+        return;
+      }
+
+      const bestMatch = findBestMatchingQuotation(paxVal);
+      if (bestMatch) {
+        const userEnteredPax = paxVal;
+        populateForm(bestMatch);
+        document.getElementById('pax').value = userEnteredPax;
+
+        if (paxStatusEl) {
+          paxStatusEl.textContent = `✓ Menu Auto-Loaded`;
+          setTimeout(() => { if (paxStatusEl) paxStatusEl.textContent = ''; }, 4000);
+        }
+      } else {
+        alert(`No matching quotations found for PAX "${paxVal}".`);
+      }
+    });
+
+    // Load samples JSON on page startup
+    loadQuotationSamples();
   </script>
 </body>
 
