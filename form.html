@@ -1000,7 +1000,9 @@
           </label>
           <div style="display:flex; gap:6px;">
             <input id="pax" type="text" placeholder="10 Kids 5 Adults" style="flex:1;" />
-            <button id="autoLoadPaxBtn" type="button" style="background:#F6B27A; color:#2D3E50; border:none; padding:8px 14px; border-radius:6px; font-weight:700; cursor:pointer; font-size:13px; white-space:nowrap;" title="Auto-Load Menu by PAX">
+            <button id="autoLoadPaxBtn" type="button"
+              style="background:#F6B27A; color:#2D3E50; border:none; padding:8px 14px; border-radius:6px; font-weight:700; cursor:pointer; font-size:13px; white-space:nowrap;"
+              title="Auto-Load Menu by PAX">
               Auto Load
             </button>
           </div>
@@ -1527,7 +1529,7 @@
         { Name: "Gajar Halwa", Description: "A rich dessert made with tender carrots in creamy milk, gently sweetened and spiced, perfect for kids & adults.", PcsDisplay: "250", Unit: "GMS", Calculate: "0", Rate: 299, Category: "Dessert", VegNonVeg: "Veg" },
         { Name: "Kool Kulfi", Description: "Traditional frozen, creamy & decadent kulfi, blending rich flavors with a hint of nostalgia.", PcsDisplay: "1", Unit: "PC", Calculate: "1", Rate: 99, Category: "Dessert", VegNonVeg: "Veg" },
         { Name: "Magical Brownie Planet", Description: "Rich, fudgy delight with the perfect balance of chocolatey goodness and nutty crunch.", PcsDisplay: "1", Unit: "PC", Calculate: "1", Rate: 59, Category: "Dessert", VegNonVeg: "Veg" },
-        { Name: "Little Jalebis With Royal Rabri", Description: "Bite-sized bursts of sweet, syrupy perfection, offering a delightful twist on a classic Indian treat", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 229, Category: "Dessert", VegNonVeg: "Veg" },
+        { Name: "Little Jalebis With Royal Rabri", Description: "Bite-sized bursts of sweet, syrupy perfection, offering a delightful twist on a classic Indian treat", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 329, Category: "Dessert", VegNonVeg: "Veg" },
         { Name: "Decadent Choco Lava Delight", Description: "Chocolava cake - lava flowing from a galaxy! Chocolatey and molten.", PcsDisplay: "1", Unit: "PC", Calculate: "1", Rate: 99, Category: "Dessert", VegNonVeg: "Veg" },
         { Name: "Chocolate Mouse Cup", Description: "Chocolate mouse cups - Cups full of chocolaty goodness! Layers of heavenly flavors.", PcsDisplay: "1", Unit: "PC", Calculate: "1", Rate: 99, Category: "Dessert", VegNonVeg: "Veg" },
         { Name: "Chocolate Donuts", Description: "Fluffy delights with chocolate topping, perfect for a sweet treat anytime!", PcsDisplay: "1", Unit: "PC", Calculate: "1", Rate: 99, Category: "Dessert", VegNonVeg: "Veg" },
@@ -2851,7 +2853,7 @@
           // Construct Supabase PostgREST OR filter across quotation_id, host_name, and event_date
           const safeTerm = encodeURIComponent(trimmed.replace(/[\(\),]/g, ''));
           const queryParam = `or=(quotation_id.ilike.*${safeTerm}*,host_name.ilike.*${safeTerm}*,event_date.ilike.*${safeTerm}*)`;
-          
+
           const response = await fetch(`${SUPABASE_URL}?select=quotation_id,host_name,event_date,created_at&${queryParam}&order=created_at.desc&limit=50`, {
             headers: {
               'apikey': SUPABASE_KEY,
@@ -3332,7 +3334,7 @@
 
         let items = s.items || [];
         if (typeof items === 'string') {
-          try { items = JSON.parse(items); } catch(e) { items = []; }
+          try { items = JSON.parse(items); } catch (e) { items = []; }
         }
         scored.push({ dist, itemCount: items.length, data: { ...s, items } });
       });
