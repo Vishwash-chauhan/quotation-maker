@@ -254,6 +254,28 @@
       border-color: #c6f0d1
     }
 
+    .categorySelect {
+      display: inline-block;
+      font-size: 11px;
+      padding: 3px 6px;
+      border-radius: 12px;
+      border: 1px solid #dcdcdc;
+      background: #f4f6f8;
+      color: #2D3E50;
+      font-weight: 600;
+      cursor: pointer;
+      width: auto;
+      max-width: 130px;
+      box-sizing: border-box;
+      transition: all 0.2s;
+    }
+
+    .categorySelect:hover,
+    .categorySelect:focus {
+      border-color: #2D3E50;
+      background: #eef2f6;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -769,6 +791,12 @@
         min-width: 48px
       }
 
+      .categorySelect {
+        font-size: 10px;
+        padding: 2px 4px;
+        max-width: 110px
+      }
+
       .icon-btn {
         padding: 2px
       }
@@ -914,6 +942,12 @@
         font-size: 9px;
         padding: 1px 4px;
         min-width: 40px
+      }
+
+      .categorySelect {
+        font-size: 9px;
+        padding: 1px 3px;
+        max-width: 90px
       }
 
       .icon-btn {
@@ -1075,7 +1109,7 @@
             <select id="customCategory"
               style="padding:8px;border:1px solid #ccc;border-radius:6px;width:100%;box-sizing:border-box">
               <option value="">— Select Category —</option>
-              <option value="Table Snacks">Table Snacks</option>
+              <option value="Snacks">Snacks</option>
               <option value="Main Course">Main Course</option>
               <option value="Rice">Rice</option>
               <option value="Noodles">Noodles</option>
@@ -1421,55 +1455,55 @@
     function fetchSheet() {
       // Hardcoded menu items for offline/testing when the sheet is not public
       menuItems = [
-        // TABLE SNACKS - VEG
-        { Name: "Magical Fairy Fries", Description: "Classic salted crinkle cut fries, sprinkled with magic for an enchanting mealtime.", PcsDisplay: "100", Unit: "GMS", Calculate: "0", Rate: 99, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Peri Peri Space Fries", Description: "Blast off on a flavor adventure with our Peri Peri Crinkle Cut Fries.", PcsDisplay: "100", Unit: "GMS", Calculate: "0", Rate: 119, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Popcorn Party Pops", Description: "Poppin' fun at its best! Regular popcorn, the ultimate party snack.", PcsDisplay: "100", Unit: "GMS", Calculate: "0", Rate: 99, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Whimsical Potato Wedges", Description: "Abracadabra! Potato wedges shaped like magic wands.", PcsDisplay: "100", Unit: "GMS", Calculate: "0", Rate: 139, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Surprise Potato Balls", Description: "Surprise potato balls - are filled with yummy flavoured potato making them a hit with little adventurers.", PcsDisplay: "10", Unit: "PCS", Calculate: "1", Rate: 189, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Veggie Garden Finger Bites", Description: "Explore the veggie garden! Veggie fingers - crispy, colorful, and nutritious.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 159, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Sunshine Cheese Corn Nuggets", Description: "Golden nuggets filled with a mix of cheese and sweet corn, crisp on the outside and irresistibly soft inside.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 179, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Mini Batata Vada", Description: "Bite-sized potato vadas pack a punch of spice and comfort, perfect for a delicious snack", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 189, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Veg Snacker Burgers", Description: "Veggie patty topped with cheesy spread and a secret sauce with a soft bun for a flavor-packed bite", PcsDisplay: "2", Unit: "PCS", Calculate: "1", Rate: 159, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Veg Dim-Sum Delights", Description: "Steamed, juicy vegetable dim sums, each with a burst of flavors wrapped in soft, delicate dough.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 329, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Rings of Onion", Description: "Rings of onion are crispy, deep fried treats made by coating sliced onion with a seasoned batter.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 189, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Cheese Delight Balls", Description: "Cheese ball time! Cheese balls, yummy meteorites of cheesy goodness.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 189, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Mini Veg Sandwich Delights", Description: "Our bite-sized sandwiches are a delightful snack for those craving a burst of freshness in every bite!", PcsDisplay: "4", Unit: "PCS", Calculate: "1", Rate: 189, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Green Hero Kebabs", Description: "A superhero feast! Packed with veggies and flavors.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 299, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Pocket Cheese Jalapeño Balls", Description: "Pocket Cheese Jalapeños are packed with cheese and a spicy kick for flavor-loving kids.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 229, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Yummy Chilli Paneer (Dry)", Description: "A cheesy delight! Meet the cheesy planet pals, an out-of-this-world taste adventure.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 349, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Mini Pizzas", Description: "Savory delight specially crafted for young taste buds.", PcsDisplay: "2", Unit: "PCS", Calculate: "1", Rate: 119, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Nachos Adventure", Description: "Dive into nachos with salsa! A thrilling combo of crunchy nachos and zesty salsa.", PcsDisplay: "100", Unit: "GMS", Calculate: "0", Rate: 199, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Tomato Bruschetta Bites", Description: "Sundried Tomato Bruschetta 'aliens'.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 299, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Mushroom Magic Bruschetta", Description: "Savory mushrooms atop crisp toast.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 299, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Rollercoaster Veg Spring Rolls", Description: "Roll into fun! Spring Rolls - a rollercoaster of flavours.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 329, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Crispy Salt n Pepper Corn", Description: "Crunchy golden corn kernels tossed with a zesty mix of salt, pepper, and mild spices—simple, tasty, and fun to munch!", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 329, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Honey Chilli Potato", Description: "Golden potato fingers tossed in a tangy, sweet, and spicy sauce, perfectly balanced to delight young taste buds", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 329, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Paneer Tikka Magic", Description: "Marinated paneer pieces for a culinary journey.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 349, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Mini Veg Tacos", Description: "A tiny fiesta in your hands.", PcsDisplay: "3", Unit: "PCS", Calculate: "1", Rate: 359, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Cheesy Corn Spring Roll Twirls", Description: "Golden crispy rolls filled with cheesy corn joy.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 459, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Mini Chaat Canapes", Description: "Cripy canapés loaded with zesty chaat for a burst of flavours in every nibble!", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 299, Category: "Table Snacks", VegNonVeg: "Veg" },
-        { Name: "Mini Paneer Popsicle Tikka Rolls", Description: "Mini paneer popsicle tikka rolls - a fun twist on classic tikka!", PcsDisplay: "3", Unit: "PCS", Calculate: "1", Rate: 299, Category: "Table Snacks", VegNonVeg: "Veg" },
+        // SNACKS - VEG
+        { Name: "Magical Fairy Fries", Description: "Classic salted crinkle cut fries, sprinkled with magic for an enchanting mealtime.", PcsDisplay: "100", Unit: "GMS", Calculate: "0", Rate: 99, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Peri Peri Space Fries", Description: "Blast off on a flavor adventure with our Peri Peri Crinkle Cut Fries.", PcsDisplay: "100", Unit: "GMS", Calculate: "0", Rate: 119, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Popcorn Party Pops", Description: "Poppin' fun at its best! Regular popcorn, the ultimate party snack.", PcsDisplay: "100", Unit: "GMS", Calculate: "0", Rate: 99, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Whimsical Potato Wedges", Description: "Abracadabra! Potato wedges shaped like magic wands.", PcsDisplay: "100", Unit: "GMS", Calculate: "0", Rate: 139, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Surprise Potato Balls", Description: "Surprise potato balls - are filled with yummy flavoured potato making them a hit with little adventurers.", PcsDisplay: "10", Unit: "PCS", Calculate: "1", Rate: 189, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Veggie Garden Finger Bites", Description: "Explore the veggie garden! Veggie fingers - crispy, colorful, and nutritious.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 159, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Sunshine Cheese Corn Nuggets", Description: "Golden nuggets filled with a mix of cheese and sweet corn, crisp on the outside and irresistibly soft inside.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 179, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Mini Batata Vada", Description: "Bite-sized potato vadas pack a punch of spice and comfort, perfect for a delicious snack", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 189, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Veg Snacker Burgers", Description: "Veggie patty topped with cheesy spread and a secret sauce with a soft bun for a flavor-packed bite", PcsDisplay: "2", Unit: "PCS", Calculate: "1", Rate: 159, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Veg Dim-Sum Delights", Description: "Steamed, juicy vegetable dim sums, each with a burst of flavors wrapped in soft, delicate dough.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 329, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Rings of Onion", Description: "Rings of onion are crispy, deep fried treats made by coating sliced onion with a seasoned batter.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 189, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Cheese Delight Balls", Description: "Cheese ball time! Cheese balls, yummy meteorites of cheesy goodness.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 189, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Mini Veg Sandwich Delights", Description: "Our bite-sized sandwiches are a delightful snack for those craving a burst of freshness in every bite!", PcsDisplay: "4", Unit: "PCS", Calculate: "1", Rate: 189, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Green Hero Kebabs", Description: "A superhero feast! Packed with veggies and flavors.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 299, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Pocket Cheese Jalapeño Balls", Description: "Pocket Cheese Jalapeños are packed with cheese and a spicy kick for flavor-loving kids.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 229, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Yummy Chilli Paneer (Dry)", Description: "A cheesy delight! Meet the cheesy planet pals, an out-of-this-world taste adventure.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 349, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Mini Pizzas", Description: "Savory delight specially crafted for young taste buds.", PcsDisplay: "2", Unit: "PCS", Calculate: "1", Rate: 119, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Nachos Adventure", Description: "Dive into nachos with salsa! A thrilling combo of crunchy nachos and zesty salsa.", PcsDisplay: "100", Unit: "GMS", Calculate: "0", Rate: 199, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Tomato Bruschetta Bites", Description: "Sundried Tomato Bruschetta 'aliens'.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 299, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Mushroom Magic Bruschetta", Description: "Savory mushrooms atop crisp toast.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 299, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Rollercoaster Veg Spring Rolls", Description: "Roll into fun! Spring Rolls - a rollercoaster of flavours.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 329, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Crispy Salt n Pepper Corn", Description: "Crunchy golden corn kernels tossed with a zesty mix of salt, pepper, and mild spices—simple, tasty, and fun to munch!", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 329, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Honey Chilli Potato", Description: "Golden potato fingers tossed in a tangy, sweet, and spicy sauce, perfectly balanced to delight young taste buds", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 329, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Paneer Tikka Magic", Description: "Marinated paneer pieces for a culinary journey.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 349, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Mini Veg Tacos", Description: "A tiny fiesta in your hands.", PcsDisplay: "3", Unit: "PCS", Calculate: "1", Rate: 359, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Cheesy Corn Spring Roll Twirls", Description: "Golden crispy rolls filled with cheesy corn joy.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 459, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Mini Chaat Canapes", Description: "Cripy canapés loaded with zesty chaat for a burst of flavours in every nibble!", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 299, Category: "Snacks", VegNonVeg: "Veg" },
+        { Name: "Mini Paneer Popsicle Tikka Rolls", Description: "Mini paneer popsicle tikka rolls - a fun twist on classic tikka!", PcsDisplay: "3", Unit: "PCS", Calculate: "1", Rate: 299, Category: "Snacks", VegNonVeg: "Veg" },
 
-        // TABLE SNACKS - NON-VEG
-        { Name: "Starship Chicken Nuggets", Description: "Chicken nuggets - on a tasty mission! Star-shaped nuggets for flavorful space rides.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 189, Category: "Table Snacks", VegNonVeg: "Non-Veg" },
-        { Name: "Mini Chicken Delight Sandwiches", Description: "Mini chicken sandwich - tiny and delicious! Perfect for little munchers.", PcsDisplay: "4", Unit: "PCS", Calculate: "1", Rate: 229, Category: "Table Snacks", VegNonVeg: "Non-Veg" },
-        { Name: "Chicken Popcorn Crunchies", Description: "Each bite of the chicken popcorn is a delightful burst of flavor.", PcsDisplay: "10", Unit: "PCS", Calculate: "1", Rate: 249, Category: "Table Snacks", VegNonVeg: "Non-Veg" },
-        { Name: "Chicken Lollipop Galaxy", Description: "Chicken lollipop - a lollipop from space! Tasty and fun, a delightful treat for little space explorers.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 349, Category: "Table Snacks", VegNonVeg: "Non-Veg" },
-        { Name: "Chicken Wings of Wonder", Description: "Chicken wings - wings of wonder! Tantalizing flavors for little food adventurers.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 349, Category: "Table Snacks", VegNonVeg: "Non-Veg" },
-        { Name: "Mini Chicken Mayo Roll-ers", Description: "Mini chicken mayo rolls - like rockets ready to take off! Delicious and creamy.", PcsDisplay: "3", Unit: "PCS", Calculate: "1", Rate: 299, Category: "Table Snacks", VegNonVeg: "Non-Veg" },
-        { Name: "Crispy Chicken Adventure Strips", Description: "Crispy chicken strips - a galaxy of crunch! Irresistible chicken strips that kids will adore.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 349, Category: "Table Snacks", VegNonVeg: "Non-Veg" },
-        { Name: "Chicken Springtime Rolls", Description: "Chicken spring rolls - a mini fiesta! Flavorful chicken rolls for tiny hands.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 349, Category: "Table Snacks", VegNonVeg: "Non-Veg" },
-        { Name: "Fin-Tastic Fish Fingers", Description: "Fish fingers - embark on a fishy voyage! Crispy fish treats for adventurous eaters.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 489, Category: "Table Snacks", VegNonVeg: "Non-Veg" },
-        { Name: "Mini Chicken Tacos", Description: "Chicken mini tacos - mini delights filled with chicken goodness.", PcsDisplay: "3", Unit: "PCS", Calculate: "1", Rate: 399, Category: "Table Snacks", VegNonVeg: "Non-Veg" },
-        { Name: "Rocket Chicken Seekh Kebabs", Description: "Chicken seekh kebab - like rockets of flavor! Tasty and fun chicken kebabs.", PcsDisplay: "4", Unit: "PCS", Calculate: "1", Rate: 399, Category: "Table Snacks", VegNonVeg: "Non-Veg" },
-        { Name: "Zesty Chilli Chicken Crunch (Dry)", Description: "Each bite is a burst of spicy, succulent chicken that's sure to leave you craving more.", PcsDisplay: "10", Unit: "PCS", Calculate: "1", Rate: 449, Category: "Table Snacks", VegNonVeg: "Non-Veg" },
-        { Name: "Chicken Zippy Burgers", Description: "Chicken patty topped with cheesy spread and a secret sauce with a soft bun for a flavor-packed bite", PcsDisplay: "2", Unit: "PCS", Calculate: "1", Rate: 199, Category: "Table Snacks", VegNonVeg: "Non-Veg" },
-        { Name: "Chicken Dim-Sum Delights", Description: "Steamed, juicy chicken dim sums, each with a burst of flavors wrapped in soft, delicate dough.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 349, Category: "Table Snacks", VegNonVeg: "Non-Veg" },
-        { Name: "Dim-Sum Delights", Description: "Steamed, juicy vegetable & chicken dim sums, each with a burst of flavors wrapped in soft, delicate dough.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 279, Category: "Table Snacks", VegNonVeg: "Veg & Non-Veg" },
-        { Name: "Rollercoaster Spring Rolls", Description: "(Veg & Chicken) Roll into fun!, Spring Rolls - a rollercoaster of flavours", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 339, Category: "Table Snacks", VegNonVeg: "Veg & Non-Veg" },
-        { Name: "Veg Snacker Burgers", Description: "Veg Burgers made with secret sauce! Loved by kids & grown-ups.", PcsDisplay: "1", Unit: "PCS", Calculate: "1", Rate: 179, Category: "Table Snacks", VegNonVeg: "Veg & Non-Veg" },
-        { Name: "Mini Paneer Popsicle Tikka Rolls", Description: "Paneer popsicles on a roll, just the right size for kiddie hands.", PcsDisplay: "3", Unit: "PCS", Calculate: "1", Rate: 299, Category: "Table Snacks", VegNonVeg: "Veg" },
+        // SNACKS - NON-VEG
+        { Name: "Starship Chicken Nuggets", Description: "Chicken nuggets - on a tasty mission! Star-shaped nuggets for flavorful space rides.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 189, Category: "Snacks", VegNonVeg: "Non-Veg" },
+        { Name: "Mini Chicken Delight Sandwiches", Description: "Mini chicken sandwich - tiny and delicious! Perfect for little munchers.", PcsDisplay: "4", Unit: "PCS", Calculate: "1", Rate: 229, Category: "Snacks", VegNonVeg: "Non-Veg" },
+        { Name: "Chicken Popcorn Crunchies", Description: "Each bite of the chicken popcorn is a delightful burst of flavor.", PcsDisplay: "10", Unit: "PCS", Calculate: "1", Rate: 249, Category: "Snacks", VegNonVeg: "Non-Veg" },
+        { Name: "Chicken Lollipop Galaxy", Description: "Chicken lollipop - a lollipop from space! Tasty and fun, a delightful treat for little space explorers.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 349, Category: "Snacks", VegNonVeg: "Non-Veg" },
+        { Name: "Chicken Wings of Wonder", Description: "Chicken wings - wings of wonder! Tantalizing flavors for little food adventurers.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 349, Category: "Snacks", VegNonVeg: "Non-Veg" },
+        { Name: "Mini Chicken Mayo Roll-ers", Description: "Mini chicken mayo rolls - like rockets ready to take off! Delicious and creamy.", PcsDisplay: "3", Unit: "PCS", Calculate: "1", Rate: 299, Category: "Snacks", VegNonVeg: "Non-Veg" },
+        { Name: "Crispy Chicken Adventure Strips", Description: "Crispy chicken strips - a galaxy of crunch! Irresistible chicken strips that kids will adore.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 349, Category: "Snacks", VegNonVeg: "Non-Veg" },
+        { Name: "Chicken Springtime Rolls", Description: "Chicken spring rolls - a mini fiesta! Flavorful chicken rolls for tiny hands.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 349, Category: "Snacks", VegNonVeg: "Non-Veg" },
+        { Name: "Fin-Tastic Fish Fingers", Description: "Fish fingers - embark on a fishy voyage! Crispy fish treats for adventurous eaters.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 489, Category: "Snacks", VegNonVeg: "Non-Veg" },
+        { Name: "Mini Chicken Tacos", Description: "Chicken mini tacos - mini delights filled with chicken goodness.", PcsDisplay: "3", Unit: "PCS", Calculate: "1", Rate: 399, Category: "Snacks", VegNonVeg: "Non-Veg" },
+        { Name: "Rocket Chicken Seekh Kebabs", Description: "Chicken seekh kebab - like rockets of flavor! Tasty and fun chicken kebabs.", PcsDisplay: "4", Unit: "PCS", Calculate: "1", Rate: 399, Category: "Snacks", VegNonVeg: "Non-Veg" },
+        { Name: "Zesty Chilli Chicken Crunch (Dry)", Description: "Each bite is a burst of spicy, succulent chicken that's sure to leave you craving more.", PcsDisplay: "10", Unit: "PCS", Calculate: "1", Rate: 449, Category: "Snacks", VegNonVeg: "Non-Veg" },
+        { Name: "Chicken Zippy Burgers", Description: "Chicken patty topped with cheesy spread and a secret sauce with a soft bun for a flavor-packed bite", PcsDisplay: "2", Unit: "PCS", Calculate: "1", Rate: 199, Category: "Snacks", VegNonVeg: "Non-Veg" },
+        { Name: "Chicken Dim-Sum Delights", Description: "Steamed, juicy chicken dim sums, each with a burst of flavors wrapped in soft, delicate dough.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 349, Category: "Snacks", VegNonVeg: "Non-Veg" },
+        { Name: "Dim-Sum Delights", Description: "Steamed, juicy vegetable & chicken dim sums, each with a burst of flavors wrapped in soft, delicate dough.", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 279, Category: "Snacks", VegNonVeg: "Veg & Non-Veg" },
+        { Name: "Rollercoaster Spring Rolls", Description: "(Veg & Chicken) Roll into fun!, Spring Rolls - a rollercoaster of flavours", PcsDisplay: "6", Unit: "PCS", Calculate: "1", Rate: 339, Category: "Snacks", VegNonVeg: "Veg & Non-Veg" },
+        { Name: "Veg Snacker Burgers", Description: "Veg Burgers made with secret sauce! Loved by kids & grown-ups.", PcsDisplay: "1", Unit: "PCS", Calculate: "1", Rate: 179, Category: "Snacks", VegNonVeg: "Veg & Non-Veg" },
+        { Name: "Mini Paneer Popsicle Tikka Rolls", Description: "Paneer popsicles on a roll, just the right size for kiddie hands.", PcsDisplay: "3", Unit: "PCS", Calculate: "1", Rate: 299, Category: "Snacks", VegNonVeg: "Veg" },
 
         // MAIN COURSE - VEG
         { Name: "Extravaganza Butter Masala Maggi", Description: "Butter masala maggie - a masala adventure! Flavorful and spicy noodles.", PcsDisplay: "", Unit: "", Calculate: "0", Rate: 149, Category: "Main Course", VegNonVeg: "Veg" },
@@ -1600,7 +1634,12 @@
     let currentCategoryFilter = null; // Track active category filter
 
     // Define the desired order of categories
-    const categoryOrder = ['Table Snacks', 'Main Course', 'Rice', 'Noodles', 'Dessert', 'Drinks', 'Live Stations'];
+    const categoryOrder = ['Snacks', 'Main Course', 'Rice', 'Noodles', 'Dessert', 'Drinks', 'Live Stations'];
+
+    function renderCategorySelectOptions(selectedCategory) {
+      const normSelected = (selectedCategory === 'Table Snacks' ? 'Snacks' : selectedCategory) || 'Snacks';
+      return categoryOrder.map(cat => `<option value="${cat}" ${cat === normSelected ? 'selected' : ''}>${cat}</option>`).join('');
+    }
 
     function renderFilterButtons(items) {
       const filterBtnEl = document.getElementById('filterButtons');
@@ -1609,7 +1648,7 @@
       filterDropdownEl.innerHTML = '';
 
       // Extract unique categories from items
-      const allCategories = [...new Set(items.map(m => m.Category || 'Other'))];
+      const allCategories = [...new Set(items.map(m => (m.Category === 'Table Snacks' ? 'Snacks' : m.Category) || 'Other'))];
 
       // Sort categories according to predefined order
       const categories = allCategories.sort((a, b) => {
@@ -1714,250 +1753,290 @@
 
     searchEl.addEventListener('input', () => {
       applyFilters();
-    })
+    });
+
+    // Build HTML for Live Station row
+    function buildLiveStationRow(menuItem, savedData) {
+      const item = menuItem || {};
+      const saved = savedData || {};
+      const name = (saved.Name !== undefined ? saved.Name : item.Name) || '';
+      const desc = (saved.Description !== undefined ? saved.Description : item.Description) || '';
+      const setup = Number(saved.Setup !== undefined ? saved.Setup : (item.Setup || 0)) || 0;
+      const rate = Number(saved.Rate !== undefined ? saved.Rate : (item.Rate || 0)) || 0;
+      const noOfPeople = Number(saved.NoOfPeople !== undefined ? saved.NoOfPeople : (item.NoOfPeople || 0)) || 0;
+      const vegNonVeg = (saved.VegNonVeg !== undefined ? saved.VegNonVeg : (item.VegNonVeg || 'Veg')) || 'Veg';
+      const category = (saved.Category !== undefined ? saved.Category : (item.Category || 'Live Stations')) || 'Live Stations';
+      const normCategory = (category === 'Table Snacks' ? 'Snacks' : category);
+      const amount = setup + (rate * noOfPeople);
+      const vegClass = vegNonVeg.toLowerCase().includes('non') ? 'non-veg' : 'veg';
+
+      return `
+        <td colspan="2" style="min-width:220px">
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+            <input class="itemName" type="text" value="${name}" style="font-weight:700;border:none;background:transparent;flex:1;min-width:120px;" />
+            <button type="button" class="veg-toggle ${vegClass}" aria-pressed="${vegNonVeg.toLowerCase().includes('non')}">${vegNonVeg}</button>
+            <select class="categorySelect" title="Change Category">${renderCategorySelectOptions(normCategory)}</select>
+          </div>
+          <div style="margin-top:6px;font-size:12px;color:#666;">
+            <textarea class="description-input" rows="2" placeholder="Description" style="font-size:12px">${desc}</textarea>
+          </div>
+        </td>
+        <td style="text-align:center"><input class="setup" type="number" min="0" step="0.01" value="${setup}" style="width:65px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
+        <td style="text-align:center"><input class="rate" type="number" min="0" step="0.01" value="${rate}" style="width:65px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
+        <td style="text-align:center"><input class="noOfPeople" type="number" min="0" value="${noOfPeople}" style="width:65px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center" /></td>
+        <td style="text-align:center" class="amount col-right">${formatCurrency(amount)}</td>
+        <td style="text-align:center">
+          <div style="display:flex;gap:4px;align-items:center;justify-content:center;flex-wrap:wrap">
+            <button class="icon-btn mobile-move upBtn" title="Move up" aria-label="Move up" style="padding:4px">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 19V6" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 12l7-7 7 7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="icon-btn mobile-move downBtn" title="Move down" aria-label="Move down" style="padding:4px">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 5v14" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 12l-7 7-7-7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="icon-btn deleteBtn" title="Delete" aria-label="Delete" style="padding:4px"> 
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 6h18" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <span class="drag-handle" title="Drag to reorder" aria-label="Drag to reorder">☰</span>
+          </div>
+        </td>`;
+    }
+
+    // Build HTML for Regular row
+    function buildRegularRow(menuItem, savedData) {
+      const item = menuItem || {};
+      const saved = savedData || {};
+      const name = (saved.Name !== undefined ? saved.Name : item.Name) || '';
+      const desc = (saved.Description !== undefined ? saved.Description : item.Description) || '';
+      const portions = Number(saved.Portions !== undefined ? saved.Portions : (item.Portions || 1)) || 1;
+      const rate = Number(saved.Rate !== undefined ? saved.Rate : (item.Rate || 0)) || 0;
+      let pcsDisplay = (saved.PcsDisplay !== undefined ? saved.PcsDisplay : (item.PcsDisplay || ''));
+      const calculate = (saved.Calculate !== undefined ? saved.Calculate : (item.Calculate || '0')).toString();
+      if (calculate === '1' && portions && pcsDisplay) {
+        const num = extractNumber(pcsDisplay);
+        if (num) {
+          pcsDisplay = String(num / portions);
+        }
+      }
+      const unit = (saved.Unit !== undefined ? saved.Unit : (item.Unit || 'PCS'));
+      const vegNonVeg = (saved.VegNonVeg !== undefined ? saved.VegNonVeg : (item.VegNonVeg || 'Veg')) || 'Veg';
+      const category = (saved.Category !== undefined ? saved.Category : (item.Category || 'Snacks')) || 'Snacks';
+      const normCategory = (category === 'Table Snacks' ? 'Snacks' : category);
+      const amount = portions * rate;
+      const vegClass = vegNonVeg.toLowerCase().includes('non') ? 'non-veg' : 'veg';
+      const calculateChecked = (calculate === '1') ? 'checked' : '';
+
+      return `
+        <td style="min-width:220px">
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+            <input class="itemName" type="text" value="${name}" style="font-weight:700;border:none;background:transparent;flex:1;min-width:120px;" />
+            <button type="button" class="veg-toggle ${vegClass}" aria-pressed="${vegNonVeg.toLowerCase().includes('non')}">${vegNonVeg}</button>
+            <select class="categorySelect" title="Change Category">${renderCategorySelectOptions(normCategory)}</select>
+          </div>
+          <div style="margin-top:6px;font-size:12px;color:#666;">
+            <textarea class="description-input" rows="2" placeholder="Description" style="font-size:12px">${desc}</textarea>
+          </div>
+        </td>
+        <td style="text-align:center"><input class="portions" type="number" min="0" value="${portions}" style="width:55px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center" /></td>
+        <td style="text-align:center"><input class="rate" type="number" min="0" step="0.01" value="${rate}" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
+        <td style="text-align:center" class="amount col-right">${formatCurrency(amount)}</td>
+        <td style="text-align:center" class="pcsDisplay">
+          <input class="pcsQty" type="text" value="${pcsDisplay}" style="width:50px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center" placeholder="0" />
+          <div class="pcsDisplayReview" style="font-size:10px;color:#666;margin-top:2px;font-weight:500"></div>
+        </td>
+        <td style="text-align:center">
+          <select class="pcsUnit" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;font-size:11px">
+            <option value="" ${unit === '' ? 'selected' : ''}>NA</option>
+            <option value="PCS" ${unit === 'PCS' ? 'selected' : ''}>PCS</option>
+            <option value="PC" ${unit === 'PC' ? 'selected' : ''}>PC</option>
+            <option value="GMS" ${unit === 'GMS' ? 'selected' : ''}>GMS</option>
+            <option value="ML" ${unit === 'ML' ? 'selected' : ''}>ML</option>
+            <option value="ml per portion" ${unit === 'ml per portion' ? 'selected' : ''}>ml per portion</option>
+          </select>
+        </td>
+        <td style="text-align:center"><input class="calculateToggle" type="checkbox" ${calculateChecked} style="width:16px;height:16px;cursor:pointer" title="Auto-calculate PCS × Portions" /></td>
+        <td style="text-align:center">
+          <div style="display:flex;gap:4px;align-items:center;justify-content:center;flex-wrap:wrap">
+            <button class="icon-btn mobile-move upBtn" title="Move up" aria-label="Move up" style="padding:4px">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 19V6" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 12l7-7 7 7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="icon-btn mobile-move downBtn" title="Move down" aria-label="Move down" style="padding:4px">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 5v14" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 12l-7 7-7-7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="icon-btn deleteBtn" title="Delete" aria-label="Delete" style="padding:4px"> 
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 6h18" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <span class="drag-handle" title="Drag to reorder" aria-label="Drag to reorder">☰</span>
+          </div>
+        </td>`;
+    }
 
     function addItemToTable(item, idx) {
       // prevent duplicates (search entire table)
       if (document.querySelector('#selectedTable [data-idx="' + idx + '"]')) return;
       const tr = document.createElement('tr');
       tr.dataset.idx = idx;
+      let category = (item.Category === 'Table Snacks' ? 'Snacks' : item.Category) || 'Snacks';
+      const isLiveStation = category === 'Live Stations';
       const rate = Number(item['Rate'] || 0);
       const pcsDisplay = item['PcsDisplay'] || '';
-      const unit = item['Unit'] !== undefined ? item['Unit'] : '';
-      const vegLabel = (item['VegNonVeg'] || '').toString().trim();
-      const vegClass = vegLabel.toLowerCase().includes('non') ? 'non-veg' : (vegLabel ? 'veg' : 'veg');
-      const calculateChecked = (item['Calculate'] === '1' || item['Calculate'] === 1) ? 'checked' : '';
-      const isLiveStation = (item.Category || '') === 'Live Stations';
-
-      if (isLiveStation) {
-        // LIVE STATIONS: Different column structure with editable name
-        tr.innerHTML = `<td colspan="2"><input class="itemName" type="text" value="${item['Name'] || ''}" style="font-weight:700;border:none;background:transparent;width:100%;" /> <button type="button" class="veg-toggle ${vegClass}" aria-pressed="${vegLabel.toLowerCase().includes('non')}">${vegLabel || 'Veg'}</button>
-      <div style="margin-top:6px;font-size:12px;color:#666;"><textarea class="description-input" rows="2" placeholder="Description" style="font-size:12px">${item['Description'] || ''}</textarea></div>
-    </td>
-    <td style="text-align:center"><input class="setup" type="number" min="0" step="0.01" value="${item['Setup'] || ''}" style="width:65px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
-    <td style="text-align:center"><input class="rate" type="number" min="0" step="0.01" value="${rate}" style="width:65px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
-    <td style="text-align:center"><input class="noOfPeople" type="number" min="0" value="0" style="width:65px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center" /></td>
-    <td style="text-align:center" class="amount">₹0</td>
-    <td style="text-align:center">
-      <div style="display:flex;gap:4px;align-items:center;justify-content:center;flex-wrap:wrap">
-        <button class="icon-btn mobile-move upBtn" title="Move up" aria-label="Move up" style="padding:4px">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 19V6" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 12l7-7 7 7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <button class="icon-btn mobile-move downBtn" title="Move down" aria-label="Move down" style="padding:4px">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 5v14" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 12l-7 7-7-7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <button class="icon-btn deleteBtn" title="Delete" aria-label="Delete" style="padding:4px"> 
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 6h18" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <span class="drag-handle" title="Drag to reorder" aria-label="Drag to reorder">☰</span>
-      </div>
-    </td>`;
-        tr.dataset.setup = '0';
-        tr.dataset.noOfPeople = '0';
-      } else {
-        // REGULAR ITEMS: Editable name field in row
-        tr.innerHTML = `<td><input class="itemName" type="text" value="${item['Name'] || ''}" style="font-weight:700;border:none;background:transparent;width:100%;" /> <button type="button" class="veg-toggle ${vegClass}" aria-pressed="${vegLabel.toLowerCase().includes('non')}">${vegLabel || 'Veg'}</button>
-      <div style="margin-top:6px;font-size:12px;color:#666;"><textarea class="description-input" rows="2" placeholder="Description" style="font-size:12px">${item['Description'] || ''}</textarea></div>
-    </td>
-    <td style="text-align:center"><input class="portions" type="number" min="0" value="1" style="width:55px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center" /></td>
-    <td style="text-align:center"><input class="rate" type="number" min="0" step="0.01" value="${rate}" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
-    <td style="text-align:center" class="amount">${formatCurrency(rate)}</td>
-    <td style="text-align:center"><input class="pcsQty" type="text" value="${pcsDisplay}" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center" /><div class="pcsDisplayReview" style="font-size:10px;color:#666;margin-top:2px;font-weight:500">→ ${pcsDisplay}</div></td>
-    <td style="text-align:center"><select class="pcsUnit" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;font-size:12px"><option value="" ${unit === '' ? 'selected' : ''}>NA</option><option value="PCS" ${unit === 'PCS' ? 'selected' : ''}>PCS</option><option value="PC" ${unit === 'PC' ? 'selected' : ''}>PC</option><option value="GMS" ${unit === 'GMS' ? 'selected' : ''}>GMS</option><option value="ML" ${unit === 'ML' ? 'selected' : ''}>ML</option><option value="ml per portion" ${unit === 'ml per portion' ? 'selected' : ''}>ml per portion</option></select></td>
-    <td style="text-align:center"><input class="calculateToggle" type="checkbox" ${calculateChecked} style="width:16px;height:16px;cursor:pointer" /></td>
-    <td style="text-align:center">
-      <div style="display:flex;gap:4px;align-items:center;justify-content:center;flex-wrap:wrap">
-        <button class="icon-btn mobile-move upBtn" title="Move up" aria-label="Move up" style="padding:4px">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 19V6" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 12l7-7 7 7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <button class="icon-btn mobile-move downBtn" title="Move down" aria-label="Move down" style="padding:4px">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 5v14" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 12l-7 7-7-7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <button class="icon-btn deleteBtn" title="Delete" aria-label="Delete" style="padding:4px"> 
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 6h18" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <span class="drag-handle" title="Drag to reorder" aria-label="Drag to reorder">☰</span>
-      </div>
-    </td>`;
-      }
+      const unit = item['Unit'] !== undefined ? item['Unit'] : 'PCS';
+      const vegLabel = (item['VegNonVeg'] || 'Veg').toString().trim();
+      const calculate = (item['Calculate'] === '1' || item['Calculate'] === 1) ? '1' : '0';
 
       tr.dataset.name = item['Name'] || '';
       tr.dataset.rate = rate;
       tr.dataset.pcsDisplay = pcsDisplay;
       tr.dataset.unit = unit;
-      tr.dataset.category = item.Category || 'Other';
-      tr.dataset.vegNonVeg = item.VegNonVeg || '';
+      tr.dataset.category = category;
+      tr.dataset.vegNonVeg = vegLabel;
       tr.dataset.description = item.Description || '';
-      tr.dataset.calculate = (item['Calculate'] === '1' || item['Calculate'] === 1) ? '1' : '0';
-
-      // Append row into category tbody
-      const cat = tr.dataset.category || 'Other';
-      const catBody = getCategoryBody(cat);
-      catBody.appendChild(tr);
-
-      const nameInput = tr.querySelector('.itemName');
-      if (nameInput) {
-        nameInput.addEventListener('input', () => { tr.dataset.name = nameInput.value; });
-      }
-      const descInput = tr.querySelector('.description-input');
-      if (descInput) {
-        descInput.addEventListener('input', () => { tr.dataset.description = descInput.value; });
-      }
+      tr.dataset.calculate = calculate;
 
       if (isLiveStation) {
-        // Live Stations event listeners
-        const vegBtn = tr.querySelector('.veg-toggle');
-        if (vegBtn) {
-          vegBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            const cur = (tr.dataset.vegNonVeg || '').toString().trim();
-            let next = 'Veg';
-            if (cur === 'Veg') next = 'Non-Veg';
-            else if (cur === 'Non-Veg') next = 'Veg & Non-Veg';
-            else if (cur === 'Veg & Non-Veg') next = 'Veg';
-
-            tr.dataset.vegNonVeg = next;
-            vegBtn.textContent = next;
-            vegBtn.classList.remove('non-veg', 'veg');
-
-            if (next === 'Non-Veg' || next === 'Veg & Non-Veg') {
-              vegBtn.classList.add('non-veg');
-              vegBtn.setAttribute('aria-pressed', 'true');
-            } else {
-              vegBtn.classList.add('veg');
-              vegBtn.setAttribute('aria-pressed', 'false');
-            }
-          });
-          // ensure button reflects initial state
-          const initial = (tr.dataset.vegNonVeg || '').toString().trim();
-          if (initial === 'Non-Veg' || initial === 'Veg & Non-Veg') { vegBtn.textContent = initial; vegBtn.classList.add('non-veg'); vegBtn.setAttribute('aria-pressed', 'true'); }
-          else { vegBtn.textContent = initial || 'Veg'; vegBtn.classList.add('veg'); vegBtn.setAttribute('aria-pressed', 'false'); }
-        }
-
-        const setupInput = tr.querySelector('.setup');
-        const rateInput = tr.querySelector('.rate');
-        const noOfPeopleInput = tr.querySelector('.noOfPeople');
-
-        if (setupInput) {
-          setupInput.addEventListener('input', () => {
-            tr.dataset.setup = setupInput.value;
-            updateLiveStationAmount(tr);
-          });
-        }
-        if (rateInput) {
-          rateInput.addEventListener('input', () => {
-            tr.dataset.rate = Number(rateInput.value) || 0;
-            updateLiveStationAmount(tr);
-          });
-        }
-        if (noOfPeopleInput) {
-          noOfPeopleInput.addEventListener('input', () => {
-            tr.dataset.noOfPeople = noOfPeopleInput.value;
-            updateLiveStationAmount(tr);
-          });
-        }
-        updateLiveStationAmount(tr);
+        tr.dataset.setup = item['Setup'] || 0;
+        tr.dataset.noOfPeople = 0;
+        tr.innerHTML = buildLiveStationRow(item);
       } else {
-        // Regular items event listeners
-        const vegBtn = tr.querySelector('.veg-toggle');
-        if (vegBtn) {
-          vegBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            const cur = (tr.dataset.vegNonVeg || '').toString().trim();
-            let next = 'Veg';
-            if (cur === 'Veg') next = 'Non-Veg';
-            else if (cur === 'Non-Veg') next = 'Veg & Non-Veg';
-            else if (cur === 'Veg & Non-Veg') next = 'Veg';
-
-            tr.dataset.vegNonVeg = next;
-            vegBtn.textContent = next;
-            vegBtn.classList.remove('non-veg', 'veg');
-
-            if (next === 'Non-Veg' || next === 'Veg & Non-Veg') {
-              vegBtn.classList.add('non-veg');
-              vegBtn.setAttribute('aria-pressed', 'true');
-            } else {
-              vegBtn.classList.add('veg');
-              vegBtn.setAttribute('aria-pressed', 'false');
-            }
-          });
-          // ensure button reflects initial state
-          const initial = (tr.dataset.vegNonVeg || '').toString().trim();
-          if (initial === 'Non-Veg' || initial === 'Veg & Non-Veg') { vegBtn.textContent = initial; vegBtn.classList.add('non-veg'); vegBtn.setAttribute('aria-pressed', 'true'); }
-          else { vegBtn.textContent = initial || 'Veg'; vegBtn.classList.add('veg'); vegBtn.setAttribute('aria-pressed', 'false'); }
-        }
-
-        const portionsInput = tr.querySelector('.portions');
-        portionsInput.addEventListener('input', () => updateRowAmount(tr));
-        const rateInput = tr.querySelector('.rate');
-        if (rateInput) {
-          rateInput.addEventListener('input', () => { updateRowAmount(tr); });
-        }
-        const pcsQtyInput = tr.querySelector('.pcsQty');
-        if (pcsQtyInput) {
-          pcsQtyInput.addEventListener('input', () => {
-            tr.dataset.pcsDisplay = pcsQtyInput.value;
-            // If calculate is enabled, update amount when pcsQty changes
-            if (tr.dataset.calculate === '1') {
-              updateRowAmount(tr);
-            }
-          });
-        }
-        const unitSelect = tr.querySelector('.pcsUnit');
-        if (unitSelect) {
-          unitSelect.addEventListener('change', () => { tr.dataset.unit = unitSelect.value; });
-        }
-        const calculateToggle = tr.querySelector('.calculateToggle');
-        if (calculateToggle) {
-          calculateToggle.addEventListener('change', () => {
-            tr.dataset.calculate = calculateToggle.checked ? '1' : '0';
-            updateRowAmount(tr);
-          });
-        }
+        tr.dataset.portions = 1;
+        tr.innerHTML = buildRegularRow(item);
       }
 
-      // delete button (common for both)
-      tr.querySelector('.deleteBtn').addEventListener('click', (e) => { handleDeleteRow(tr); });
-      const upBtn = tr.querySelector('.upBtn');
-      if (upBtn) upBtn.addEventListener('click', () => moveRowUp(tr));
-      const downBtn = tr.querySelector('.downBtn');
-      if (downBtn) downBtn.addEventListener('click', () => moveRowDown(tr));
-      makeRowDraggable(tr);
+      const catBody = getCategoryBody(category);
+      catBody.appendChild(tr);
+      bindRowEventListeners(tr, isLiveStation);
+      updateTotal();
+    }
 
-      if (!isLiveStation) {
-        updateRowAmount(tr);
+    function changeItemCategory(tr, newCategory) {
+      let normNewCategory = (newCategory === 'Table Snacks' ? 'Snacks' : newCategory) || 'Snacks';
+      const oldCategory = (tr.dataset.category === 'Table Snacks' ? 'Snacks' : tr.dataset.category) || 'Other';
+      const oldTbody = tr.parentElement;
+
+      if (oldCategory === normNewCategory && oldTbody && oldTbody.dataset && oldTbody.dataset.category === normNewCategory) {
+        return;
       }
+
+      const wasLiveStation = oldCategory === 'Live Stations';
+      const isNowLiveStation = normNewCategory === 'Live Stations';
+
+      // Read current field values from tr
+      const nameEl = tr.querySelector('.itemName');
+      const name = nameEl ? nameEl.value : (tr.dataset.name || '');
+      const descEl = tr.querySelector('.description-input');
+      const desc = descEl ? descEl.value : (tr.dataset.description || '');
+      const rateEl = tr.querySelector('.rate');
+      const rate = rateEl ? Number(rateEl.value) : (Number(tr.dataset.rate) || 0);
+      const vegNonVeg = tr.dataset.vegNonVeg || 'Veg';
+
+      tr.dataset.category = normNewCategory;
+      tr.dataset.name = name;
+      tr.dataset.description = desc;
+      tr.dataset.rate = rate;
+      tr.dataset.vegNonVeg = vegNonVeg;
+
+      if (!wasLiveStation && isNowLiveStation) {
+        // Morph regular row -> live station row
+        const setup = Number(tr.dataset.setup) || 0;
+        const noOfPeople = Number(tr.dataset.noOfPeople) || 0;
+        tr.dataset.setup = setup;
+        tr.dataset.noOfPeople = noOfPeople;
+        tr.innerHTML = buildLiveStationRow({
+          Name: name,
+          Description: desc,
+          Setup: setup,
+          Rate: rate,
+          NoOfPeople: noOfPeople,
+          VegNonVeg: vegNonVeg,
+          Category: normNewCategory
+        });
+        const targetTbody = getCategoryBody(normNewCategory);
+        targetTbody.appendChild(tr);
+        bindRowEventListeners(tr, true);
+      } else if (wasLiveStation && !isNowLiveStation) {
+        // Morph live station row -> regular row
+        const portions = Number(tr.dataset.portions) || 1;
+        const pcsDisplay = tr.dataset.pcsDisplay || '';
+        const unit = tr.dataset.unit || 'PCS';
+        const calculate = tr.dataset.calculate || '0';
+        tr.dataset.portions = portions;
+        tr.dataset.pcsDisplay = pcsDisplay;
+        tr.dataset.unit = unit;
+        tr.dataset.calculate = calculate;
+        tr.innerHTML = buildRegularRow({
+          Name: name,
+          Description: desc,
+          Rate: rate,
+          Portions: portions,
+          PcsDisplay: pcsDisplay,
+          Unit: unit,
+          Calculate: calculate,
+          VegNonVeg: vegNonVeg,
+          Category: normNewCategory
+        });
+        const targetTbody = getCategoryBody(normNewCategory);
+        targetTbody.appendChild(tr);
+        bindRowEventListeners(tr, false);
+      } else {
+        // Same structure, just move to new category tbody
+        const targetTbody = getCategoryBody(normNewCategory);
+        targetTbody.appendChild(tr);
+        // Ensure dropdown value is in sync
+        const catSelect = tr.querySelector('.categorySelect');
+        if (catSelect) catSelect.value = normNewCategory;
+      }
+
+      cleanupEmptyTbody(oldTbody);
+      updateTotal();
     }
 
     function getCategoryBody(category) {
+      let cat = (category === 'Table Snacks' ? 'Snacks' : category) || 'Other';
       const table = document.getElementById('selectedTable');
-      const existing = table.querySelector('tbody[data-category="' + category + '"]');
+      const existing = table.querySelector(`tbody[data-category="${cat}"]`);
       if (existing) return existing;
+
       // create new tbody with a category header row
       const tb = document.createElement('tbody');
-      tb.dataset.category = category;
-      const colCount = table.querySelectorAll('thead th').length || 6;
+      tb.dataset.category = cat;
+      const colCount = table.querySelectorAll('thead th').length || 8;
       const headerRow = document.createElement('tr');
       headerRow.className = 'category-row';
 
       // For Live Stations, show different column structure
-      if (category === 'Live Stations') {
-        headerRow.innerHTML = `<td colspan="2" style="font-weight:700;padding:8px;"><strong>${category}</strong></td>
+      if (cat === 'Live Stations') {
+        headerRow.innerHTML = `<td colspan="2" style="font-weight:700;padding:8px;"><strong>${cat}</strong></td>
       <td style="text-align:center;font-weight:600;font-size:12px;padding:8px;width:70px">Setup</td>
       <td style="text-align:center;font-weight:600;font-size:12px;padding:8px;width:70px">Rate</td>
       <td style="text-align:center;font-weight:600;font-size:12px;padding:8px;width:70px">No. People</td>
       <td style="text-align:center;font-weight:600;font-size:12px;padding:8px;width:70px">Amount</td>
       <td style="text-align:center;font-weight:600;font-size:12px;padding:8px;width:90px">Action</td>`;
       } else {
-        headerRow.innerHTML = `<td colspan="${colCount}"><strong>${category}</strong></td>`;
+        headerRow.innerHTML = `<td colspan="${colCount}"><strong>${cat}</strong></td>`;
       }
 
       tb.appendChild(headerRow);
-      // insert before tfoot
+
+      // Insert in proper category order
+      const existingTbodies = Array.from(table.querySelectorAll('tbody[data-category]'));
+      const catIndex = categoryOrder.indexOf(cat);
       const tfoot = table.querySelector('tfoot');
-      table.insertBefore(tb, tfoot);
+
+      let inserted = false;
+      if (catIndex !== -1) {
+        for (const existingTb of existingTbodies) {
+          const existingCat = existingTb.dataset.category;
+          const existingIndex = categoryOrder.indexOf(existingCat);
+          if (existingIndex === -1 || existingIndex > catIndex) {
+            table.insertBefore(tb, existingTb);
+            inserted = true;
+            break;
+          }
+        }
+      }
+      if (!inserted) {
+        table.insertBefore(tb, tfoot);
+      }
+
       return tb;
     }
 
@@ -2034,9 +2113,11 @@
       // Update category if moved into a different tbody
       const parent = _draggedRow.parentElement;
       if (parent && parent.dataset && parent.dataset.category) {
-        _draggedRow.dataset.category = parent.dataset.category;
+        const newCat = parent.dataset.category;
+        if (_draggedRow.dataset.category !== newCat) {
+          changeItemCategory(_draggedRow, newCat);
+        }
       }
-      // Remove empty tbody headers if needed
       cleanupEmptyTbody(parent);
       if (_draggedRow) _draggedRow.classList.remove('dragging');
       _draggedRow = null;
@@ -2065,12 +2146,15 @@
       let prevTbody = tbody.previousElementSibling;
       while (prevTbody && (!prevTbody.dataset || !prevTbody.dataset.category)) prevTbody = prevTbody.previousElementSibling;
       if (prevTbody) {
-        // insert before last data row or append
+        const oldTbody = tbody;
+        const targetCat = prevTbody.dataset.category;
         const lastData = [...prevTbody.querySelectorAll('tr:not(.category-row)')].pop();
         if (lastData) prevTbody.insertBefore(tr, lastData.nextSibling);
         else prevTbody.appendChild(tr);
-        tr.dataset.category = prevTbody.dataset.category;
-        cleanupEmptyTbody(tbody);
+        if (tr.dataset.category !== targetCat) {
+          changeItemCategory(tr, targetCat);
+        }
+        cleanupEmptyTbody(oldTbody);
         updateTotal();
       }
     }
@@ -2091,11 +2175,15 @@
       let nextTbody = tbody.nextElementSibling;
       while (nextTbody && (!nextTbody.dataset || !nextTbody.dataset.category)) nextTbody = nextTbody.nextElementSibling;
       if (nextTbody) {
+        const oldTbody = tbody;
+        const targetCat = nextTbody.dataset.category;
         const firstData = nextTbody.querySelector('tr:not(.category-row)');
         if (firstData) nextTbody.insertBefore(tr, firstData);
         else nextTbody.appendChild(tr);
-        tr.dataset.category = nextTbody.dataset.category;
-        cleanupEmptyTbody(tbody);
+        if (tr.dataset.category !== targetCat) {
+          changeItemCategory(tr, targetCat);
+        }
+        cleanupEmptyTbody(oldTbody);
         updateTotal();
       }
     }
@@ -2113,16 +2201,15 @@
     function addCustomItem() {
       const name = document.getElementById('customName').value.trim();
       const desc = document.getElementById('customDesc').value.trim();
-      const category = document.getElementById('customCategory').value.trim();
-      const vegNonVeg = document.getElementById('customVegNonVeg').value.trim();
+      let category = document.getElementById('customCategory').value.trim() || 'Snacks';
+      if (category === 'Table Snacks') category = 'Snacks';
+      const vegNonVeg = document.getElementById('customVegNonVeg').value.trim() || 'Veg';
       const pcsDisplay = document.getElementById('customPcs').value.trim();
       const unit = 'PCS'; // default unit for custom items
-      const portions = Number(document.getElementById('customPortions').value) || 0;
+      const portions = Number(document.getElementById('customPortions').value) || 1;
       const rate = Number(document.getElementById('customRate').value) || 0;
       const setup = Number(document.getElementById('customSetup')?.value) || 0;
       const noPeople = Number(document.getElementById('customNoPeople')?.value) || 0;
-
-      // Allow adding items even with empty/default values - all fields are optional
 
       // Create table row
       const tr = document.createElement('tr');
@@ -2132,54 +2219,26 @@
       tr.dataset.rate = rate;
       tr.dataset.pcsDisplay = pcsDisplay;
       tr.dataset.unit = unit;
-      tr.dataset.category = category || '';
-      tr.dataset.vegNonVeg = vegNonVeg || '';
+      tr.dataset.category = category;
+      tr.dataset.vegNonVeg = vegNonVeg;
+      tr.dataset.calculate = '0';
 
-      const catBody = getCategoryBody(category || 'Other');
+      const catBody = getCategoryBody(category);
+      const isLiveStation = category === 'Live Stations';
 
-      if (category === 'Live Stations') {
-        // Live station specific row
+      if (isLiveStation) {
         tr.dataset.setup = setup;
         tr.dataset.noOfPeople = noPeople;
-        tr.innerHTML = buildLiveStationRow({ Name: name, Description: desc, Setup: setup, Rate: rate, NoOfPeople: noPeople, VegNonVeg: vegNonVeg });
+        tr.innerHTML = buildLiveStationRow({ Name: name, Description: desc, Setup: setup, Rate: rate, NoOfPeople: noPeople, VegNonVeg: vegNonVeg, Category: category });
         catBody.appendChild(tr);
         bindRowEventListeners(tr, true);
       } else {
-        // Regular custom item
-        tr.innerHTML = `<td><input class="itemName" type="text" value="${name || ''}" style="font-weight:700;border:none;background:transparent;width:100%;" /> <button type="button" class="veg-toggle ${vegNonVeg && vegNonVeg.toLowerCase().includes('non') ? 'non-veg' : (vegNonVeg ? 'veg' : 'veg')}" aria-pressed="${(vegNonVeg || '').toLowerCase().includes('non')}">${vegNonVeg || 'Veg'}</button>
-      <div style="margin-top:6px;font-size:12px;color:#666;"><textarea class="description-input" rows="2" placeholder="Description" style="font-size:12px">${desc}</textarea></div>
-    </td>
-    <td style="text-align:center"><input class="portions" type="number" min="0" value="${portions}" style="width:55px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center" /></td>
-    <td style="text-align:center"><input class="rate" type="number" min="0" step="0.01" value="${rate}" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
-    <td style="text-align:center" class="amount">${formatCurrency(portions * rate)}</td>
-    <td style="text-align:center"><input class="pcsQty" type="text" value="${pcsDisplay}" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center" /><div class="pcsDisplayReview" style="font-size:10px;color:#666;margin-top:2px;font-weight:500">→ ${pcsDisplay}</div></td>
-    <td style="text-align:center"><select class="pcsUnit" style="width:70px;padding:4px;border:1px solid #ccc;border-radius:4px;font-size:12px"><option value="">NA</option><option value="PCS">PCS</option><option value="PC">PC</option><option value="GMS">GMS</option><option value="ML">ML</option><option value="ml per portion">ml per portion</option></select></td>
-    <td style="text-align:center"><input class="calculateToggle" type="checkbox" style="width:16px;height:16px;cursor:pointer" /></td>
-    <td style="text-align:center">
-      <div style="display:flex;gap:4px;align-items:center;justify-content:center;flex-wrap:wrap">
-        <button class="icon-btn mobile-move upBtn" title="Move up" aria-label="Move up" style="padding:4px">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 19V6" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 12l7-7 7 7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <button class="icon-btn mobile-move downBtn" title="Move down" aria-label="Move down" style="padding:4px">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 5v14" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 12l-7 7-7-7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <button class="icon-btn deleteBtn" title="Delete" aria-label="Delete" style="padding:4px"> 
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 6h18" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <span class="drag-handle" title="Drag to reorder" aria-label="Drag to reorder">☰</span>
-      </div>
-    </td>`;
-
+        tr.dataset.portions = portions;
+        tr.innerHTML = buildRegularRow({ Name: name, Description: desc, Rate: rate, Portions: portions, PcsDisplay: pcsDisplay, Unit: unit, Calculate: '0', VegNonVeg: vegNonVeg, Category: category });
         catBody.appendChild(tr);
-        // Use central binder for regular rows
         bindRowEventListeners(tr, false);
       }
 
-      // Append to category tbody
-      // const cat = tr.dataset.category || 'Other';
-      // const catBody = getCategoryBody(cat);
-      // catBody.appendChild(tr);
-
       // Clear form
       document.getElementById('customName').value = '';
       document.getElementById('customDesc').value = '';
@@ -2188,82 +2247,14 @@
       document.getElementById('customPcs').value = '';
       document.getElementById('customPortions').value = '1';
       document.getElementById('customRate').value = '';
-      document.getElementById('customSetup').value = '0';
-      document.getElementById('customNoPeople').value = '0';
-
-      updateTotal();
-
-      // Add event listeners (guard elements; Live Stations won't have all fields)
-      const portionsEl = tr.querySelector('.portions');
-      if (portionsEl) portionsEl.addEventListener('input', () => updateCustomRowAmount(tr));
-      const rateInputC = tr.querySelector('.rate');
-      if (rateInputC) { rateInputC.addEventListener('input', () => updateCustomRowAmount(tr)); }
-      const pcsQtyInputC = tr.querySelector('.pcsQty');
-      if (pcsQtyInputC) {
-        pcsQtyInputC.addEventListener('input', () => {
-          tr.dataset.pcsDisplay = pcsQtyInputC.value;
-          if (tr.dataset.calculate === '1') {
-            updateCustomRowAmount(tr);
-          }
-        });
-      }
-      const unitSelectC = tr.querySelector('.pcsUnit');
-      if (unitSelectC) { unitSelectC.addEventListener('change', () => { tr.dataset.unit = unitSelectC.value; }); }
-      const calculateToggleC = tr.querySelector('.calculateToggle');
-      if (calculateToggleC) {
-        calculateToggleC.addEventListener('change', () => {
-          tr.dataset.calculate = calculateToggleC.checked ? '1' : '0';
-          updateCustomRowAmount(tr);
-        });
-      }
-      tr.querySelector('.deleteBtn').addEventListener('click', () => { handleDeleteRow(tr); });
-      const upBtnC = tr.querySelector('.upBtn');
-      if (upBtnC) upBtnC.addEventListener('click', () => moveRowUp(tr));
-      const downBtnC = tr.querySelector('.downBtn');
-      if (downBtnC) downBtnC.addEventListener('click', () => moveRowDown(tr));
-      makeRowDraggable(tr);
-      const vegBtnC = tr.querySelector('.veg-toggle');
-      if (vegBtnC) {
-        vegBtnC.addEventListener('click', () => {
-          const cur = (tr.dataset.vegNonVeg || '').toString().toLowerCase().includes('non') ? 'Veg' : 'Non-Veg';
-          tr.dataset.vegNonVeg = cur;
-          vegBtnC.textContent = cur;
-          vegBtnC.classList.toggle('non-veg', cur === 'Non-Veg');
-          vegBtnC.classList.toggle('veg', cur === 'Veg');
-          vegBtnC.setAttribute('aria-pressed', cur === 'Non-Veg');
-        });
-        const initialC = (tr.dataset.vegNonVeg || '').toString().trim();
-        if (initialC.toLowerCase().includes('non')) { vegBtnC.textContent = 'Non-Veg'; vegBtnC.classList.add('non-veg'); vegBtnC.setAttribute('aria-pressed', 'true'); }
-        else { vegBtnC.textContent = tr.dataset.vegNonVeg || 'Veg'; vegBtnC.classList.add('veg'); vegBtnC.setAttribute('aria-pressed', 'false'); }
-      }
-      const nameInputC = tr.querySelector('.itemName');
-      if (nameInputC) { nameInputC.addEventListener('input', () => { tr.dataset.name = nameInputC.value; }); }
-      const descInputC = tr.querySelector('.description-input');
-      if (descInputC) { descInputC.addEventListener('input', () => { tr.dataset.description = descInputC.value; }); }
-
-      // Clear form
-      document.getElementById('customName').value = '';
-      document.getElementById('customDesc').value = '';
-      document.getElementById('customCategory').value = '';
-      document.getElementById('customVegNonVeg').value = '';
-      document.getElementById('customPcs').value = '';
-      document.getElementById('customPortions').value = '1';
-      document.getElementById('customRate').value = '';
+      if (document.getElementById('customSetup')) document.getElementById('customSetup').value = '0';
+      if (document.getElementById('customNoPeople')) document.getElementById('customNoPeople').value = '0';
 
       updateTotal();
     }
 
     function updateCustomRowAmount(tr) {
-      // Amount is ALWAYS: Portions field × Rate
-      const portions = Number(tr.querySelector('.portions').value) || 0;
-      const rateEl = tr.querySelector('.rate');
-      const rate = rateEl ? Number(rateEl.value) : (Number(tr.dataset.rate) || 0);
-
-      const amt = portions * rate;
-      tr.querySelector('.amount').textContent = formatCurrency(amt);
-      updatePcsDisplay(tr);
-      updateTotal();
-      updatePcsDisplayReview(tr);
+      updateRowAmount(tr);
     }
 
     function updatePcsDisplayReview(tr) {
@@ -2284,35 +2275,36 @@
         finalPcs = String(baseNum * portions);
       }
 
-      reviewEl.textContent = '→ ' + finalPcs;
+      reviewEl.textContent = isCalculate ? ('→ ' + finalPcs) : '';
     }
 
     function updateLiveStationAmount(tr) {
       // Amount = Setup + (Rate × No. Of People)
-      const setup = Number(tr.querySelector('.setup').value) || 0;
-      const rate = Number(tr.querySelector('.rate').value) || 0;
-      const noOfPeople = Number(tr.querySelector('.noOfPeople').value) || 0;
+      const setup = Number(tr.querySelector('.setup')?.value) || 0;
+      const rate = Number(tr.querySelector('.rate')?.value) || 0;
+      const noOfPeople = Number(tr.querySelector('.noOfPeople')?.value) || 0;
 
       const amt = setup + (rate * noOfPeople);
-      tr.querySelector('.amount').textContent = formatCurrency(amt);
+      const amtEl = tr.querySelector('.amount');
+      if (amtEl) amtEl.textContent = formatCurrency(amt);
       updateTotal();
     }
 
     function updateRowAmount(tr) {
       // Amount is ALWAYS: Portions field × Rate
-      const portions = Number(tr.querySelector('.portions').value) || 0;
+      const portions = Number(tr.querySelector('.portions')?.value) || 0;
       const rateEl = tr.querySelector('.rate');
       const rate = rateEl ? Number(rateEl.value) : (Number(tr.dataset.rate) || 0);
 
       const amt = portions * rate;
-      tr.querySelector('.amount').textContent = formatCurrency(amt);
+      const amtEl = tr.querySelector('.amount');
+      if (amtEl) amtEl.textContent = formatCurrency(amt);
       updateTotal();
       updatePcsDisplayReview(tr);
     }
 
     function updatePcsDisplay(tr) {
-      // No automatic calculation - user manually enters PCS value
-      // This function is kept for backward compatibility but does nothing
+      // Kept for backward compatibility
     }
 
     function extractNumber(val) {
@@ -2386,15 +2378,20 @@
         let desc = tr.dataset.description || '';
         const descEl = tr.querySelector('.description-input');
         if (descEl) desc = descEl.value.trim();
-        const category = tr.dataset.category || 'Other';
+        
+        let category = tr.dataset.category || 'Other';
+        const catSelect = tr.querySelector('.categorySelect');
+        if (catSelect && catSelect.value) category = catSelect.value;
+        if (category === 'Table Snacks') category = 'Snacks';
+
         const vegNonVeg = tr.dataset.vegNonVeg || '';
 
         // Check if it's a Live Stations item
         if (category === 'Live Stations') {
-          const setup = Number(tr.querySelector('.setup') ? tr.querySelector('.setup').value : 0) || 0;
+          const setup = Number(tr.querySelector('.setup') ? tr.querySelector('.setup').value : (tr.dataset.setup || 0)) || 0;
           const rateEl = tr.querySelector('.rate');
-          const rate = rateEl ? Number(rateEl.value) : 0;
-          const noOfPeople = Number(tr.querySelector('.noOfPeople') ? tr.querySelector('.noOfPeople').value : 0) || 0;
+          const rate = rateEl ? Number(rateEl.value) : (Number(tr.dataset.rate) || 0);
+          const noOfPeople = Number(tr.querySelector('.noOfPeople') ? tr.querySelector('.noOfPeople').value : (tr.dataset.noOfPeople || 0)) || 0;
           const amount = setup + (rate * noOfPeople);
 
           items.push({
@@ -2409,7 +2406,7 @@
           });
         } else {
           // Regular item
-          const portions = Number(tr.querySelector('.portions') ? tr.querySelector('.portions').value : 0) || 0;
+          const portions = Number(tr.querySelector('.portions') ? tr.querySelector('.portions').value : (tr.dataset.portions || 1)) || 0;
           const pcsQtyEl = tr.querySelector('.pcsQty');
           const pcsQtyBase = pcsQtyEl ? pcsQtyEl.value.trim() : (tr.dataset.pcsDisplay || '');
           const unitEl = tr.querySelector('.pcsUnit');
@@ -2468,9 +2465,7 @@
         Pax: document.getElementById('pax').value,
         Location: document.getElementById('location').value,
         Items: items,
-        // Keep `Total` as items subtotal only (per requirement)
         Total: itemsTotal,
-        // Also include computed grand total (items + services) for clarity if needed
         GrandTotal: grandTotal,
         ChefServers: document.getElementById('chefServers').value,
         TableDecor: document.getElementById('tableDecor').value,
@@ -2480,7 +2475,7 @@
         VenueCharges: document.getElementById('venueCharges').value,
         Tables: document.getElementById('tables').value,
         KitchenSpace: document.getElementById('kitchenSpace').value,
-        ImageGrid: selectedImages.slice(0, 9) // array of image URLs (max 9)
+        ImageGrid: selectedImages.slice(0, 9)
       };
       return payload;
     }
@@ -2570,7 +2565,7 @@
               let dateFormatted = '';
               if (dateInput) { const [yyyy, mm, dd] = dateInput.split('-'); dateFormatted = `${dd}-${mm}-${yyyy}`; }
               const safe = (s) => String(s).trim().replace(/[^A-Za-z0-9-]+/g, '_').replace(/^_+|_+$/g, '');
-              const filename = `${safe(host)}_${safe(dateFormatted)}.pdf`;
+              filename = `${safe(host)}_${safe(dateFormatted)}.pdf`;
               showPdfModal(pdfUrl, filename);
             } else {
               document.getElementById('statusText').textContent = 'Submitted, but no PDF URL received. Check n8n response.';
@@ -2662,35 +2657,59 @@
 
     // ==================== HELPER FUNCTION FOR ROW EVENT LISTENERS ====================
     function bindRowEventListeners(tr, isLiveStation) {
+      if (!tr) return;
+
+      const nameInput = tr.querySelector('.itemName');
+      if (nameInput) {
+        nameInput.addEventListener('input', () => { tr.dataset.name = nameInput.value; });
+      }
+
       const descInput = tr.querySelector('.description-input');
       if (descInput) {
         descInput.addEventListener('input', () => { tr.dataset.description = descInput.value; });
       }
 
-      if (isLiveStation) {
-        const vegBtn = tr.querySelector('.veg-toggle');
-        if (vegBtn) {
-          vegBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            const cur = (tr.dataset.vegNonVeg || '').toString().trim();
-            let next = 'Veg';
-            if (cur === 'Veg') next = 'Non-Veg';
-            else if (cur === 'Non-Veg') next = 'Veg & Non-Veg';
-            else if (cur === 'Veg & Non-Veg') next = 'Veg';
-            tr.dataset.vegNonVeg = next;
-            vegBtn.textContent = next;
-            vegBtn.classList.remove('non-veg', 'veg');
-            if (next === 'Non-Veg' || next === 'Veg & Non-Veg') {
-              vegBtn.classList.add('non-veg');
-              vegBtn.setAttribute('aria-pressed', 'true');
-            } else {
-              vegBtn.classList.add('veg');
-              vegBtn.setAttribute('aria-pressed', 'false');
-            }
-          });
-        }
+      const catSelect = tr.querySelector('.categorySelect');
+      if (catSelect) {
+        catSelect.addEventListener('change', (e) => {
+          changeItemCategory(tr, e.target.value);
+        });
+      }
 
+      const vegBtn = tr.querySelector('.veg-toggle');
+      if (vegBtn) {
+        vegBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const cur = (tr.dataset.vegNonVeg || '').toString().trim();
+          let next = 'Veg';
+          if (cur === 'Veg') next = 'Non-Veg';
+          else if (cur === 'Non-Veg') next = 'Veg & Non-Veg';
+          else if (cur === 'Veg & Non-Veg') next = 'Veg';
+          tr.dataset.vegNonVeg = next;
+          vegBtn.textContent = next;
+          vegBtn.classList.remove('non-veg', 'veg');
+          if (next === 'Non-Veg' || next === 'Veg & Non-Veg') {
+            vegBtn.classList.add('non-veg');
+            vegBtn.setAttribute('aria-pressed', 'true');
+          } else {
+            vegBtn.classList.add('veg');
+            vegBtn.setAttribute('aria-pressed', 'false');
+          }
+        });
+        const initial = (tr.dataset.vegNonVeg || '').toString().trim();
+        if (initial === 'Non-Veg' || initial === 'Veg & Non-Veg') {
+          vegBtn.textContent = initial;
+          vegBtn.classList.add('non-veg');
+          vegBtn.setAttribute('aria-pressed', 'true');
+        } else {
+          vegBtn.textContent = initial || 'Veg';
+          vegBtn.classList.add('veg');
+          vegBtn.setAttribute('aria-pressed', 'false');
+        }
+      }
+
+      if (isLiveStation) {
         const setupInput = tr.querySelector('.setup');
         const rateInput = tr.querySelector('.rate');
         const noOfPeopleInput = tr.querySelector('.noOfPeople');
@@ -2715,32 +2734,6 @@
         }
         updateLiveStationAmount(tr);
       } else {
-        const vegBtn = tr.querySelector('.veg-toggle');
-        if (vegBtn) {
-          vegBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            const cur = (tr.dataset.vegNonVeg || '').toString().trim();
-            let next = 'Veg';
-            if (cur === 'Veg') next = 'Non-Veg';
-            else if (cur === 'Non-Veg') next = 'Veg & Non-Veg';
-            else if (cur === 'Veg & Non-Veg') next = 'Veg';
-            tr.dataset.vegNonVeg = next;
-            vegBtn.textContent = next;
-            vegBtn.classList.remove('non-veg', 'veg');
-            if (next === 'Non-Veg' || next === 'Veg & Non-Veg') {
-              vegBtn.classList.add('non-veg');
-              vegBtn.setAttribute('aria-pressed', 'true');
-            } else {
-              vegBtn.classList.add('veg');
-              vegBtn.setAttribute('aria-pressed', 'false');
-            }
-          });
-          const initial = (tr.dataset.vegNonVeg || '').toString().trim();
-          if (initial === 'Non-Veg' || initial === 'Veg & Non-Veg') { vegBtn.textContent = initial; vegBtn.classList.add('non-veg'); vegBtn.setAttribute('aria-pressed', 'true'); }
-          else { vegBtn.textContent = initial || 'Veg'; vegBtn.classList.add('veg'); vegBtn.setAttribute('aria-pressed', 'false'); }
-        }
-
         const portionsInput = tr.querySelector('.portions');
         if (portionsInput) {
           portionsInput.addEventListener('input', () => updateRowAmount(tr));
@@ -2755,6 +2748,8 @@
             tr.dataset.pcsDisplay = pcsQtyInput.value;
             if (tr.dataset.calculate === '1') {
               updateRowAmount(tr);
+            } else {
+              updatePcsDisplayReview(tr);
             }
           });
         }
@@ -3043,7 +3038,8 @@
 
     // Add item to table with pre-filled data
     function addItemToTableWithData(menuItem, idx, savedData) {
-      const category = savedData.Category || menuItem.Category || 'Other';
+      let category = savedData.Category || menuItem.Category || 'Snacks';
+      if (category === 'Table Snacks') category = 'Snacks';
       const tbody = getCategoryBody(category);
       const isLiveStation = category === 'Live Stations';
 
@@ -3052,11 +3048,11 @@
       tr.dataset.category = category;
       tr.dataset.name = menuItem.Name || '';
       tr.dataset.description = savedData.Description || menuItem.Description || '';
-      tr.dataset.rate = savedData.Rate || menuItem.Rate || 0;
+      tr.dataset.rate = savedData.Rate !== undefined ? savedData.Rate : (menuItem.Rate || 0);
       // convert stored pcs value back to per‑portion when calculate flag is on
       let basePcs = savedData.PcsDisplay || menuItem.PcsDisplay || '';
       const portions = savedData.Portions || menuItem.Portions || 1;
-      const calcFlag = savedData.Calculate || menuItem.Calculate || '0';
+      const calcFlag = (savedData.Calculate !== undefined ? savedData.Calculate : (menuItem.Calculate || '0')).toString();
       if (calcFlag === '1' && portions && basePcs) {
         const num = extractNumber(basePcs);
         if (num) basePcs = String(num / portions);
@@ -3067,122 +3063,24 @@
       tr.dataset.vegNonVeg = savedData.VegNonVeg || menuItem.VegNonVeg || 'Veg';
 
       if (isLiveStation) {
-        tr.dataset.setup = savedData.Setup || menuItem.Setup || 0;
-        tr.dataset.noOfPeople = savedData.NoOfPeople || 0;
-        tr.innerHTML = buildLiveStationRow(menuItem, savedData);
+        tr.dataset.setup = savedData.Setup !== undefined ? savedData.Setup : (menuItem.Setup || 0);
+        tr.dataset.noOfPeople = savedData.NoOfPeople !== undefined ? savedData.NoOfPeople : 0;
+        tr.innerHTML = buildLiveStationRow(menuItem, { ...savedData, Category: category });
       } else {
-        tr.innerHTML = buildRegularRow(menuItem, savedData);
+        tr.dataset.portions = portions;
+        tr.innerHTML = buildRegularRow(menuItem, { ...savedData, Category: category });
       }
 
       tbody.appendChild(tr);
       bindRowEventListeners(tr, isLiveStation);
     }
 
-    // Build HTML for live station row with saved data (supports being called with either (menuItem, savedData) or (item))
-    function buildLiveStationRow(menuItem, savedData) {
-      const saved = savedData || {};
-      const item = menuItem || {};
-
-      const name = (saved.Name !== undefined ? saved.Name : item.Name) || '';
-      const desc = (saved.Description !== undefined ? saved.Description : item.Description) || '';
-      const setup = Number((saved.Setup !== undefined ? saved.Setup : item.Setup) || 0) || 0;
-      const rate = Number((saved.Rate !== undefined ? saved.Rate : item.Rate) || 0) || 0;
-      const noOfPeople = Number((saved.NoOfPeople !== undefined ? saved.NoOfPeople : (item.NoOfPeople || item.NoOfPeople)) || 0) || 0;
-      const vegNonVeg = (saved.VegNonVeg !== undefined ? saved.VegNonVeg : item.VegNonVeg) || 'Veg';
-      const amount = setup + (rate * noOfPeople);
-
-      return `
-    <td colspan="2" style="min-width:220px">
-      <input class="itemName" type="text" value="${name}" style="font-weight:700;border:none;background:transparent;width:100%;" />
-      <button type="button" class="veg-toggle ${vegNonVeg.toLowerCase().includes('non') ? 'non-veg' : 'veg'}" aria-pressed="${vegNonVeg.toLowerCase().includes('non')}">${vegNonVeg}</button>
-      <textarea class="description-input" placeholder="Description...">${desc}</textarea>
-    </td>
-    <td><input class="setup" type="number" min="0" value="${setup}" style="width:60px;text-align:center"/></td>
-    <td><input class="rate" type="number" min="0" value="${rate}" style="width:60px;text-align:center"/></td>
-    <td><input class="noOfPeople" type="number" min="0" value="${noOfPeople}" style="width:60px;text-align:center"/></td>
-    <td class="amount col-right">${formatCurrency(amount)}</td>
-    <td style="text-align:center">
-      <div style="display:flex;gap:4px;align-items:center;justify-content:center;flex-wrap:wrap">
-        <button class="icon-btn mobile-move upBtn" title="Move up" aria-label="Move up" style="padding:4px">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 19V6" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 12l7-7 7 7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <button class="icon-btn mobile-move downBtn" title="Move down" aria-label="Move down" style="padding:4px">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 5v14" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 12l-7 7-7-7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <button class="icon-btn deleteBtn" title="Delete" aria-label="Delete" style="padding:4px">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 6h18" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <span class="drag-handle" title="Drag to reorder" aria-label="Drag to reorder">☰</span>
-      </div>
-    </td>`;
-    }
-
-    // Build HTML for regular row with saved data
-    function buildRegularRow(menuItem, savedData) {
-      const name = menuItem.Name || '';
-      const desc = savedData.Description || menuItem.Description || '';
-      const portions = savedData.Portions || 1;
-      const rate = savedData.Rate || menuItem.Rate || 0;
-      // when Calculate is enabled the stored PcsDisplay is the *final* value (portions × per‑portion qty),
-      // so we need to convert back to a base qty so the input doesn't get multiplied again on load.
-      let pcsDisplay = savedData.PcsDisplay || menuItem.PcsDisplay || '';
-      const calculate = savedData.Calculate || menuItem.Calculate || '0';
-      if (calculate === '1' && portions && pcsDisplay) {
-        const num = extractNumber(pcsDisplay);
-        if (num) {
-          pcsDisplay = String(num / portions);
-        }
-      }
-      const unit = savedData.Unit || menuItem.Unit || 'PCS';
-      const vegNonVeg = savedData.VegNonVeg || menuItem.VegNonVeg || 'Veg';
-      const amount = portions * rate;
-
-      return `
-    <td style="min-width:220px">
-      <input class="itemName" type="text" value="${name}" style="font-weight:700;border:none;background:transparent;width:100%;" />
-      <button type="button" class="veg-toggle ${vegNonVeg.toLowerCase().includes('non') ? 'non-veg' : 'veg'}" aria-pressed="${vegNonVeg.toLowerCase().includes('non')}">${vegNonVeg}</button>
-      <textarea class="description-input" placeholder="Description...">${desc}</textarea>
-    </td>
-    <td><input class="portions" type="number" min="0" value="${portions}" style="width:50px;text-align:center"/></td>
-    <td><input class="rate" type="number" min="0" value="${rate}" style="width:60px;text-align:center"/></td>
-    <td class="amount col-right">${formatCurrency(amount)}</td>
-    <td class="pcsDisplay">
-      <input class="pcsQty" type="text" value="${pcsDisplay}" style="width:40px;text-align:center" placeholder="0"/>
-      <span class="pcsDisplayReview" style="font-size:11px;color:#666;"></span>
-    </td>
-    <td>
-      <select class="pcsUnit" style="width:60px;font-size:11px">
-        <option value="" ${unit === '' ? 'selected' : ''}>NA</option>
-        <option value="PCS" ${unit === 'PCS' ? 'selected' : ''}>PCS</option>
-        <option value="PC" ${unit === 'PC' ? 'selected' : ''}>PC</option>
-        <option value="GMS" ${unit === 'GMS' ? 'selected' : ''}>GMS</option>
-        <option value="ML" ${unit === 'ML' ? 'selected' : ''}>ML</option>
-        <option value="ml per portion" ${unit === 'ml per portion' ? 'selected' : ''}>ml per portion</option>
-      </select>
-    </td>
-    <td style="text-align:center"><input class="calculateToggle" type="checkbox" ${calculate === '1' ? 'checked' : ''} style="width:16px;height:16px;cursor:pointer" title="Auto-calculate PCS × Portions"/></td>
-    <td style="text-align:center">
-      <div style="display:flex;gap:4px;align-items:center;justify-content:center;flex-wrap:wrap">
-        <button class="icon-btn mobile-move upBtn" title="Move up" aria-label="Move up" style="padding:4px">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 19V6" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 12l7-7 7 7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <button class="icon-btn mobile-move downBtn" title="Move down" aria-label="Move down" style="padding:4px">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 5v14" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 12l-7 7-7-7" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <button class="icon-btn deleteBtn" title="Delete" aria-label="Delete" style="padding:4px">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 6h18" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" stroke="#d32f2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <span class="drag-handle" title="Drag to reorder" aria-label="Drag to reorder">☰</span>
-      </div>
-    </td>`;
-
-
-    }
-
     // Add custom item from loaded data
     function addCustomItemFromData(item) {
-      const category = item.Category || 'Other';
+      let category = item.Category || 'Snacks';
+      if (category === 'Table Snacks') category = 'Snacks';
       const tbody = getCategoryBody(category);
+      const isLiveStation = category === 'Live Stations';
 
       const tr = document.createElement('tr');
       tr.dataset.custom = '1';
@@ -3192,15 +3090,19 @@
       tr.dataset.rate = item.Rate || 0;
       tr.dataset.pcsDisplay = item.PcsDisplay || '';
       tr.dataset.unit = item.Unit || 'PCS';
-      tr.dataset.calculate = item.Calculate || '0';
+      tr.dataset.calculate = item.Calculate ? item.Calculate.toString() : '0';
       tr.dataset.vegNonVeg = item.VegNonVeg || 'Veg';
 
-      if (category === 'Live Stations') {
-        tr.innerHTML = buildLiveStationRow(item);
+      if (isLiveStation) {
+        tr.dataset.setup = item.Setup || 0;
+        tr.dataset.noOfPeople = item.NoOfPeople || 0;
+        tr.innerHTML = buildLiveStationRow(item, { ...item, Category: category });
         tbody.appendChild(tr);
         bindRowEventListeners(tr, true);
       } else {
-        tr.innerHTML = buildRegularRow({ Name: item.Name, Description: '', Rate: 0, PcsDisplay: '', Unit: 'PCS', Calculate: '0', VegNonVeg: 'Veg' }, item);
+        const portions = item.Portions || 1;
+        tr.dataset.portions = portions;
+        tr.innerHTML = buildRegularRow({ Name: item.Name, Description: '', Rate: 0, PcsDisplay: '', Unit: 'PCS', Calculate: '0', VegNonVeg: 'Veg' }, { ...item, Category: category });
         tbody.appendChild(tr);
         bindRowEventListeners(tr, false);
       }
