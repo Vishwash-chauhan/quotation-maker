@@ -7,13 +7,13 @@
         "responseMode": "responseNode",
         "options": {}
       },
-      "id": "1d8bd33d-97c4-4716-97d4-f67208abd0d7",
+      "id": "095ea751-2380-4c72-8933-5c2e9f0ba2c3",
       "name": "Webhook Form",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
       "position": [
-        -320,
-        -688
+        -1280,
+        256
       ],
       "webhookId": "9b2f3be4-e30e-42e8-9ca7-afce486bf02e"
     },
@@ -25,10 +25,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        80,
-        -608
+        -880,
+        336
       ],
-      "id": "4eaafd0b-fe5b-4296-ad95-d2f745f756d8",
+      "id": "d37c7d65-eef9-4d72-a44f-2e0f82e6edfb",
       "name": "Code in Python (Beta)"
     },
     {
@@ -39,10 +39,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        80,
-        -416
+        -880,
+        528
       ],
-      "id": "4905c6d2-b221-46df-8357-37759bd2c93e",
+      "id": "a5864690-b552-482f-ad66-868cbdf9396f",
       "name": "Code in Python (Beta)13"
     },
     {
@@ -53,10 +53,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        80,
-        -992
+        -880,
+        -48
       ],
-      "id": "909d07a7-50c6-422f-aa29-4cf88ee9f016",
+      "id": "605d8982-654b-4355-80c0-85169de4972a",
       "name": "Customer Details"
     },
     {
@@ -68,10 +68,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        544,
-        -832
+        -416,
+        112
       ],
-      "id": "d97a2414-a6ee-4c9b-8ef4-8d13edec4069",
+      "id": "753c272d-bea3-4092-a777-1f2affd9285a",
       "name": "Sticky Note7"
     },
     {
@@ -81,10 +81,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        416,
-        -736
+        -544,
+        208
       ],
-      "id": "d19dce6e-3d60-4bed-84ba-bf7d2221ab83",
+      "id": "578403ee-f174-4a20-b4cf-daca8405d734",
       "name": "Merge"
     },
     {
@@ -95,10 +95,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        80,
-        -800
+        -880,
+        144
       ],
-      "id": "d3a03ec5-908e-4d5a-bca1-72fc528f0b9c",
+      "id": "a7a6416a-14f7-4618-b72a-5716e6bc0d9d",
       "name": "Menu Item Transformation"
     },
     {
@@ -109,10 +109,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        640,
-        -704
+        -320,
+        240
       ],
-      "id": "4895f598-2112-40e6-a32b-061462415575",
+      "id": "4a478868-b6e7-4e22-bf02-0eb504911d9e",
       "name": "JSON TO HTML"
     },
     {
@@ -127,16 +127,16 @@
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        864,
-        -704
+        -96,
+        240
       ],
-      "id": "d6fc3009-e60b-4527-a5e5-bf1bb9fdc2d3",
+      "id": "c25cebca-6a22-4330-a69b-a67c38c483bd",
       "name": "Convert to File"
     },
     {
       "parameters": {
         "method": "POST",
-        "url": "http://168.231.122.119:3010/forms/chromium/convert/html",
+        "url": "http://147.93.97.152:3010/forms/chromium/convert/html",
         "sendBody": true,
         "contentType": "multipart-form-data",
         "bodyParameters": {
@@ -159,10 +159,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        1088,
-        -704
+        128,
+        240
       ],
-      "id": "d9ed6fa1-092f-436e-a993-f79c16c8d6c1",
+      "id": "da1943de-30b0-41be-9bcc-13e86338d8bf",
       "name": "HTML TO PDF"
     },
     {
@@ -174,10 +174,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
       "position": [
-        1312,
-        -800
+        352,
+        144
       ],
-      "id": "62c954fb-c382-452c-844d-21ebf3dbe319",
+      "id": "9b402dfc-a6f0-4b3d-9d13-6d276236137b",
       "name": "Respond to Webhook1"
     },
     {
@@ -200,17 +200,11 @@
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
       "position": [
-        1312,
-        -608
+        352,
+        336
       ],
-      "id": "e43b43d8-c4b8-4dcd-b1b2-b3bc3f4a0b07",
+      "id": "e0a0d3c8-1d7b-4f95-b4b7-e8e08b057a9b",
       "name": "Upload file",
-      "credentials": {
-        "googleDriveOAuth2Api": {
-          "id": "pc86TJhyvqWbHzZg",
-          "name": "Vishwash"
-        }
-      },
       "disabled": true
     },
     {
@@ -221,10 +215,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        80,
-        -224
+        -880,
+        720
       ],
-      "id": "46e214e2-256c-45b2-b8ea-20a8f215f95a",
+      "id": "2ed0998d-07be-496b-a5ee-85bdbf2aaefe",
       "name": "Prepare Supabase Data"
     },
     {
@@ -260,10 +254,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        416,
-        -224
+        -544,
+        720
       ],
-      "id": "0222e63b-9217-4309-83de-44a2f64cbdb5",
+      "id": "a2be1baf-3bde-484f-8743-354cd3b2b2fc",
       "name": "Save to Supabase"
     },
     {
@@ -284,10 +278,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
       "position": [
-        688,
-        -32
+        -272,
+        912
       ],
-      "id": "647510e7-29af-4319-9660-5ef8bb4f4cf5",
+      "id": "66ba16c2-c923-439e-b94d-2fca02b6f0da",
       "name": "Get Quotations List",
       "webhookId": "quotations-list"
     },
@@ -312,10 +306,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        928,
-        -32
+        -32,
+        912
       ],
-      "id": "c0d900ee-76f0-47af-aa49-0fd3cffddb56",
+      "id": "3ebd057d-e117-438a-82e0-7242d4150c7b",
       "name": "Fetch Quotations List"
     },
     {
@@ -335,10 +329,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
       "position": [
-        1232,
-        -32
+        272,
+        912
       ],
-      "id": "e9f41dfc-6c38-4f2b-a65e-3381ee6d8668",
+      "id": "520341c0-1093-4aa6-8309-830004503f96",
       "name": "Respond Quotations List"
     },
     {
@@ -359,10 +353,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
       "position": [
-        656,
-        208
+        -304,
+        1152
       ],
-      "id": "310952a1-52fe-4847-9af4-ea044be36195",
+      "id": "2f93ff5c-2bc3-4afc-a404-e07719a50df8",
       "name": "Get Quotation By ID",
       "webhookId": "quotation-by-id"
     },
@@ -387,10 +381,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        960,
-        208
+        0,
+        1152
       ],
-      "id": "a641e2c5-c834-43bc-9a5f-4777fe4ead4f",
+      "id": "94e72f73-79f3-46e6-bfe9-a36bc719e247",
       "name": "Fetch Quotation By ID"
     },
     {
@@ -410,10 +404,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
       "position": [
-        1248,
-        208
+        288,
+        1152
       ],
-      "id": "a63a9e71-6cad-4b2c-825a-cbef38f8aa58",
+      "id": "ffe2a6c1-b112-4e99-865c-2b36de96f7c1",
       "name": "Respond Quotation By ID"
     },
     {
@@ -425,10 +419,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        528,
-        -1168
+        -432,
+        -224
       ],
-      "id": "fca9885b-6d46-496d-9332-87e1d8b7daf2",
+      "id": "0657fe03-bc87-4e19-b063-ff91db1ea221",
       "name": "Sticky Note"
     },
     {
@@ -441,18 +435,12 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        1392,
-        -368
+        432,
+        576
       ],
-      "id": "7ed47001-24f9-4d81-926b-d96160cd1156",
+      "id": "0a34d2c2-507e-4e06-b1c3-f58113d24281",
       "name": "Send a message",
       "webhookId": "ebc0a6a5-7f8b-40a5-9b9c-795f64871fb5",
-      "credentials": {
-        "gmailOAuth2": {
-          "id": "9YhI3zWkjKQLFSPV",
-          "name": "Gmail Vishu"
-        }
-      },
       "disabled": true
     },
     {
@@ -464,10 +452,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        16,
-        -1136
+        -944,
+        -192
       ],
-      "id": "4096fb06-4a82-400c-b8c6-b033c537b9c7",
+      "id": "3e2e6219-2211-478e-8d87-8e40b126d1de",
       "name": "Sticky Note1"
     }
   ],
@@ -612,11 +600,6 @@
         ]
       ]
     },
-    "Save to Supabase": {
-      "main": [
-        []
-      ]
-    },
     "Get Quotations List": {
       "main": [
         [
@@ -665,6 +648,6 @@
   "pinData": {},
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "1e67cb8fe3dc79a4146e98ea40b94c77a507a3a599feb644f6e81b47655f5c75"
+    "instanceId": "684990e9b4e8bebc99a7379fc12d6d1a399bc096a6c2624c877826619ea84a0b"
   }
 }
