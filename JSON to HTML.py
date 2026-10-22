@@ -365,6 +365,20 @@ for item in menu_items:
     cat = d.get('Category','Other')
     categories.setdefault(cat, []).append(d)
 
+category_order = ['Snacks', 'Live Stations', 'Main Course', 'Rice', 'Noodles', 'Dessert', 'Drinks']
+def get_cat_order(c):
+    c_lower = c.strip().lower()
+    for idx, preferred in enumerate(category_order):
+        pref_lower = preferred.lower()
+        if pref_lower == c_lower or pref_lower in c_lower or c_lower in pref_lower:
+            return idx
+    return len(category_order)
+
+sorted_categories = OrderedDict()
+for cat in sorted(categories.keys(), key=get_cat_order):
+    sorted_categories[cat] = categories[cat]
+categories = sorted_categories
+
 for cat, items in categories.items():
     is_live_station = "live station" in cat.lower()
     

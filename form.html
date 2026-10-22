@@ -1110,12 +1110,12 @@
               style="padding:8px;border:1px solid #ccc;border-radius:6px;width:100%;box-sizing:border-box">
               <option value="">— Select Category —</option>
               <option value="Snacks">Snacks</option>
+              <option value="Live Stations">Live Stations</option>
               <option value="Main Course">Main Course</option>
               <option value="Rice">Rice</option>
               <option value="Noodles">Noodles</option>
               <option value="Dessert">Dessert</option>
               <option value="Drinks">Drinks</option>
-              <option value="Live Stations">Live Stations</option>
             </select>
           </div>
           <div>
@@ -1595,6 +1595,9 @@
       renderMenu(menuItems);
     }
 
+    // Define the desired order of categories
+    const categoryOrder = ['Snacks', 'Live Stations', 'Main Course', 'Rice', 'Noodles', 'Dessert', 'Drinks'];
+
     function renderMenu(items) {
       menuListEl.innerHTML = '';
       // group items by Category and render a structured list
@@ -1605,7 +1608,17 @@
         groups[cat].push({ item: m, idx });
       });
 
-      Object.keys(groups).forEach(cat => {
+      // Sort categories according to categoryOrder
+      const sortedCats = Object.keys(groups).sort((a, b) => {
+        const indexA = categoryOrder.indexOf(a);
+        const indexB = categoryOrder.indexOf(b);
+        if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+        if (indexA !== -1) return -1;
+        if (indexB !== -1) return 1;
+        return a.localeCompare(b);
+      });
+
+      sortedCats.forEach(cat => {
         const container = document.createElement('div'); container.className = 'category';
         const header = document.createElement('div'); header.className = 'category-header'; header.textContent = cat;
         container.appendChild(header);
@@ -1632,9 +1645,6 @@
     }
 
     let currentCategoryFilter = null; // Track active category filter
-
-    // Define the desired order of categories
-    const categoryOrder = ['Snacks', 'Main Course', 'Rice', 'Noodles', 'Dessert', 'Drinks', 'Live Stations'];
 
     function renderCategorySelectOptions(selectedCategory) {
       const normSelected = (selectedCategory === 'Table Snacks' ? 'Snacks' : selectedCategory) || 'Snacks';
